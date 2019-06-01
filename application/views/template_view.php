@@ -35,6 +35,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/datepicker/datepicker3.css">
    <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/timepicker/bootstrap-timepicker.min.css">
+  <!-- my custom css -->
+  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/custom.css">
+
+
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
   <!--[if lt IE 9]>
@@ -52,10 +56,10 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
   <!-- Content Wrapper. Contains page content -->
   <!-- WRAPPER HALAMAN ISI -->
   <div class="content-wrapper">
+    <?php $this->load->view('template/pesan'); ?>
     <?php $this->load->view('template/header_isi'); ?>
     <!-- KONTEN UTAMA/ ISI -->
 	<section class="content">
-	  <?php $this->load->view('template/pesan'); ?>
 		<!-- LOAD TAMPILAN ISI -->
 		<?php $this->load->view($main_view);?>
     </section>
