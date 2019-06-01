@@ -3,12 +3,12 @@
 	    <div class='box box-primary'>
 
         <table class="table table-hover">
-				
+
 	    <tr>
 				<td width="200px"><b>Nama Paket</b></td><td><?php echo $nama; ?></td>
 				<td width="200px"><b>Lokasi</b></td>
 				<td>
-					<a href="<?php echo "https://www.google.co.id/maps/@".$latitude.",".$longitude.",19z" ?>" target="_blank">Click Here</a>
+					<a href="<?php echo "https://www.google.co.id/maps/@".$latitude.",".$longitude.",100m/data=!3m1!1e3" ?>" target="_blank">Click Here</a>
 				</td>
 			</tr>
 	    <tr><td width="200px"><b>Kegiatan</b></td><td><?php echo $kegiatan; ?></td></tr>

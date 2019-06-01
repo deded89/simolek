@@ -60,7 +60,7 @@
 						<td><label for="decimal">Nilai Kontrak <?php echo form_error('longitude') ?></label></td>
 						<td><input type="number" class="form-control" name="longitude" id="longitude" placeholder="koordinat garis longitude" value="<?php echo $longitude; ?>" step='any' min=0/></td>
 					</tr>
-
+					
 					<input type="hidden" name="id" value="<?php echo $id_p; ?>" />
 					<tr>
 						<td colspan='2'>

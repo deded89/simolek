@@ -50,7 +50,7 @@ class Pekerjaan extends CI_Controller
         );
         $this->load->view('template_view', $data);
       } else {
-        $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+        $this->session->set_flashdata('error', 'Data Tidak Ditemukan');
         redirect(site_url('pengadaan/pekerjaan'));
       }
     }
@@ -64,7 +64,7 @@ class Pekerjaan extends CI_Controller
         'uri1' => 'Tambah Pekerjaan',
         'main_view' => 'pengadaan/pekerjaan/pekerjaan_form',
 
-        'id' => set_value('id'),
+        'id_p' => set_value('id_p'),
         'nama' => set_value('nama'),
         'kegiatan' => set_value('kegiatan'),
         'skpd' => set_value('skpd'),
@@ -123,8 +123,8 @@ class Pekerjaan extends CI_Controller
           'metode' => set_value('metode', $row->id_m),
           'pagu' => set_value('pagu', $row->pagu),
           'realisasi' => set_value('realisasi', $row->realisasi),
-          'latitude' => set_value('latitude', $row->realisasi),
-          'longitude' => set_value('longitude', $row->realisasi),
+          'latitude' => set_value('latitude', $row->latitude),
+          'longitude' => set_value('longitude', $row->longitude),
         );
         $this->load->view('template_view', $data);
       } else {

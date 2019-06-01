@@ -44,7 +44,7 @@
 							<td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->realisasi,2,',','.'); ?></td>
 							<td>
 								<?php if ($pekerjaan->latitude<>NULL or $pekerjaan->longitude<>NULL) { ?>
-								<a href="<?php echo "https://www.google.co.id/maps/@".$pekerjaan->latitude.",".$pekerjaan->longitude.",19z" ?>" target="_blank">Click Here</a>
+								<a href="<?php echo "https://www.google.co.id/maps/@".$pekerjaan->latitude.",".$pekerjaan->longitude.",100m/data=!3m1!1e3" ?>" target="_blank">Click Here</a>
 								<?php } else { ?>
 									<p>Data N/A</p>
 								<?php } ?>
