@@ -84,7 +84,7 @@
     function () {
         $(this).focus();
     }
-		);
+	);
 		$('#skpd').select2({
 			placeholder: "Pilih SKPD",
 			allowClear:	true,

@@ -20,7 +20,7 @@ class Pekerjaan_model extends CI_Model
     // get all
     function get_all()
     {
-      $this->db->select('p.id, p.nama, p.kegiatan, p.latitude, p.longitude, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu, p.realisasi');
+      $this->db->select('p.id, p.nama, p.kegiatan, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu, p.realisasi');
       $this->db->from('simolek_p.pekerjaan p');
       $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
       $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
@@ -47,6 +47,12 @@ class Pekerjaan_model extends CI_Model
     function insert($data)
     {
         $this->db2->insert($this->table, $data);
+    }
+
+    // insert data lokasi
+    function insert_lokasi($data)
+    {
+      $this->db2->insert('lokasi', $data);
     }
 
     // update data
