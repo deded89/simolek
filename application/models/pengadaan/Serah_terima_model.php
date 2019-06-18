@@ -30,6 +30,13 @@ class Serah_terima_model extends CI_Model
     $this->db2->where($this->id, $id);
     return $this->db2->get($this->table)->row();
   }
+  
+  // get data by id pekerjaan
+    function get_by_id_p($id_p)
+    {
+        $this->db2->where('pekerjaan', $id_p);
+        return $this->db2->get($this->table)->result();
+    }
 
   // get total rows
   function total_rows($q = NULL) {

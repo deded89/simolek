@@ -31,7 +31,7 @@
 					<tr>
 						<td colspan='2'>
 							<button type="submit" class="btn btn-primary"><?php echo $button ?></button>
-							<a href="<?php echo site_url('pengadaan/serah_terima') ?>" class="btn btn-danger">Cancel</a>
+							<a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$id_p) ?>" class="btn btn-danger">Cancel</a>
 						</td>
 					</tr>
 				</table>

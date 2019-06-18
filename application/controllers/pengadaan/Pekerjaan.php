@@ -10,6 +10,7 @@ class Pekerjaan extends CI_Controller
         parent::__construct();
         $this->load->model('pengadaan/Pekerjaan_model');
         $this->load->model('pengadaan/Kontrak_model');
+        $this->load->model('pengadaan/Serah_terima_model');
         $this->load->library('form_validation');
     }
 
@@ -29,6 +30,7 @@ class Pekerjaan extends CI_Controller
     {
       $row = $this->Pekerjaan_model->get_by_id($id);
       $kontrak_data = $this->Kontrak_model->get_by_id_p($id);
+      $st_data = $this->Serah_terima_model->get_by_id_p($id);
       if ($row) {
         $data = array(
           'controller' => 'Pekerjaan',
@@ -43,10 +45,9 @@ class Pekerjaan extends CI_Controller
           'metode' => $row->metode,
           'pagu' => $row->pagu,
           'realisasi' => $row->realisasi,
-          'latitude' => $row->latitude,
-          'longitude' => $row->longitude,
 
           'kontrak_data'=>$kontrak_data,
+          'st_data'=>$st_data,
         );
         $this->load->view('template_view', $data);
       } else {

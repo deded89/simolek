@@ -24,7 +24,6 @@
 							<th>Metode</th>
 							<th>Pagu</th>
 							<th>Nilai Kontrak</th>
-							<th>Lokasi</th>
 							<th style="text-align:center">Aksi</th>
 						</tr>
 					</thead>
@@ -42,14 +41,7 @@
 							<td><?php echo $pekerjaan->metode ?></td>
 							<td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->pagu,2,',','.'); ?></td>
 							<td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->realisasi,2,',','.'); ?></td>
-							<td>
-								<?php if ($pekerjaan->latitude<>NULL or $pekerjaan->longitude<>NULL) { ?>
-								<a href="<?php echo "https://www.google.co.id/maps/@".$pekerjaan->latitude.",".$pekerjaan->longitude.",100m/data=!3m1!1e3" ?>" target="_blank">Click Here</a>
-								<?php } else { ?>
-									<p>Data N/A</p>
-								<?php } ?>
-							</td>
-							 <td style="text-align:center" width="120px">
+							<td style="text-align:center" width="120px">
 							<?php
 								echo anchor(site_url('pengadaan/pekerjaan/read/'.$pekerjaan->id),'<i class="fa fa-eye"></i>', 'title="Lihat" class="btn btn-info btn-sm"');
 								echo '  ';

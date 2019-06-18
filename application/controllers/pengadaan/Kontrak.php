@@ -124,7 +124,7 @@ if (!defined('BASEPATH'))
           $this->load->view('template_view', $data);
         } else {
           $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-          redirect(site_url('pengadaan/pekerjaan'));
+          redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
         }
       }
 

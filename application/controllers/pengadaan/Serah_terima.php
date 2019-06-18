@@ -56,10 +56,11 @@ class Serah_terima extends CI_Controller
       'uri1' => 'Tambah Serah_terima',
       'main_view' => 'pengadaan/serah_terima/serah_terima_form',
 
-      'id_p' => set_value($id_p),
+      'id_p' => set_value('id_p',$id_p),
       'nomor' => set_value('nomor'),
       'tanggal' => set_value('tanggal'),
       'penyedia' => set_value('penyedia'),
+      'id_st' => set_value('id_st'),
     );
     $this->load->view('template_view', $data);
   }
@@ -80,13 +81,13 @@ class Serah_terima extends CI_Controller
 
       $this->Serah_terima_model->insert($data);
       $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
-      redirect(site_url('pengadaan/serah_terima'));
+      redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
     }
   }
 
-  public function update($id)
+  public function update($id_k,$id_st)
   {
-    $row = $this->Serah_terima_model->get_by_id($id);
+    $row = $this->Serah_terima_model->get_by_id($id_st);
 
     if ($row) {
       $data = array(
@@ -96,7 +97,7 @@ class Serah_terima extends CI_Controller
         'uri1' => 'Update Serah_terima',
         'main_view' => 'pengadaan/serah_terima/serah_terima_form',
 
-        'id' => set_value('id', $row->id),
+        'id_st' => set_value('id_st', $row->id),
         'nomor' => set_value('nomor', $row->nomor),
         'tanggal' => set_value('tanggal', $row->tanggal),
         'penyedia' => set_value('penyedia', $row->penyedia),
@@ -104,7 +105,7 @@ class Serah_terima extends CI_Controller
       $this->load->view('template_view', $data);
     } else {
       $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-      redirect(site_url('pengadaan/serah_terima'));
+      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
     }
   }
 
@@ -123,21 +124,21 @@ class Serah_terima extends CI_Controller
 
       $this->Serah_terima_model->update($this->input->post('id', TRUE), $data);
       $this->session->set_flashdata('message', 'Update Data Berhasil');
-      redirect(site_url('pengadaan/serah_terima'));
+      redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
     }
   }
 
-  public function delete($id)
+  public function delete($id_k,$id_st)
   {
-    $row = $this->Serah_terima_model->get_by_id($id);
+    $row = $this->Serah_terima_model->get_by_id($id_st);
 
     if ($row) {
-      $this->Serah_terima_model->delete($id);
+      $this->Serah_terima_model->delete($id_st);
       $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
-      redirect(site_url('pengadaan/serah_terima'));
+      redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
     } else {
       $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-      redirect(site_url('pengadaan/serah_terima'));
+      redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
     }
   }
 

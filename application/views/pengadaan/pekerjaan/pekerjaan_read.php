@@ -8,7 +8,7 @@
 				<td width="200px"><b>Nama Paket</b></td><td><?php echo $nama; ?></td>
 				<td width="200px"><b>Lokasi</b></td>
 				<td>
-					<a href="<?php echo "https://www.google.co.id/maps/@".$latitude.",".$longitude.",100m/data=!3m1!1e3" ?>" target="_blank">Click Here</a>
+					<a href="" target="_blank">Click Here</a>
 				</td>
 			</tr>
 	    <tr><td width="200px"><b>Kegiatan</b></td><td><?php echo $kegiatan; ?></td></tr>
@@ -64,13 +64,7 @@
 				</div>
 				<div id="collapseTwo" class="panel-collapse collapse" aria-expanded="false" style="height: 0px;">
 					<div class="box-body">
-						Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3
-						wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum
-						eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla
-						assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred
-						nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer
-						farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus
-						labore sustainable VHS.
+						<?php $this->load->view('pengadaan/serah_terima/serah_terima/ser_det', $serah_terima_data); ?>
 					</div>
 				</div>
 			</div>

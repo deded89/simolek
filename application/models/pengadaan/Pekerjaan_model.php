@@ -34,7 +34,7 @@ class Pekerjaan_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
-      $this->db->select('p.id as id_p, p.nama, p.kegiatan, p.latitude, p.longitude, s.id_skpd, s.nama_skpd, j.id as id_j, j.nama as jenis, m.id as id_m, m.nama as metode, p.pagu, p.realisasi');
+      $this->db->select('p.id as id_p, p.nama, p.kegiatan, s.id_skpd, s.nama_skpd, j.id as id_j, j.nama as jenis, m.id as id_m, m.nama as metode, p.pagu, p.realisasi');
       $this->db->from('simolek_p.pekerjaan p');
       $this->db->join('simolek.skpd s', 'p.skpd=s.id_skpd', 'left');
       $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
