@@ -1,4 +1,4 @@
-<?php if ($st_data) { ?>  
+<?php if ($st_data) { ?>
   <?php foreach ($st_data as $st){ ?>
     <div class="box box-primary">
       <div class="row">
@@ -18,7 +18,10 @@
       <div class="row">
         <div class="col-xs-2">
           <p>Penyedia</p>
-        </div>        
+        </div>
+        <div class="col-xs-8">
+          <p>: <?php echo $st->penyedia ?></p>
+        </div>
       </div>
       <div class="row">
         <div class="col-xs-12 text-right">

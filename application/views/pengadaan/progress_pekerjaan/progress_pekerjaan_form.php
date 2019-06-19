@@ -49,13 +49,24 @@
 						<td><input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" /></td>
 					</tr>
 
-					<input type="hidden" name="id" value="<?php echo $id; ?>" />
+					<tr>
+						<td><label for="decimal">Real Keuangan (Rp. kumulatif) <?php echo form_error('real_keu') ?></label></td>
+						<td><input type="number" class="form-control" name="real_keu" id="real_keu" placeholder="xxx,xx" value="<?php echo $real_keu; ?>" step='any' min=0/></td>
+					</tr>
+
+					<tr>
+						<td><label for="decimal">Real Fisik (% kumulatif) <?php echo form_error('real_fisik') ?></label></td>
+						<td><input type="number" class="form-control" name="real_fisik" id="real_fisik" placeholder="xxx,xx" value="<?php echo $real_fisik; ?>" step='any' min=0/></td>
+					</tr>
+
 					<tr>
 						<td colspan='2'>
 							<button type="submit" class="btn btn-primary"><?php echo $button ?></button>
 							<a href="<?php echo site_url('pengadaan/progress_pekerjaan') ?>" class="btn btn-danger">Cancel</a>
 						</td>
 					</tr>
+					<input type="hidden" name="id_prog" value="<?php echo $id_prog; ?>" />
+					<input type="hidden" name="id_p" value="<?php echo $id_p; ?>" />
 				</table>
 			</form>
 		</div>

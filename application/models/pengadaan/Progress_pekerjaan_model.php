@@ -1,82 +1,101 @@
 <?php
 
 if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+exit('No direct script access allowed');
 
 class Progress_pekerjaan_model extends CI_Model
 {
 
-    public $table = 'progress_pekerjaan';
-    public $id = 'id';
-    public $order = 'DESC';
-	private $db2;
+  public $table = 'progress_pekerjaan';
+  public $id = 'id';
+  public $order = 'DESC';
+  private $db2;
 
-    function __construct()
-    {
-        parent::__construct();
-		$this->db2 = $this->load->database('db2',TRUE);	
-    }
+  function __construct()
+  {
+    parent::__construct();
+    $this->db2 = $this->load->database('db2',TRUE);
+  }
 
-    // get all
-    function get_all()
-    {
-        $this->db2->order_by($this->id, $this->order);
-        return $this->db2->get($this->table)->result();
-    }
+  // get all
+  function get_all()
+  {
+    $this->db2->order_by($this->id, $this->order);
+    return $this->db2->get($this->table)->result();
+  }
 
-    // get data by id
-    function get_by_id($id)
-    {
-        $this->db2->where($this->id, $id);
-        return $this->db2->get($this->table)->row();
-    }
-    
-    // get total rows
-    function total_rows($q = NULL) {
-        $this->db2->like('id', $q);
-	$this->db2->or_like('pekerjaan', $q);
-	$this->db2->or_like('progress', $q);
-	$this->db2->or_like('tgl_progress', $q);
-	$this->db2->or_like('next_progress', $q);
-	$this->db2->or_like('tgl_n_progress', $q);
-	$this->db2->or_like('ket', $q);
-	$this->db2->from($this->table);
-        return $this->db2->count_all_results();
-    }
+  function get_last_record($id_p)
+  {
+    $this->db2->where('pekerjaan',$id_p);
+    $this->db2->order_by($this->id, 'desc');
+    return $this->db2->get($this->table)->row();
+  }
 
-    // get data with limit and search
-    function get_limit_data($limit, $start = 0, $q = NULL) {
-        $this->db2->order_by($this->id, $this->order);
-        $this->db2->like('id', $q);
-	$this->db2->or_like('pekerjaan', $q);
-	$this->db2->or_like('progress', $q);
-	$this->db2->or_like('tgl_progress', $q);
-	$this->db2->or_like('next_progress', $q);
-	$this->db2->or_like('tgl_n_progress', $q);
-	$this->db2->or_like('ket', $q);
-	$this->db2->limit($limit, $start);
-        return $this->db2->get($this->table)->result();
-    }
+  // get data by id
+  function get_by_id($id)
+  {
+    $this->db2->where($this->id, $id);
+    return $this->db2->get($this->table)->row();
+  }
 
-    // insert data
-    function insert($data)
-    {
-        $this->db2->insert($this->table, $data);
-    }
+  // get data by id pekerjaan
+  function get_by_id_p($id_p)
+  {
+    $this->db2->select('pp.id as id_pp, pp.real_keu, pp.real_fisik, pp.tgl_progress, pp.pekerjaan, pp.progress, pp.tgl_n_progress, pp.ket, p.nama, p2.nama as next_progress');
+    $this->db2->from('simolek_p.progress_pekerjaan pp');
+    $this->db2->join('simolek_p.progress p', 'p.id=pp.progress', 'left');
+    $this->db2->join('simolek_p.progress p2', 'p2.id=pp.next_progress', 'left');
+    $this->db2->where('pp.pekerjaan', $id_p);
+    $this->db2->order_by('pp.tgl_progress','desc');
+    return $this->db2->get()->result();
+  }
 
-    // update data
-    function update($id, $data)
-    {
-        $this->db2->where($this->id, $id);
-        $this->db2->update($this->table, $data);
-    }
+  // get total rows
+  function total_rows($q = NULL) {
+    $this->db2->like('id', $q);
+    $this->db2->or_like('pekerjaan', $q);
+    $this->db2->or_like('progress', $q);
+    $this->db2->or_like('tgl_progress', $q);
+    $this->db2->or_like('next_progress', $q);
+    $this->db2->or_like('tgl_n_progress', $q);
+    $this->db2->or_like('ket', $q);
+    $this->db2->from($this->table);
+    return $this->db2->count_all_results();
+  }
 
-    // delete data
-    function delete($id)
-    {
-        $this->db2->where($this->id, $id);
-        $this->db2->delete($this->table);
-    }
+  // get data with limit and search
+  function get_limit_data($limit, $start = 0, $q = NULL) {
+    $this->db2->order_by($this->id, $this->order);
+    $this->db2->like('id', $q);
+    $this->db2->or_like('pekerjaan', $q);
+    $this->db2->or_like('progress', $q);
+    $this->db2->or_like('tgl_progress', $q);
+    $this->db2->or_like('next_progress', $q);
+    $this->db2->or_like('tgl_n_progress', $q);
+    $this->db2->or_like('ket', $q);
+    $this->db2->limit($limit, $start);
+    return $this->db2->get($this->table)->result();
+  }
+
+  // insert data
+  function insert($data)
+  {
+    $this->db2->insert($this->table, $data);
+  }
+
+  // update data
+  function update($id, $data)
+  {
+    $this->db2->where($this->id, $id);
+    $this->db2->update($this->table, $data);
+  }
+
+  // delete data
+  function delete($id)
+  {
+    $this->db2->where($this->id, $id);
+    $this->db2->delete($this->table);
+  }
 
 }
 
