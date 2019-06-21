@@ -8,7 +8,7 @@
 				<td width="200px"><b>Nama Paket</b></td><td><?php echo $nama; ?></td>
 				<td width="200px"><b>Lokasi</b></td>
 				<td>
-					<a href="" target="_blank">Click Here</a>
+					<a href="<?php echo site_url('pengadaan/lokasi/'.$id_p) ?>" >Click Here</a>
 				</td>
 			</tr>
 	    <tr><td width="200px"><b>Kegiatan</b></td><td><?php echo $kegiatan; ?></td></tr>
@@ -27,6 +27,7 @@
 	    		<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Progress</button> </a>
+	    		<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Lokasi</button> </a>
 				</td>
 			</tr>
 
