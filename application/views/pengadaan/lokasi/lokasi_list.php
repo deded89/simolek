@@ -1,3 +1,14 @@
+<head>
+	<title>Overlay</title>
+	<script src="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/build/ol.js"></script>
+	<link rel="stylesheet" href="https://cdn.rawgit.com/openlayers/openlayers.github.io/master/en/v5.3.0/css/ol.css">
+	<!-- The line below is only needed for old environments like Internet Explorer and Android 4.x -->
+	<!-- <script src="https://cdn.polyfill.io/v2/polyfill.min.js?features=requestAnimationFrame,Element.prototype.classList,URL"></script> -->
+	<script src="https://code.jquery.com/jquery-2.2.3.min.js"></script>
+	<!-- <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+</head>
+
 
 <div class="row" style="margin-bottom: 10px">
 	<div class="col-md-4 text-left">
@@ -55,4 +66,53 @@
 	$(document).ready(function () {
 		$("#mytable").dataTable();
 	});
+</script>
+
+
+<!-- ========================================SHOW MAP================================================= -->
+
+<div id="map" class="map"></div>
+
+<div style="display: none;">
+	<!-- Clickable label for Vienna -->
+	<p id="label_id"><strong>Mesjid Sabilal Muhtadin</strong></p>
+	<div id="marker" title="Marker"><img src="<?php echo base_url('assets/images/marker.png') ?>" alt=""> </div>
+
+</div>
+
+<script>
+
+	// INITIAL MAP
+	var layer = new ol.layer.Tile({
+		source: new ol.source.OSM()
+	});
+
+	var pos = ol.proj.fromLonLat([114.59105014801025, -3.3191030646576962]);
+
+	var map = new ol.Map({
+		layers: [layer],
+		target: 'map',
+		view: new ol.View({
+			center: pos,
+			zoom: 15
+		})
+	});
+
+	// ADD MARKER
+	var marker = new ol.Overlay({
+		position: pos,
+		positioning: 'center-center',
+		element: document.getElementById('marker'),
+		stopEvent: false
+	});
+	map.addOverlay(marker);
+
+	// Vienna label
+	var vienna = new ol.Overlay({
+		position: pos,
+		element: document.getElementById('label_id')
+	});
+	map.addOverlay(vienna);
+
+
 </script>
