@@ -77,7 +77,7 @@
         $('#lat').val(coordinate[0]);
         $('#lon').val(coordinate[1]);
 
-        $(element).popover('destroy');
+        $('[data-toggle="popover"]').popover('destroy');
         popup.setPosition(coord);
         $(element).popover({
           placement: 'top',

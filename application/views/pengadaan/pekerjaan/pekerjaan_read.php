@@ -8,7 +8,7 @@
 				<td width="200px"><b>Nama Paket</b></td><td><?php echo $nama; ?></td>
 				<td width="200px"><b>Lokasi</b></td>
 				<td>
-					<a href="<?php echo site_url('pengadaan/lokasi/index/'.$id_p) ?>" >Click Here</a>
+					<a href="<?php echo site_url('pengadaan/lokasi/index/'.$id_p) ?>" >Tampilkan Peta</a>
 				</td>
 			</tr>
 	    <tr><td width="200px"><b>Kegiatan</b></td><td><?php echo $kegiatan; ?></td></tr>
