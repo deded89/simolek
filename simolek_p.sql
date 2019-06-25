@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2019 at 03:14 AM
+-- Generation Time: Jun 25, 2019 at 10:05 AM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -68,7 +68,8 @@ CREATE TABLE `kontrak` (
 INSERT INTO `kontrak` (`id`, `nomor`, `tanggal`, `penyedia`, `lama`, `awal`, `akhir`, `ket`, `pekerjaan`) VALUES
 (1, 'fkjkasjd', '0000-00-00', 'flsdflksd', 'fdsa hari', '0000-00-00', '0000-00-00', 'fksdafjdks', 0),
 (2, 'ksjfkadsj', '2019-05-01', 'kfjsdfk', '34 hari kerja', '2019-05-20', '2019-05-16', 'flskdflds', 0),
-(9, 'kjkjkjkj/e5354/fkdsajfkdsf/fdasf', '2019-05-08', 'pt fdskjfakds', '78 hari kalender', '2019-05-01', '2019-05-31', 'addendum', 6);
+(9, 'kjkjkjkj/e5354/fkdsajfkdsf/fdasf', '2019-05-08', 'pt fdskjfakds', '78 hari kalender', '2019-05-01', '2019-05-31', 'addendum', 6),
+(10, 'xxxx.xxx', '2019-06-13', 'PT. ABC', '25 Hari Kalender', '2019-06-14', '2019-07-06', '-', 7);
 
 -- --------------------------------------------------------
 
@@ -83,6 +84,15 @@ CREATE TABLE `lokasi` (
   `deskripsi` varchar(300) NOT NULL,
   `pekerjaan` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `lokasi`
+--
+
+INSERT INTO `lokasi` (`id`, `latitude`, `longitude`, `deskripsi`, `pekerjaan`) VALUES
+(9, '-3.319638606', '114.587241411', 'Patung Kelabau', 7),
+(10, '-3.332213045', '114.613752365', 'Jl A.Yani', 7),
+(11, '-3.332994925', '114.585138559', 'RS. SS', 3);
 
 -- --------------------------------------------------------
 
@@ -143,7 +153,11 @@ CREATE TABLE `progress` (
 --
 
 INSERT INTO `progress` (`id`, `nama`) VALUES
-(1, 'Belum Pelaksanaan');
+(1, 'Persiapan'),
+(2, 'Pemilihan Penyedia'),
+(3, 'Hasil Pemilihan'),
+(4, 'Kontrak'),
+(5, 'Serah Terima');
 
 -- --------------------------------------------------------
 
@@ -158,8 +172,18 @@ CREATE TABLE `progress_pekerjaan` (
   `tgl_progress` date NOT NULL,
   `next_progress` tinyint(3) UNSIGNED NOT NULL,
   `tgl_n_progress` date NOT NULL,
-  `ket` varchar(200) NOT NULL
+  `ket` varchar(200) NOT NULL,
+  `real_keu` decimal(15,2) UNSIGNED NOT NULL,
+  `real_fisik` decimal(15,2) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `progress_pekerjaan`
+--
+
+INSERT INTO `progress_pekerjaan` (`id`, `pekerjaan`, `progress`, `tgl_progress`, `next_progress`, `tgl_n_progress`, `ket`, `real_keu`, `real_fisik`) VALUES
+(4, 7, 1, '2019-06-01', 2, '2019-07-01', 'Pembuatan Rancangan Kontrak', '0.00', '0.00'),
+(5, 7, 2, '2019-07-01', 3, '2019-08-01', 'Upload dokumen penawaran', '2000000.00', '10.00');
 
 -- --------------------------------------------------------
 
@@ -180,7 +204,8 @@ CREATE TABLE `serah_terima` (
 --
 
 INSERT INTO `serah_terima` (`id`, `nomor`, `tanggal`, `penyedia`, `pekerjaan`) VALUES
-(1, 'fdskjfk', '2019-05-22', 'fdsjfkds', 0);
+(2, 'yyy.yyy', '2019-07-08', 'PT. ABC', 7),
+(3, 'zz.zzz', '2019-07-03', 'PT. Sulaiman', 7);
 
 --
 -- Indexes for dumped tables
@@ -256,12 +281,12 @@ ALTER TABLE `jenis`
 -- AUTO_INCREMENT for table `kontrak`
 --
 ALTER TABLE `kontrak`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `lokasi`
 --
 ALTER TABLE `lokasi`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
 -- AUTO_INCREMENT for table `metode`
 --
@@ -276,17 +301,17 @@ ALTER TABLE `pekerjaan`
 -- AUTO_INCREMENT for table `progress`
 --
 ALTER TABLE `progress`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `progress_pekerjaan`
 --
 ALTER TABLE `progress_pekerjaan`
-  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `serah_terima`
 --
 ALTER TABLE `serah_terima`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- Constraints for dumped tables
 --
