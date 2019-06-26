@@ -11,7 +11,13 @@
 					<a href="<?php echo site_url('pengadaan/lokasi/index/'.$id_p) ?>" >Tampilkan Peta</a>
 				</td>
 			</tr>
-	    <tr><td width="200px"><b>Kegiatan</b></td><td><?php echo $kegiatan; ?></td></tr>
+	    <tr>
+				<td width="200px"><b>Kegiatan</b></td><td><?php echo $kegiatan; ?></td>
+				<td width="200px"><b>Photo</b></td>
+				<td>
+					<a href="<?php echo site_url('pengadaan/kondisi_img/index/'.$id_p) ?>" >Tampilkan Gambar Kondisi</a>
+				</td>
+			</tr>
 	    <tr><td width="200px"><b>SKPD</b></td><td><?php echo $skpd; ?></td></tr>
 	    <tr>
 				<td width="200px"><b>Jenis Pengadaan</b></td><td><?php echo $jenis; ?></td>
