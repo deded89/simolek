@@ -59,7 +59,8 @@ class Kondisi_img_model extends CI_Model{
 
     public function delete($id)
     {
-        return $this->db2->delete($this->_table, array("id" => $id));
+      $this->_deleteImage($id);
+      return $this->db2->delete($this->_table, array("id" => $id));
     }
 
     private function _uploadImage()
@@ -70,7 +71,7 @@ class Kondisi_img_model extends CI_Model{
   		}
 
       $config['upload_path']          = './images/pekerjaan/'.$this->pekerjaan.'/';
-      $config['allowed_types']        = 'jpg';
+      $config['allowed_types']        = 'jpg|png|bmp';
       $config['file_name']            = $this->kondisi.'_'.$this->pekerjaan;
       $config['overwrite']			      = true;
       $config['max_size']             = 10240; // 1MB
@@ -82,5 +83,12 @@ class Kondisi_img_model extends CI_Model{
       if ($this->upload->do_upload('filename')) {
           return $this->upload->data("file_name");
       }
+    }
+
+    private function _deleteImage($id)
+    {
+        $kondisi_img = $this->getById($id);
+        $filename = explode(".", $kondisi_img->filename)[0];
+        return array_map('unlink', glob(FCPATH."images/pekerjaan/$kondisi_img->pekerjaan/$filename.*"));
     }
 }

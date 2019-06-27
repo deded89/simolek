@@ -32,7 +32,8 @@ class Kondisi_img extends CI_Controller
 
        if ($validation->run()) {
            $kondisi_img->save();
-           $this->session->set_flashdata('success', 'Berhasil disimpan');
+           $this->session->set_flashdata('message', 'Berhasil diupload');
+           redirect(site_url('pengadaan/kondisi_img/index/'.$id_p));
        }
 
        $data = array(
@@ -63,12 +64,13 @@ class Kondisi_img extends CI_Controller
    //      $this->load->view("pengadaa/kondisi_img/edit_form", $data);
    //  }
 
-    public function delete($id=null)
+    public function delete($id=null,$id_p)
     {
         if (!isset($id)) show_404();
 
-        if ($this->kondisi_img_model->delete($id)) {
-            redirect(site_url('pengadaan/kondisi_img'));
+        if ($this->Kondisi_img_model->delete($id)) {
+          $this->session->set_flashdata('message', 'Berhasil dihapus');
+          redirect(site_url('pengadaan/kondisi_img/index/'.$id_p));
         }
     }
 }
