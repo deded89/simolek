@@ -3,6 +3,7 @@
   {
     display: inline-block;
     margin-top: 20px;
+
   }
 </style>
 
@@ -22,7 +23,7 @@
             <div class='col-md-3' style="margin-bottom:10px">
                 <a data-fancybox="gallery" data-caption="Kondisi <?php echo $data->kondisi ?> %"
                     href="<?php echo base_url("images/pekerjaan/".$data->pekerjaan."/".$data->filename) ?>">
-                    <img class="img-thumbnail" alt="" src="<?php echo base_url("images/pekerjaan/".$data->pekerjaan."/".$data->filename) ?>" />
+                    <img class="img-thumbnail" style="height : 200px; width:200px;" alt="" src="<?php echo base_url("images/pekerjaan/".$data->pekerjaan."/".$data->filename) ?>" />
                     <div class='text-center'>
                       <?php echo anchor(site_url('pengadaan/kondisi_img/delete/'.$data->id."/".$id_p),
                       '<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-xs"

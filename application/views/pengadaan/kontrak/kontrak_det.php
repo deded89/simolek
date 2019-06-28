@@ -1,4 +1,4 @@
-<?php if ($kontrak_data) { ?>  
+<?php if ($kontrak_data) { ?>
   <?php foreach ($kontrak_data as $kontrak){ ?>
     <div class="box box-primary">
       <div class="row">
@@ -31,9 +31,15 @@
       </div>
       <div class="row">
         <div class="col-xs-2">
+          <p>Nilai Kontrak</p>
+        </div>
+        <div class="col-xs-4">
+          <p>: <?php echo "Rp " . number_format($kontrak->nilai,2,',','.'); ?></p>
+        </div>
+        <div class="col-xs-2">
           <p>Keterangan</p>
         </div>
-        <div class="col-xs-10">
+        <div class="col-xs-4">
           <p>: <?php echo $kontrak->ket ?></p>
         </div>
       </div>

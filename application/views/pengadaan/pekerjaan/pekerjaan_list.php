@@ -23,7 +23,6 @@
 							<th>Jenis</th>
 							<th>Metode</th>
 							<th>Pagu</th>
-							<th>Nilai Kontrak</th>
 							<th style="text-align:center">Aksi</th>
 						</tr>
 					</thead>
@@ -40,7 +39,6 @@
 							<td><?php echo $pekerjaan->jenis ?></td>
 							<td><?php echo $pekerjaan->metode ?></td>
 							<td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->pagu,2,',','.'); ?></td>
-							<td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->realisasi,2,',','.'); ?></td>
 							<td style="text-align:center" width="120px">
 							<?php
 								echo anchor(site_url('pengadaan/pekerjaan/read/'.$pekerjaan->id),'<i class="fa fa-eye"></i>', 'title="Lihat" class="btn btn-info btn-sm"');

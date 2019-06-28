@@ -15,8 +15,8 @@ class Kondisi_img extends CI_Controller
      $kondisi_img = $this->Kondisi_img_model->getAll($id_p);
      $data = array(
        'kondisi_img_data' => $kondisi_img,
-       'controller' => 'Kondisi_img',
-       'uri1' => 'List Kondisi_img',
+       'controller' => 'KPPBJ',
+       'uri1' => 'Gambar Kondisi Pekerjaan',
        'main_view' => 'pengadaan/kondisi_img/list',
        'id_p'=>$id_p,
      );
@@ -37,8 +37,8 @@ class Kondisi_img extends CI_Controller
        }
 
        $data = array(
-         'controller' => 'Kondisi_img',
-         'uri1' => 'List Kondisi_img',
+         'controller' => 'KPPBJ',
+         'uri1' => 'Upload Gambar Kondisi Pekerjaan',
          'main_view' => 'pengadaan/kondisi_img/new_form',
          'id_p' => $id_p,
        );

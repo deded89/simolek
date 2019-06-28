@@ -52,24 +52,45 @@ class Progress_pekerjaan extends CI_Controller
 
   public function create($id_p)
   {
-    $row = $this->Progress_pekerjaan_model->get_last_record($id_p);
-    $data = array(
-      'button' => 'Simpan',
-      'action' => site_url('pengadaan/progress_pekerjaan/create_action'),
-      'controller' => 'pengadaan/progress_pekerjaan',
-      'uri1' => 'Tambah Progress_pekerjaan',
-      'main_view' => 'pengadaan/progress_pekerjaan/progress_pekerjaan_form',
 
-      'id_prog' => set_value('id_prog'),
-      'id_p' => set_value('id_p',$id_p),
-      'progress' => set_value('progress',$row->progress),
-      'tgl_progress' => set_value('tgl_progress',$row->tgl_progress),
-      'next_progress' => set_value('next_progress',$row->next_progress),
-      'tgl_n_progress' => set_value('tgl_n_progress',$row->tgl_n_progress),
-      'ket' => set_value('ket',$row->ket),
-      'real_keu' => set_value('real_keu',$row->real_keu),
-      'real_fisik' => set_value('real_fisik',$row->real_fisik),
-    );
+    $row = $this->Progress_pekerjaan_model->get_last_record($id_p);
+    if ($row){
+      $data = array(
+        'button' => 'Simpan',
+        'action' => site_url('pengadaan/progress_pekerjaan/create_action'),
+        'controller' => 'pengadaan/progress_pekerjaan',
+        'uri1' => 'Tambah Progress_pekerjaan',
+        'main_view' => 'pengadaan/progress_pekerjaan/progress_pekerjaan_form',
+
+        'id_prog' => set_value('id_prog'),
+        'id_p' => set_value('id_p',$id_p),
+        'progress' => set_value('progress',$row->progress),
+        'tgl_progress' => set_value('tgl_progress',$row->tgl_progress),
+        'next_progress' => set_value('next_progress',$row->next_progress),
+        'tgl_n_progress' => set_value('tgl_n_progress',$row->tgl_n_progress),
+        'ket' => set_value('ket',$row->ket),
+        'real_keu' => set_value('real_keu',$row->real_keu),
+        'real_fisik' => set_value('real_fisik',$row->real_fisik),
+      );
+    } else {
+      $data = array(
+        'button' => 'Simpan',
+        'action' => site_url('pengadaan/progress_pekerjaan/create_action'),
+        'controller' => 'pengadaan/progress_pekerjaan',
+        'uri1' => 'Tambah Progress_pekerjaan',
+        'main_view' => 'pengadaan/progress_pekerjaan/progress_pekerjaan_form',
+
+        'id_prog' => set_value('id_prog'),
+        'id_p' => set_value('id_p',$id_p),
+        'progress' => set_value('progress'),
+        'tgl_progress' => set_value('tgl_progress'),
+        'next_progress' => set_value('next_progress'),
+        'tgl_n_progress' => set_value('tgl_n_progress'),
+        'ket' => set_value('ket'),
+        'real_keu' => set_value('real_keu'),
+        'real_fisik' => set_value('real_fisik'),
+      );
+    }
     $this->load->view('template_view', $data);
   }
 
@@ -92,10 +113,13 @@ class Progress_pekerjaan extends CI_Controller
       );
 
       $this->Progress_pekerjaan_model->insert($data);
+      $id_p = $this->input->post('id_p',TRUE);
+
       $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
       redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
     }
   }
+
 
   // public function update($id)
   // {
@@ -152,6 +176,7 @@ class Progress_pekerjaan extends CI_Controller
 
     if ($row) {
       $this->Progress_pekerjaan_model->delete($id);
+      
       $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
       redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
     } else {

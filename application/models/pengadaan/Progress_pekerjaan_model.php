@@ -38,7 +38,7 @@ class Progress_pekerjaan_model extends CI_Model
     return $this->db2->get($this->table)->row();
   }
 
-  // get data by id pekerjaan
+    // get data by id pekerjaan
   function get_by_id_p($id_p)
   {
     $this->db2->select('pp.id as id_pp, pp.real_keu, pp.real_fisik, pp.tgl_progress, pp.pekerjaan, pp.progress, pp.tgl_n_progress, pp.ket, p.nama, p2.nama as next_progress');
@@ -48,33 +48,6 @@ class Progress_pekerjaan_model extends CI_Model
     $this->db2->where('pp.pekerjaan', $id_p);
     $this->db2->order_by('pp.tgl_progress','desc');
     return $this->db2->get()->result();
-  }
-
-  // get total rows
-  function total_rows($q = NULL) {
-    $this->db2->like('id', $q);
-    $this->db2->or_like('pekerjaan', $q);
-    $this->db2->or_like('progress', $q);
-    $this->db2->or_like('tgl_progress', $q);
-    $this->db2->or_like('next_progress', $q);
-    $this->db2->or_like('tgl_n_progress', $q);
-    $this->db2->or_like('ket', $q);
-    $this->db2->from($this->table);
-    return $this->db2->count_all_results();
-  }
-
-  // get data with limit and search
-  function get_limit_data($limit, $start = 0, $q = NULL) {
-    $this->db2->order_by($this->id, $this->order);
-    $this->db2->like('id', $q);
-    $this->db2->or_like('pekerjaan', $q);
-    $this->db2->or_like('progress', $q);
-    $this->db2->or_like('tgl_progress', $q);
-    $this->db2->or_like('next_progress', $q);
-    $this->db2->or_like('tgl_n_progress', $q);
-    $this->db2->or_like('ket', $q);
-    $this->db2->limit($limit, $start);
-    return $this->db2->get($this->table)->result();
   }
 
   // insert data
@@ -95,6 +68,25 @@ class Progress_pekerjaan_model extends CI_Model
   {
     $this->db2->where($this->id, $id);
     $this->db2->delete($this->table);
+  }
+
+  // update progress now di tabel pekerjaan
+  public function update_progress_now($id_p){
+    $this->db2->select('max(progress) as now_progress');
+    $this->db2->from('progress_pekerjaan');
+    $this->db2->where('pekerjaan',$id_p);
+    $q = $this->db2->get()->row();
+    $now = $q->now_progress;
+
+
+    if ($now) {
+      $now = $now;
+    } else {
+      $now = null;
+    }
+    $this->db2->set('progress_now',$now);
+    $this->db2->where('id', $id_p);
+    $this->db2->update('pekerjaan');
   }
 
 }

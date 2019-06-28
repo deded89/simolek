@@ -29,10 +29,14 @@ class Pekerjaan extends CI_Controller
 
     public function read($id)
     {
+      $this->Progress_pekerjaan_model->update_progress_now($id);
+      
       $row = $this->Pekerjaan_model->get_by_id($id);
       $kontrak_data = $this->Kontrak_model->get_by_id_p($id);
       $st_data = $this->Serah_terima_model->get_by_id_p($id);
       $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id);
+      $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id);
+
       if ($row) {
         $data = array(
           'controller' => 'Pekerjaan',
@@ -46,11 +50,12 @@ class Pekerjaan extends CI_Controller
           'jenis' => $row->jenis,
           'metode' => $row->metode,
           'pagu' => $row->pagu,
-          'realisasi' => $row->realisasi,
+          'progress_now' => $row->pr_now,
 
           'kontrak_data'=>$kontrak_data,
           'st_data'=>$st_data,
           'pp_data'=>$pp_data,
+          'nilai_kontrak'=>$total_kontrak,
         );
         $this->load->view('template_view', $data);
       } else {
@@ -75,9 +80,6 @@ class Pekerjaan extends CI_Controller
         'jenis' => set_value('jenis'),
         'metode' => set_value('metode'),
         'pagu' => set_value('pagu'),
-        'realisasi' => set_value('realisasi'),
-        'latitude' => set_value('latitude'),
-        'longitude' => set_value('longitude'),
       );
       $this->load->view('template_view', $data);
     }
@@ -96,9 +98,6 @@ class Pekerjaan extends CI_Controller
           'jenis' => $this->input->post('jenis',TRUE),
           'metode' => $this->input->post('metode',TRUE),
           'pagu' => $this->input->post('pagu',TRUE),
-          'realisasi' => $this->input->post('realisasi',TRUE),
-          'latitude' => $this->input->post('latitude',TRUE),
-          'longitude' => $this->input->post('longitude',TRUE),
         );
 
         $this->Pekerjaan_model->insert($data);
@@ -126,9 +125,6 @@ class Pekerjaan extends CI_Controller
           'jenis' => set_value('jenis', $row->id_j),
           'metode' => set_value('metode', $row->id_m),
           'pagu' => set_value('pagu', $row->pagu),
-          'realisasi' => set_value('realisasi', $row->realisasi),
-          'latitude' => set_value('latitude', $row->latitude),
-          'longitude' => set_value('longitude', $row->longitude),
         );
         $this->load->view('template_view', $data);
       } else {
@@ -151,9 +147,6 @@ class Pekerjaan extends CI_Controller
           'jenis' => $this->input->post('jenis',TRUE),
           'metode' => $this->input->post('metode',TRUE),
           'pagu' => $this->input->post('pagu',TRUE),
-          'realisasi' => $this->input->post('realisasi',TRUE),
-          'latitude' => $this->input->post('latitude',TRUE),
-          'longitude' => $this->input->post('longitude',TRUE),
         );
 
         $this->Pekerjaan_model->update($this->input->post('id', TRUE), $data);
@@ -184,7 +177,6 @@ class Pekerjaan extends CI_Controller
       $this->form_validation->set_rules('jenis', 'jenis', 'trim|required');
       $this->form_validation->set_rules('metode', 'metode', 'trim|required');
       $this->form_validation->set_rules('pagu', 'pagu', 'trim|required|numeric');
-      $this->form_validation->set_rules('realisasi', 'realisasi', 'trim|required|numeric');
 
       $this->form_validation->set_rules('id', 'id', 'trim');
       $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

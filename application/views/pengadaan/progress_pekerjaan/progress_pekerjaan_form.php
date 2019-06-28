@@ -13,7 +13,7 @@
 					</tr>
 
 					<tr>
-						<td><label for="date">Tanggl Progress <?php echo form_error('tgl_progress') ?></label></td>
+						<td><label for="date">Tanggal Progress <?php echo form_error('tgl_progress') ?></label></td>
 						<td>
 							<div class="input-group date">
 								<div class="input-group-addon">

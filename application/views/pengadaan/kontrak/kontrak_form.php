@@ -27,6 +27,11 @@
 					</tr>
 
 					<tr>
+						<td><label for="varchar">Nilai Kontrak <?php echo form_error('nilai') ?></label></td>
+						<td><input type="number" class="form-control" name="nilai" id="nilai" placeholder="Nilai Kontrak" value="<?php echo $nilai; ?>" step='any' min=0/></td>
+					</tr>
+
+					<tr>
 						<td><label for="varchar">Lama <?php echo form_error('lama') ?></label></td>
 						<td><input type="text" class="form-control" name="lama" id="lama" placeholder="..... Hari/Hari Kerja" value="<?php echo $lama; ?>" /></td>
 					</tr>

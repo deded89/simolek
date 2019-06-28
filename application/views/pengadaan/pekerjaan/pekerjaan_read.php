@@ -25,7 +25,11 @@
 			</tr>
 	    <tr>
 				<td width="200px"><b>Pagu</b></td><td><?php echo "Rp " . number_format($pagu,2,',','.'); ?></td>
-	    	<td width="200px"><b>Nilai Kontrak</b></td><td><?php echo "Rp " . number_format($realisasi,2,',','.'); ?></td>
+				<td width="200px"><b>Total Kontrak</b></td><td><?php echo "Rp " . number_format($nilai_kontrak->total_kontrak,2,',','.'); ?></td>
+			</tr>
+			<tr>
+				<td width="200px"><b>Progress saat ini</b></td><td><?php echo $progress_now ?></td>
+
 			</tr>
 	    <tr>
 				<td colspan="4">

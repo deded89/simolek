@@ -58,6 +58,14 @@ class Kontrak_model extends CI_Model
         $this->db2->delete($this->table);
     }
 
+    //sum nilai kontrak by pekerjaan_read
+    public function sum_nilai_kontrak($id_p){
+      $this->db2->select('sum(nilai) as total_kontrak');
+      $this->db2->from('kontrak');
+      $this->db2->where('pekerjaan',$id_p);
+      return $this->db2->get()->row();
+    }
+
 }
 
 /* End of file Kontrak_model.php */

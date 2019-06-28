@@ -46,21 +46,6 @@
 						<td><input type="number" class="form-control" name="pagu" id="pagu" placeholder="xxx,xx" value="<?php echo $pagu; ?>" step='any' min=0 /></td>
 					</tr>
 
-					<tr>
-						<td><label for="decimal">Nilai Kontrak <?php echo form_error('realisasi') ?></label></td>
-						<td><input type="number" class="form-control" name="realisasi" id="realisasi" placeholder="xxx,xx" value="<?php echo $realisasi; ?>" step='any' min=0/></td>
-					</tr>
-
-					<tr>
-						<td><label for="decimal">Nilai Kontrak <?php echo form_error('latitude') ?></label></td>
-						<td><input type="number" class="form-control" name="latitude" id="latitude" placeholder="koordinat garis latitude" value="<?php echo $latitude; ?>" step='any' min=0/></td>
-					</tr>
-
-					<tr>
-						<td><label for="decimal">Nilai Kontrak <?php echo form_error('longitude') ?></label></td>
-						<td><input type="number" class="form-control" name="longitude" id="longitude" placeholder="koordinat garis longitude" value="<?php echo $longitude; ?>" step='any' min=0/></td>
-					</tr>
-
 					<input type="hidden" name="id" value="<?php echo $id_p; ?>" />
 					<tr>
 						<td colspan='2'>

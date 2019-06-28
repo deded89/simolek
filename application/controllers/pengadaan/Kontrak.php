@@ -66,6 +66,7 @@ if (!defined('BASEPATH'))
           'nomor' => set_value('nomor'),
           'tanggal' => set_value('tanggal'),
           'penyedia' => set_value('penyedia'),
+          'nilai' => set_value('nilai'),
           'lama' => set_value('lama'),
           'awal' => set_value('awal'),
           'akhir' => set_value('akhir'),
@@ -87,6 +88,7 @@ if (!defined('BASEPATH'))
             'nomor' => $this->input->post('nomor',TRUE),
             'tanggal' => $this->input->post('tanggal',TRUE),
             'penyedia' => $this->input->post('penyedia',TRUE),
+            'nilai' => $this->input->post('nilai',TRUE),
             'lama' => $this->input->post('lama',TRUE),
             'awal' => $this->input->post('awal',TRUE),
             'akhir' => $this->input->post('akhir',TRUE),
@@ -115,6 +117,7 @@ if (!defined('BASEPATH'))
             'nomor' => set_value('nomor', $row->nomor),
             'tanggal' => set_value('tanggal', $row->tanggal),
             'penyedia' => set_value('penyedia', $row->penyedia),
+            'nilai' => set_value('nilai', $row->nilai),
             'lama' => set_value('lama', $row->lama),
             'awal' => set_value('awal', $row->awal),
             'akhir' => set_value('akhir', $row->akhir),
@@ -139,6 +142,7 @@ if (!defined('BASEPATH'))
             'nomor' => $this->input->post('nomor',TRUE),
             'tanggal' => $this->input->post('tanggal',TRUE),
             'penyedia' => $this->input->post('penyedia',TRUE),
+            'nilai' => $this->input->post('nilai',TRUE),
             'lama' => $this->input->post('lama',TRUE),
             'awal' => $this->input->post('awal',TRUE),
             'akhir' => $this->input->post('akhir',TRUE),
@@ -164,13 +168,14 @@ if (!defined('BASEPATH'))
           $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
           redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
         }
-      } 
+      }
 
       public function _rules()
       {
         $this->form_validation->set_rules('nomor', 'nomor', 'trim|required');
         $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
         $this->form_validation->set_rules('penyedia', 'penyedia', 'trim|required');
+        $this->form_validation->set_rules('nilai', 'nilai', 'trim|required');
         $this->form_validation->set_rules('lama', 'lama', 'trim|required');
         $this->form_validation->set_rules('awal', 'awal', 'trim|required');
         $this->form_validation->set_rules('akhir', 'akhir', 'trim|required');
