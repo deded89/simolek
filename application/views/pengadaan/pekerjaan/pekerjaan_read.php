@@ -29,7 +29,12 @@
 			</tr>
 			<tr>
 				<td width="200px"><b>Progress saat ini</b></td><td><?php echo $progress_now ?></td>
-
+			</tr>
+			<tr>
+				<td width="200px"><b>Realisasi Keuangan (Kumulatif)</b></td>
+					<td><?php echo "Rp " . number_format($now_real_keu,2,',','.') . "  ( ".number_format($persen_real_keu,2)." %)"; ?></td>
+				<td width="200px"><b>Realisasi Fisik (Kumulatif)</b></td>
+					<td><?php echo $now_real_fisik.' %'; ?></td>
 			</tr>
 	    <tr>
 				<td colspan="4">

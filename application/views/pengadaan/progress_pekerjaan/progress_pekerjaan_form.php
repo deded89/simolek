@@ -62,7 +62,7 @@
 					<tr>
 						<td colspan='2'>
 							<button type="submit" class="btn btn-primary"><?php echo $button ?></button>
-							<a href="<?php echo site_url('pengadaan/progress_pekerjaan') ?>" class="btn btn-danger">Cancel</a>
+							<a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$id_p) ?>" class="btn btn-danger">Cancel</a>
 						</td>
 					</tr>
 					<input type="hidden" name="id_prog" value="<?php echo $id_prog; ?>" />
@@ -78,18 +78,41 @@
 <script type="text/javascript">
 $(document).ready(function () {
 	$("#progress").focus();
+
+// xxxxxxxxxxxxxxxxxxxxxxxxxxxxx DATE PICKER XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 	$("#tgl_progress").datepicker({
 		autoclose:true,
-		format:'yyyy/mm/dd',
+		format:'yyyy-mm-dd',
+		todayHighlight:true,
+		todayBtn:'linked',
+	})
+	.on('changeDate',function(selected){
+		var mindate = new Date(selected.date.valueOf());
+		$("#tgl_n_progress").datepicker('setStartDate',mindate);
 	});
+
 	$("#tgl_n_progress").datepicker({
 		autoclose:true,
-		format:'yyyy/mm/dd',
+		format:'yyyy-mm-dd',
+		todayHighlight:true,
 	});
+
+// xxxxxxxxxxxxxxxxxxxxxxx SELECT 2  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX
+
 	$('#progress').select2({
 		placeholder: "Pilih Tahapan Progress",
 		allowClear:	true,
-	});
+	})
+	.on('change',setNext);
+
+	function setNext(){
+		var now = $('#progress').val();
+		var next = parseInt(now)+1;
+		$('#next_progress').val(next.toString());
+		$('#next_progress').select2().trigger('change');
+	};
+
 	$('#next_progress').select2({
 		placeholder: "Pilih Tahapan Progress",
 		allowClear:	true,

@@ -78,7 +78,7 @@ if (!defined('BASEPATH'))
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-          $this->create();
+          $this->create($this->input->post('id_p',TRUE));
         } else {
           $data = array(
             'pekerjaan' => $this->input->post('id_p',TRUE),

@@ -20,7 +20,7 @@ class Pekerjaan_model extends CI_Model
     // get all
     function get_all()
     {
-      $this->db->select('p.id, p.nama, p.kegiatan, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
+      $this->db->select('p.id, p.nama, p.kegiatan, p.user, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
       $this->db->from('simolek_p.pekerjaan p');
       $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
       $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');

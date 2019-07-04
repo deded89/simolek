@@ -5,6 +5,7 @@
 <div class="row" style="margin-bottom: 10px">
 	<div class="col-md-4 text-left">
 		<?php echo anchor(site_url('pengadaan/pekerjaan/create'), 'Tambah Data', 'class="btn btn-primary"'); ?>
+		<?php echo anchor(site_url('pengadaan/user_pekerjaan/list_user_pekerjaan/'), 'Set User', 'class="btn btn-warning"'); ?>
 
 	</div>
 </div>
@@ -39,7 +40,7 @@
 							<td><?php echo $pekerjaan->jenis ?></td>
 							<td><?php echo $pekerjaan->metode ?></td>
 							<td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->pagu,2,',','.'); ?></td>
-							<td style="text-align:center" width="120px">
+							<td style="text-align:center" width="160px">
 							<?php
 								echo anchor(site_url('pengadaan/pekerjaan/read/'.$pekerjaan->id),'<i class="fa fa-eye"></i>', 'title="Lihat" class="btn btn-info btn-sm"');
 								echo '  ';

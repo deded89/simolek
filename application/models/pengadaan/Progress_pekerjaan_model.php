@@ -46,8 +46,30 @@ class Progress_pekerjaan_model extends CI_Model
     $this->db2->join('simolek_p.progress p', 'p.id=pp.progress', 'left');
     $this->db2->join('simolek_p.progress p2', 'p2.id=pp.next_progress', 'left');
     $this->db2->where('pp.pekerjaan', $id_p);
-    $this->db2->order_by('pp.tgl_progress','desc');
+    $this->db2->order_by('pp.progress','desc');
+    $this->db2->order_by('pp.id','desc');
     return $this->db2->get()->result();
+  }
+
+  function get_max_real_keu($id_p){
+    $this->db2->select_max('real_keu');
+    $this->db2->where('pekerjaan',$id_p);
+    return $this->db2->get('progress_pekerjaan')->row();
+  }
+
+  function get_persen_real_keu($id_p){
+    $this->db2->where('id',$id_p);
+    $pagu = $this->db2->get('pekerjaan')->row()->pagu;
+    $real_keu = $this->get_max_real_keu($id_p)->real_keu;
+
+    $persen = $real_keu / $pagu *100;
+    return $persen;
+  }
+
+  function get_max_real_fisik($id_p){
+    $this->db2->select_max('real_fisik');
+    $this->db2->where('pekerjaan',$id_p);
+    return $this->db2->get('progress_pekerjaan')->row();
   }
 
   // insert data

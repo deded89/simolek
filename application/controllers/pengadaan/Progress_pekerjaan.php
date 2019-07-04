@@ -99,7 +99,7 @@ class Progress_pekerjaan extends CI_Controller
     $this->_rules();
 
     if ($this->form_validation->run() == FALSE) {
-      $this->create();
+      $this->create($this->input->post('id_p',TRUE));
     } else {
       $data = array(
         'pekerjaan' => $this->input->post('id_p',TRUE),
@@ -176,7 +176,7 @@ class Progress_pekerjaan extends CI_Controller
 
     if ($row) {
       $this->Progress_pekerjaan_model->delete($id);
-      
+
       $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
       redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
     } else {

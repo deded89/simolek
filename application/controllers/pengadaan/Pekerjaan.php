@@ -30,12 +30,15 @@ class Pekerjaan extends CI_Controller
     public function read($id)
     {
       $this->Progress_pekerjaan_model->update_progress_now($id);
-      
+
       $row = $this->Pekerjaan_model->get_by_id($id);
       $kontrak_data = $this->Kontrak_model->get_by_id_p($id);
       $st_data = $this->Serah_terima_model->get_by_id_p($id);
       $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id);
       $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id);
+      $now_real_keu = $this->Progress_pekerjaan_model->get_max_real_keu($id)->real_keu;
+      $now_real_fisik = $this->Progress_pekerjaan_model->get_max_real_fisik($id)->real_fisik;
+      $persen_real_keu = $this->Progress_pekerjaan_model->get_persen_real_keu($id);
 
       if ($row) {
         $data = array(
@@ -56,6 +59,9 @@ class Pekerjaan extends CI_Controller
           'st_data'=>$st_data,
           'pp_data'=>$pp_data,
           'nilai_kontrak'=>$total_kontrak,
+          'now_real_keu'=>$now_real_keu,
+          'now_real_fisik'=>$now_real_fisik,
+          'persen_real_keu'=>$persen_real_keu,
         );
         $this->load->view('template_view', $data);
       } else {

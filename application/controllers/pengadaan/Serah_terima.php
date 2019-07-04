@@ -70,7 +70,7 @@ class Serah_terima extends CI_Controller
     $this->_rules();
 
     if ($this->form_validation->run() == FALSE) {
-      $this->create();
+      $this->create($this->input->post('id_p',TRUE));
     } else {
       $data = array(
         'nomor' => $this->input->post('nomor',TRUE),
@@ -85,48 +85,48 @@ class Serah_terima extends CI_Controller
     }
   }
 
-  public function update($id_k,$id_st)
-  {
-    $row = $this->Serah_terima_model->get_by_id($id_st);
-
-    if ($row) {
-      $data = array(
-        'button' => 'Update',
-        'action' => site_url('pengadaan/serah_terima/update_action'),
-        'controller' => 'pengadaan/serah_terima',
-        'uri1' => 'Update Serah_terima',
-        'main_view' => 'pengadaan/serah_terima/serah_terima_form',
-
-        'id_st' => set_value('id_st', $row->id),
-        'nomor' => set_value('nomor', $row->nomor),
-        'tanggal' => set_value('tanggal', $row->tanggal),
-        'penyedia' => set_value('penyedia', $row->penyedia),
-      );
-      $this->load->view('template_view', $data);
-    } else {
-      $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
-    }
-  }
-
-  public function update_action()
-  {
-    $this->_rules();
-
-    if ($this->form_validation->run() == FALSE) {
-      $this->update($this->input->post('id', TRUE));
-    } else {
-      $data = array(
-        'nomor' => $this->input->post('nomor',TRUE),
-        'tanggal' => $this->input->post('tanggal',TRUE),
-        'penyedia' => $this->input->post('penyedia',TRUE),
-      );
-
-      $this->Serah_terima_model->update($this->input->post('id', TRUE), $data);
-      $this->session->set_flashdata('message', 'Update Data Berhasil');
-      redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
-    }
-  }
+  // public function update($id_k,$id_st)
+  // {
+  //   $row = $this->Serah_terima_model->get_by_id($id_st);
+  //
+  //   if ($row) {
+  //     $data = array(
+  //       'button' => 'Update',
+  //       'action' => site_url('pengadaan/serah_terima/update_action'),
+  //       'controller' => 'pengadaan/serah_terima',
+  //       'uri1' => 'Update Serah_terima',
+  //       'main_view' => 'pengadaan/serah_terima/serah_terima_form',
+  //
+  //       'id_st' => set_value('id_st', $row->id),
+  //       'nomor' => set_value('nomor', $row->nomor),
+  //       'tanggal' => set_value('tanggal', $row->tanggal),
+  //       'penyedia' => set_value('penyedia', $row->penyedia),
+  //     );
+  //     $this->load->view('template_view', $data);
+  //   } else {
+  //     $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+  //     redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+  //   }
+  // }
+  //
+  // public function update_action()
+  // {
+  //   $this->_rules();
+  //
+  //   if ($this->form_validation->run() == FALSE) {
+  //     $this->update($this->input->post('id', TRUE));
+  //   } else {
+  //     $data = array(
+  //       'nomor' => $this->input->post('nomor',TRUE),
+  //       'tanggal' => $this->input->post('tanggal',TRUE),
+  //       'penyedia' => $this->input->post('penyedia',TRUE),
+  //     );
+  //
+  //     $this->Serah_terima_model->update($this->input->post('id', TRUE), $data);
+  //     $this->session->set_flashdata('message', 'Update Data Berhasil');
+  //     redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
+  //   }
+  // }
 
   public function delete($id_k,$id_st)
   {

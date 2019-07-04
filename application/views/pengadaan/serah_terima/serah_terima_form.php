@@ -47,7 +47,9 @@
 		$("#nomor").focus();
 		$("#tanggal").datepicker({
 			autoclose: true,
-			format:'yyyy/mm/dd',
+			format:'yyyy-mm-dd',
+			todayHighlight: true,
+			todayBtn:'linked',
 		});
 	});
 </script>

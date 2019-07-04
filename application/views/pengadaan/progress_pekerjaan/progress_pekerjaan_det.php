@@ -2,8 +2,8 @@
   <ul>
     <?php foreach ($pp_data as $pp){ ?>
       <li>
-        Tanggal <strong><?php echo date('d-m-Y',strtotime($pp->tgl_progress)); ?></strong>
-        dalam tahap <strong><?php echo $pp->nama ?> ( <?php echo $pp->ket ?> )</strong>,
+        <span class="label label-success"><?php echo date('d-m-Y',strtotime($pp->tgl_progress)); ?></span>
+        <strong> <?php echo $pp->ket ?></strong> dalam tahapan <strong><?php echo $pp->nama ?></strong>,
         rencana pada <strong><?php echo date('F Y',strtotime($pp->tgl_n_progress)); ?> </strong>
         akan masuk tahapan <strong><?php echo $pp->next_progress ?></strong>
         <?php echo anchor(site_url('pengadaan/progress_pekerjaan/delete/'.$pp->id_pp),
