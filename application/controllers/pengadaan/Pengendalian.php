@@ -7,6 +7,12 @@ class Pengendalian extends CI_Controller{
   {
     parent::__construct();
     $this->load->model('pengadaan/Pengendalian_model');
+    if (!$this->ion_auth->logged_in())
+    {
+      redirect('auth/login', 'refresh');
+    } else if (!$this->ion_auth->in_group('guest') AND !$this->ion_auth->in_group('pengelola')  ) {
+      return show_error('You must be an pengelola to view this page.');
+    }
   }
 
   function index()

@@ -21,6 +21,7 @@
           <thead>
             <tr>
               <th>Nama Pekerjaan</th>
+              <th>SKPD</th>
               <th>User Pengelola</th>
             </tr>
           </thead>
@@ -28,6 +29,7 @@
           <?php foreach ($user_pekerjaan_data as $user_pekerjaan){ ?>
             <tr>
               <td><?php echo $user_pekerjaan->nama ?></td>
+              <td><?php echo $user_pekerjaan->nama_skpd ?></td>
               <td><?php echo $user_pekerjaan->username ?></td>
             </tr>
           <?php } ?>

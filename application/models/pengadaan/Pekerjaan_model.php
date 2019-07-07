@@ -20,15 +20,16 @@ class Pekerjaan_model extends CI_Model
     // get all
     function get_all()
     {
-      $this->db->select('p.id, p.nama, p.kegiatan, p.user, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
+      $this->db->select('p.id, p.nama, p.kegiatan, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
       $this->db->from('simolek_p.pekerjaan p');
       $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
       $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
       $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
+        $this->db->where('p.user',$this->session->userdata('user_id'));
+      }
       $this->db->order_by('p.id', 'desc');
       return $this->db->get()->result();
-        // $this->db2->order_by($this->id, $this->order);
-        // return $this->db2->get($this->table)->result();
     }
 
     // get data by id
@@ -41,6 +42,9 @@ class Pekerjaan_model extends CI_Model
       $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
       $this->db->join('simolek_p.progress pr', 'pr.id=p.progress_now', 'left');
       $this->db->where('p.id', $id);
+      if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
+        $this->db->where('p.user',$this->session->userdata('user_id'));
+      }
       return $this->db->get('simolek_p.pekerjaan')->row();
     }
 
@@ -66,8 +70,8 @@ class Pekerjaan_model extends CI_Model
     // delete data
     function delete($id)
     {
-        $this->db2->where($this->id, $id);
-        $this->db2->delete($this->table);
+      $this->db2->where($this->id, $id);
+      $this->db2->delete($this->table);
     }
 
 }

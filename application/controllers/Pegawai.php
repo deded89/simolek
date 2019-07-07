@@ -32,7 +32,7 @@ class Pegawai extends CI_Controller
         $this->load->view('template_view', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Pegawai_model->get_by_id($id);
         if ($row) {
@@ -40,7 +40,7 @@ class Pegawai extends CI_Controller
 			'controller' => 'Pegawai',
 			'uri1' => 'Data Pegawai',
 			'main_view' => 'pegawai/pegawai_read',
-			
+
 			'nip' => $row->nip,
 			'nama_lengkap' => $row->nama_lengkap,
 			'id_skpd' => $row->nama_skpd,
@@ -52,7 +52,7 @@ class Pegawai extends CI_Controller
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Simpan',
@@ -60,15 +60,15 @@ class Pegawai extends CI_Controller
 			'controller' => 'Pegawai',
 			'uri1' => 'Tambah Pegawai',
 			'main_view' => 'pegawai/pegawai_form',
-			
+
 			'nip' => set_value('nip'),
 			'nama_lengkap' => set_value('nama_lengkap'),
 			'id_skpd' => set_value('id_skpd'),
 	);
         $this->load->view('template_view', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -94,8 +94,8 @@ class Pegawai extends CI_Controller
 			}
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Pegawai_model->get_by_id($id);
 
@@ -106,7 +106,7 @@ class Pegawai extends CI_Controller
 				'controller' => 'Pegawai',
 				'uri1' => 'Update Pegawai',
 				'main_view' => 'pegawai/pegawai_form',
-			
+
 				'nip' => set_value('nip', $row->nip),
 				'nama_lengkap' => set_value('nama_lengkap', $row->nama_lengkap),
 				'id_skpd' => set_value('id_skpd', $row->id_skpd),
@@ -117,8 +117,8 @@ class Pegawai extends CI_Controller
             redirect(site_url('pegawai'));
         }
     }
-    
-    public function update_action($id) 
+
+    public function update_action($id)
     {
         $this->_rules();
 
@@ -146,7 +146,7 @@ class Pegawai extends CI_Controller
 					$this->session->set_flashdata('message', 'Update Data Berhasil');
 					redirect(site_url('pegawai'));
 				}
-			}			
+			}
 			 else
 			{
 				$this->Pegawai_model->update($id, $data);
@@ -155,8 +155,8 @@ class Pegawai extends CI_Controller
 			}
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
 		//CEK APAKAH DATA SUDAH ADA KONEKSI KE TABLE LAIN FK=FOREIGN KEY
 		if ($this->cek_fk($id) != TRUE)
@@ -176,7 +176,7 @@ class Pegawai extends CI_Controller
 			redirect(site_url('jabatan'));
 		}
     }
-		
+
 	public function cek_fk($id)
 	{
 		$fk = $this->Pegawai_model->get_fk_by_id($id);
@@ -186,32 +186,32 @@ class Pegawai extends CI_Controller
 		}
 	}
 
-    public function _rules() 
+    public function _rules()
     {
 		$this->form_validation->set_rules('nama_lengkap', 'nama lengkap', 'trim|required');
-		$this->form_validation->set_rules('id_skpd', 'id skpd', 'trim|required');
+		// $this->form_validation->set_rules('id_skpd', 'id skpd', 'trim|required');
 
 		$this->form_validation->set_rules('nip', 'nip', 'trim|required|numeric');
 		//|is_unique[pegawai.nip]',array('is_unique' => 'Pegawai dengan NIP tersebut sudah ada'));
 		$this->form_validation->set_error_delimiters('<div class="callout callout-danger">', '</div>');
     }
-	
+
 	function pdf()
     {
         $data = array(
             'pegawai_data' => $this->Pegawai_model->get_all(),
             'start' => 0
         );
-        
+
         ini_set('memory_limit', '32M');
 		$this->load->library('pdfgenerator');
 		$psize = 'folio'; //setting kertas
-		$orient = 'landscape'; 	//setting orientasi		
- 
+		$orient = 'landscape'; 	//setting orientasi
+
 	    $html = $this->load->view('pegawai/pegawai_pdf', $data, true);
-	    
-	    $this->pdfgenerator->generate($html,'list Pegawai',$psize,$orient); 
-		       
+
+	    $this->pdfgenerator->generate($html,'list Pegawai',$psize,$orient);
+
     }
 
 }

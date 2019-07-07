@@ -10,9 +10,15 @@ if (!defined('BASEPATH'))
         parent::__construct();
         $this->load->model('pengadaan/Progress_model');
         $this->load->library('form_validation');
+        if (!$this->ion_auth->logged_in())
+        {
+          redirect('auth/login', 'refresh');
+        }else if (!$this->ion_auth->in_group('admin')) {
+          return show_error('You must be an admin to view this page.');
+        }
       }
 
-      
+
       // index for admin only
       public function index()
       {

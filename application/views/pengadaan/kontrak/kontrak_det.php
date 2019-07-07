@@ -45,10 +45,8 @@
       </div>
       <div class="row">
         <div class="col-xs-12 text-right">
-          <p>
+          <p <?php echo $hidden_attr ?>>
             <?php
-            // echo anchor(site_url('pengadaan/kontrak/read/'.$kontrak->id),'<i class="fa fa-eye"></i>', 'title="Lihat" class="btn btn-info btn-xs"');
-            // echo '  ';
             echo anchor(site_url('pengadaan/kontrak/update/'.$kontrak->id."/".$kontrak->pekerjaan),'<i class="fa fa-pencil-square-o"></i>', 'title="Update" class="btn btn-warning btn-xs"');
             echo '  ';
             echo anchor(site_url('pengadaan/kontrak/delete/'.$kontrak->id."/".$kontrak->pekerjaan),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-xs" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');

@@ -3,10 +3,8 @@
 <!-- setting tombol tambah data -->
 
 <div class="row" style="margin-bottom: 10px">
-	<div class="col-md-4 text-left">
+	<div <?php echo $hidden_attr ?> class="col-md-4 text-left">
 		<?php echo anchor(site_url('pengadaan/pekerjaan/create'), 'Tambah Data', 'class="btn btn-primary"'); ?>
-		<?php echo anchor(site_url('pengadaan/user_pekerjaan/list_user_pekerjaan/'), 'Set User', 'class="btn btn-warning"'); ?>
-
 	</div>
 </div>
 <!-- isi halaman -->
@@ -41,13 +39,13 @@
 							<td><?php echo $pekerjaan->metode ?></td>
 							<td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->pagu,2,',','.'); ?></td>
 							<td style="text-align:center" width="160px">
-							<?php
-								echo anchor(site_url('pengadaan/pekerjaan/read/'.$pekerjaan->id),'<i class="fa fa-eye"></i>', 'title="Lihat" class="btn btn-info btn-sm"');
-								echo '  ';
-								echo anchor(site_url('pengadaan/pekerjaan/update/'.$pekerjaan->id),'<i class="fa fa-pencil-square-o"></i>', 'title="Update" class="btn btn-warning btn-sm"');
-								echo '  ';
-								echo anchor(site_url('pengadaan/pekerjaan/delete/'.$pekerjaan->id),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
-							?>
+								<span>
+									<a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$pekerjaan->id) ?>" title="Lihat" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></a>
+								</span>
+								<span <?php echo $hidden_attr ?>>
+									<a href="<?php echo site_url('pengadaan/pekerjaan/update/'.$pekerjaan->id) ?>" title="Update" class="btn btn-warning btn-sm"><i class="fa fa-pencil-square-o"></i></a>
+									<a href="<?php echo site_url('pengadaan/pekerjaan/delete/'.$pekerjaan->id) ?>" title="Hapus" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"><i class="fa fa-trash-o"></i></i></a>
+								</span>
 							</td>
 							</tr>
 						<?php

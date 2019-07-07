@@ -41,7 +41,7 @@ class Progress_pekerjaan_model extends CI_Model
     // get data by id pekerjaan
   function get_by_id_p($id_p)
   {
-    $this->db2->select('pp.id as id_pp, pp.real_keu, pp.real_fisik, pp.tgl_progress, pp.pekerjaan, pp.progress, pp.tgl_n_progress, pp.ket, p.nama, p2.nama as next_progress');
+    $this->db2->select('pp.id as id_pp, pp.real_keu, pp.real_fisik, pp.tgl_progress, pp.pekerjaan, pp.progress, pp.tgl_n_progress, pp.ket, pp.create_date, p.nama, p2.nama as next_progress');
     $this->db2->from('simolek_p.progress_pekerjaan pp');
     $this->db2->join('simolek_p.progress p', 'p.id=pp.progress', 'left');
     $this->db2->join('simolek_p.progress p2', 'p2.id=pp.next_progress', 'left');
@@ -58,11 +58,14 @@ class Progress_pekerjaan_model extends CI_Model
   }
 
   function get_persen_real_keu($id_p){
-    $this->db2->where('id',$id_p);
-    $pagu = $this->db2->get('pekerjaan')->row()->pagu;
+    $this->load->model('Kontrak_model');
+    $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id_p)->total_kontrak;
     $real_keu = $this->get_max_real_keu($id_p)->real_keu;
-
-    $persen = $real_keu / $pagu *100;
+    if ($real_keu <> 0){
+      $persen = $real_keu / $total_kontrak *100;
+    }else{
+      $persen = 0;
+    }
     return $persen;
   }
 

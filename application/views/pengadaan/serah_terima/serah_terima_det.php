@@ -25,7 +25,7 @@
       </div>
       <div class="row">
         <div class="col-xs-12 text-right">
-          <p>
+          <p <?php echo $hidden_attr ?>>
             <?php
             echo anchor(site_url('pengadaan/serah_terima/delete/'.$st->id."/".$st->pekerjaan),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-xs" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
             ?>

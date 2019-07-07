@@ -13,6 +13,12 @@ class Pekerjaan extends CI_Controller
         $this->load->model('pengadaan/Serah_terima_model');
         $this->load->model('pengadaan/Progress_pekerjaan_model');
         $this->load->library('form_validation');
+        if (!$this->ion_auth->logged_in())
+        {
+          redirect('auth/login', 'refresh');
+        }else if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('guest')) {
+          return show_error('You must be an pptk to view this page.');
+        }
     }
 
     public function index()
@@ -22,56 +28,75 @@ class Pekerjaan extends CI_Controller
         'pekerjaan_data' => $pekerjaan,
         'controller' => 'Pekerjaan',
         'uri1' => 'List Pekerjaan',
-        'main_view' => 'pengadaan/pekerjaan/pekerjaan_list'
+        'main_view' => 'pengadaan/pekerjaan/pekerjaan_list',
       );
+      $data['hidden_attr'] = '';
+      if (!$this->ion_auth->in_group('pengelola')){
+        $data['hidden_attr'] = 'hidden';
+      }
       $this->load->view('template_view', $data);
     }
 
     public function read($id)
     {
-      $this->Progress_pekerjaan_model->update_progress_now($id);
-
+      // CEK AKSES
       $row = $this->Pekerjaan_model->get_by_id($id);
-      $kontrak_data = $this->Kontrak_model->get_by_id_p($id);
-      $st_data = $this->Serah_terima_model->get_by_id_p($id);
-      $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id);
-      $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id);
-      $now_real_keu = $this->Progress_pekerjaan_model->get_max_real_keu($id)->real_keu;
-      $now_real_fisik = $this->Progress_pekerjaan_model->get_max_real_fisik($id)->real_fisik;
-      $persen_real_keu = $this->Progress_pekerjaan_model->get_persen_real_keu($id);
-
-      if ($row) {
-        $data = array(
-          'controller' => 'Pekerjaan',
-          'uri1' => 'Data Pekerjaan',
-          'main_view' => 'pengadaan/pekerjaan/pekerjaan_read',
-
-          'id_p' => $row->id_p,
-          'nama' => $row->nama,
-          'kegiatan' => $row->kegiatan,
-          'skpd' => $row->nama_skpd,
-          'jenis' => $row->jenis,
-          'metode' => $row->metode,
-          'pagu' => $row->pagu,
-          'progress_now' => $row->pr_now,
-
-          'kontrak_data'=>$kontrak_data,
-          'st_data'=>$st_data,
-          'pp_data'=>$pp_data,
-          'nilai_kontrak'=>$total_kontrak,
-          'now_real_keu'=>$now_real_keu,
-          'now_real_fisik'=>$now_real_fisik,
-          'persen_real_keu'=>$persen_real_keu,
-        );
-        $this->load->view('template_view', $data);
-      } else {
-        $this->session->set_flashdata('error', 'Data Tidak Ditemukan');
+      if (!$row){
+        $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
         redirect(site_url('pengadaan/pekerjaan'));
+      } else {
+        $this->Progress_pekerjaan_model->update_progress_now($id);
+        $kontrak_data = $this->Kontrak_model->get_by_id_p($id);
+        $st_data = $this->Serah_terima_model->get_by_id_p($id);
+        $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id);
+        $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id);
+        $now_real_keu = $this->Progress_pekerjaan_model->get_max_real_keu($id)->real_keu;
+        $now_real_fisik = $this->Progress_pekerjaan_model->get_max_real_fisik($id)->real_fisik;
+        $persen_real_keu = $this->Progress_pekerjaan_model->get_persen_real_keu($id);
+
+        if ($row) {
+          $data = array(
+            'controller' => 'Pekerjaan',
+            'uri1' => 'Data Pekerjaan',
+            'main_view' => 'pengadaan/pekerjaan/pekerjaan_read',
+
+            'id_p' => $row->id_p,
+            'nama' => $row->nama,
+            'kegiatan' => $row->kegiatan,
+            'skpd' => $row->nama_skpd,
+            'jenis' => $row->jenis,
+            'metode' => $row->metode,
+            'pagu' => $row->pagu,
+            'progress_now' => $row->pr_now,
+
+            'kontrak_data'=>$kontrak_data,
+            'st_data'=>$st_data,
+            'pp_data'=>$pp_data,
+            'nilai_kontrak'=>$total_kontrak,
+            'now_real_keu'=>$now_real_keu,
+            'now_real_fisik'=>$now_real_fisik,
+            'persen_real_keu'=>$persen_real_keu,
+          );
+          $data['hidden_attr'] = '';
+          if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('pengelola')){
+            $data['hidden_attr'] = 'hidden';
+          }
+          $data['pengelola_only'] = '';
+          if (!$this->ion_auth->in_group('pengelola')){
+            $data['pengelola_only'] = 'hidden';
+          }
+          $this->load->view('template_view', $data);
+        } else {
+          $this->session->set_flashdata('error', 'Data Tidak Ditemukan');
+          redirect(site_url('pengadaan/pekerjaan'));
+        }
       }
     }
 
     public function create()
-    {
+    { if (!$this->ion_auth->in_group('pengelola')) {
+      return show_error('You must be an pengelola to view this page.');
+     }
       $data = array(
         'button' => 'Simpan',
         'action' => site_url('pengadaan/pekerjaan/create_action'),
@@ -113,7 +138,9 @@ class Pekerjaan extends CI_Controller
     }
 
     public function update($id)
-    {
+    { if (!$this->ion_auth->in_group('pengelola')) {
+      return show_error('You must be an pengelola to view this page.');
+      }
       $row = $this->Pekerjaan_model->get_by_id($id);
 
       if ($row) {
@@ -162,7 +189,9 @@ class Pekerjaan extends CI_Controller
     }
 
     public function delete($id)
-    {
+    { if (!$this->ion_auth->in_group('pengelola')) {
+      return show_error('You must be an pengelola to view this page.');
+      }
         $row = $this->Pekerjaan_model->get_by_id($id);
 
         if ($row) {

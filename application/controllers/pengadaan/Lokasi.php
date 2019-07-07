@@ -11,23 +11,38 @@ if (!defined('BASEPATH'))
         $this->load->model('pengadaan/Lokasi_model');
         $this->load->model('pengadaan/Pekerjaan_model');
         $this->load->library('form_validation');
+        if (!$this->ion_auth->logged_in())
+        {
+          redirect('auth/login', 'refresh');
+        }else if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('guest') ) {
+          return show_error('You must be an pptk to view this page.');
+        }
       }
 
 
       // index for admin only
       public function index($id_p)
       {
-        $lokasi = $this->Lokasi_model->get_by_id_p($id_p);
-        $pekerjaan = $this->Pekerjaan_model->get_by_id($id_p);
-        $data = array(
-          'lokasi_data' => $lokasi,
-          'controller' => 'lokasi',
-          'uri1' => 'Lokasi '.$pekerjaan->nama,
-          'pekerjaan_data' => $pekerjaan,
-          'main_view' => 'pengadaan/lokasi/lokasi_list'
-        );
-
-        $this->load->view('template_view', $data);
+        $row = $this->Pekerjaan_model->get_by_id($id_p);
+        if (!$row){
+          $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+          redirect(site_url('pengadaan/pekerjaan'));
+        } else {
+          $lokasi = $this->Lokasi_model->get_by_id_p($id_p);
+          $pekerjaan = $this->Pekerjaan_model->get_by_id($id_p);
+          $data = array(
+            'lokasi_data' => $lokasi,
+            'controller' => 'lokasi',
+            'uri1' => 'Lokasi '.$pekerjaan->nama,
+            'pekerjaan_data' => $pekerjaan,
+            'main_view' => 'pengadaan/lokasi/lokasi_list'
+          );
+          $data['hidden_attr'] = '';
+          if (!$this->ion_auth->in_group('pptk')){
+            $data['hidden_attr'] = 'hidden';
+          }
+          $this->load->view('template_view', $data);
+        }
       }
 
       // public function read($id)
@@ -55,22 +70,30 @@ if (!defined('BASEPATH'))
       //   }
       // }
 
-      public function create($id_p)
-      {
-        $data = array(
-          'button' => 'Simpan',
-          'action' => site_url('pengadaan/lokasi/create_action'),
-          'controller' => 'Lokasi',
-          'uri1' => 'Tambah Lokasi',
-          'main_view' => 'pengadaan/lokasi/lokasi_form',
+      public function create($id_p){
+        $row = $this->Pekerjaan_model->get_by_id($id_p);
+        if (!$row){
+          $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+          redirect(site_url('pengadaan/pekerjaan'));
+        } else {
+          if ($this->ion_auth->in_group('guest')) {
+            return show_error('Guest Forbid to Access This Page.');
+          }
+          $data = array(
+            'button' => 'Simpan',
+            'action' => site_url('pengadaan/lokasi/create_action'),
+            'controller' => 'Lokasi',
+            'uri1' => 'Tambah Lokasi',
+            'main_view' => 'pengadaan/lokasi/lokasi_form',
 
-          'id_p' => set_value('id_p',$id_p),
-          'id_l' => set_value('id_l'),
-          'latitude' => set_value('latitude'),
-          'longitude' => set_value('longitude'),
-          'deskripsi' => set_value('deskripsi'),
-        );
-        $this->load->view('template_view', $data);
+            'id_p' => set_value('id_p',$id_p),
+            'id_l' => set_value('id_l'),
+            'latitude' => set_value('latitude'),
+            'longitude' => set_value('longitude'),
+            'deskripsi' => set_value('deskripsi'),
+          );
+          $this->load->view('template_view', $data);
+        }
       }
 
       public function create_action()
@@ -148,15 +171,24 @@ if (!defined('BASEPATH'))
 
       public function delete($id_l)
       {
-        $row = $this->Lokasi_model->get_by_id($id_l);
-
-        if ($row) {
-          $this->Lokasi_model->delete($id_l);
-          $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
-          redirect(site_url('pengadaan/lokasi/index/'.$row->pekerjaan));
+        $row = $this->Pekerjaan_model->get_by_id($id_p);
+        if (!$row){
+          $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+          redirect(site_url('pengadaan/pekerjaan'));
         } else {
-          $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-          redirect(site_url('pengadaan/lokasi/index/'.$row->pekerjaan));
+          if ($this->ion_auth->in_group('guest')) {
+             return show_error('Guest Forbid to Access This Page.');
+          }
+          $row = $this->Lokasi_model->get_by_id($id_l);
+
+          if ($row) {
+            $this->Lokasi_model->delete($id_l);
+            $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
+            redirect(site_url('pengadaan/lokasi/index/'.$row->pekerjaan));
+          } else {
+            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+            redirect(site_url('pengadaan/lokasi/index/'.$row->pekerjaan));
+          }
         }
       }
 

@@ -1,9 +1,7 @@
 <div class='row'>
 	<div class='col-xs-12'>
 	    <div class='box box-primary'>
-
         <table class="table table-hover">
-
 	    <tr>
 				<td width="200px"><b>Nama Paket</b></td><td><?php echo $nama; ?></td>
 				<td width="200px"><b>Lokasi</b></td>
@@ -32,13 +30,11 @@
 			</tr>
 			<tr>
 				<td width="200px"><b>Realisasi Keuangan (Kumulatif)</b></td>
-					<td><?php echo "Rp " . number_format($now_real_keu,2,',','.') . "  ( ".number_format($persen_real_keu,2)." %)"; ?></td>
-				<td width="200px"><b>Realisasi Fisik (Kumulatif)</b></td>
-					<td><?php echo $now_real_fisik.' %'; ?></td>
+					<td><?php echo "Rp " . number_format($now_real_keu,2,',','.')."   dari Total Kontrak" ?></td>
+
 			</tr>
-	    <tr>
+	    <tr <?php echo $hidden_attr ?>>
 				<td colspan="4">
-					<!-- <a href="<?php// echo site_url('pengadaan/progress/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_progress">Add Progress</button> </a> -->
 	    		<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Progress</button> </a>
@@ -53,6 +49,28 @@
 	</div>
 </div>
 
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box box-primary">
+			<div class="box-body">
+				<div class="progress-group">
+					<span class="progress-text">Realisasi Keuangan</span>
+					<span class="progress-number"><b><?php echo number_format($persen_real_keu,2) ?></b> %</span>
+					<div class="progress sm">
+						<div class="progress-bar progress-bar-striped progress-bar-success" style="width: <?php echo number_format($persen_real_keu,2) ?>%"></div>
+					</div>
+				</div>
+				<div class="progress-group">
+					<span class="progress-text">Realisasi Fisik</span>
+					<span class="progress-number"><b><?php echo $now_real_fisik ?></b> %</span>
+					<div class="progress sm">
+						<div class="progress-bar progress-bar-striped progress-bar-aqua" style="width: <?php echo $now_real_fisik ?>%"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
 
 <div class="box box-solid">
 	<div class="box-body">

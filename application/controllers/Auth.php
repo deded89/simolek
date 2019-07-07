@@ -29,7 +29,7 @@ class Auth extends CI_Controller {
 			//eturn show_error('You must be an administrator to view this page.');
 			if ($this->ion_auth->in_group('pengelola')) {
 					redirect(site_url('laporan'));
-				} else {redirect(site_url('laporan'));}	
+				} else {redirect(site_url('laporan'));}
 		}
 		else
 		{
@@ -70,9 +70,13 @@ class Auth extends CI_Controller {
 				//if the login is successful
 				//redirect them back to the home page
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
-				if ($this->ion_auth->in_group('pengelola')) {
+				if ($this->ion_auth->in_group('admin')){
+					redirect(site_url('auth'));
+				} else if ($this->ion_auth->in_group('pengelola')) {
 					redirect(site_url('laporan'));
-				} else {redirect(site_url('laporan'));}	
+				} else if ($this->ion_auth->in_group('user_biasa')) {
+					redirect(site_url('laporan'));
+				} else {redirect(site_url('pengadaan/pekerjaan'));}
 			}
 			else
 			{
@@ -114,7 +118,7 @@ class Auth extends CI_Controller {
 
 		// redirect them to the login page
 		$this->session->set_flashdata('message', $this->ion_auth->messages());
-		redirect('dashboard', 'refresh');
+		redirect('dashboard');
 	}
 
 	// change password
@@ -161,12 +165,12 @@ class Auth extends CI_Controller {
 				'type'  => 'hidden',
 				'value' => $user->id,
 			);
-			
+
 			$this->data['controller'] = 'User';
 			$this->data['uri1'] = 'Ganti Password';
 			$this->data['main_view'] = 'auth/change_password';
 			$this->load->view('template_view', $this->data);
-			
+
 			// render
 			//$this->_render_page('auth/change_password', $this->data);
 		}
@@ -460,12 +464,12 @@ class Auth extends CI_Controller {
 
         if ($this->form_validation->run() == true)
         {
-			//JIKA VALIDASI LOLOS 
+			//JIKA VALIDASI LOLOS
 			//KOLOM BAWAAN ION AUTH YANG WAJIB ADA
             $email    = strtolower($this->input->post('email'));
             $identity = ($identity_column==='email') ? $email : $this->input->post('identity');
             $password = $this->input->post('password');
-			
+
 			//KOLOM TAMBAHAN
             $additional_data = array(
                 //'first_name' => $this->input->post('first_name'),
@@ -480,7 +484,7 @@ class Auth extends CI_Controller {
             // redirect them back to the admin page
 			//JIKA VALIDASI LOLOS DAN DATA BERHASIL TERINPUT
             $this->session->set_flashdata('message', $this->ion_auth->messages() );
-            redirect("auth", 'refresh');
+            redirect("jabatan", 'refresh');
         }
         else
         {
@@ -499,52 +503,52 @@ class Auth extends CI_Controller {
                 'id'    => 'last_name',
                 'type'  => 'text',
                 'value' => $this->form_validation->set_value('last_name'),
-            );
-            $this->data['identity'] = array(
-                'name'  => 'identity',
-                'id'    => 'identity',
-                'type'  => 'text',
-				'class' => 'form-control',
-                'value' => $this->form_validation->set_value('identity'),
-            );
-            $this->data['email'] = array(
-                'name'  => 'email',
-                'id'    => 'email',
-                'type'  => 'text',
-				'class' => 'form-control',
-                'value' => $this->form_validation->set_value('email'),
-            );
-            $this->data['company'] = array(  //skpd
-                'name'  => 'company',
-                'id'    => 'company',
-                'type'  => 'hidden',
-				'class' => 'form-control',				
+							);
+							$this->data['identity'] = array(
+								'name'  => 'identity',
+								'id'    => 'identity',
+								'type'  => 'text',
+								'class' => 'form-control',
+								'value' => $this->form_validation->set_value('identity'),
+							);
+							$this->data['email'] = array(
+								'name'  => 'email',
+								'id'    => 'email',
+								'type'  => 'hidden',
+								'class' => 'form-control',
+								'value' => $this->form_validation->set_value('email','user@gmail.com'),
+							);
+							$this->data['company'] = array(  //skpd
+								'name'  => 'company',
+								'id'    => 'company',
+								'type'  => 'hidden',
+								'class' => 'form-control',
                 'value' => $this->form_validation->set_value('company',$id_jab),
             );
             $this->data['phone'] = array(
-                'name'  => 'phone',
-                'id'    => 'phone',
-                'type'  => 'text',
-				'class' => 'form-control',
-                'value' => $this->form_validation->set_value('phone'),
+							'name'  => 'phone',
+							'id'    => 'phone',
+							'type'  => 'hidden',
+							'class' => 'form-control',
+							'value' => $this->form_validation->set_value('phone','08xxx'),
+						);
+						$this->data['password'] = array(
+							'name'  => 'password',
+							'id'    => 'password',
+							'type'  => 'hidden',
+							'class' => 'form-control',
+							'value' => $this->form_validation->set_value('password','12345'),
+						);
+						$this->data['password_confirm'] = array(
+							'name'  => 'password_confirm',
+							'id'    => 'password_confirm',
+							'type'  => 'hidden',
+							'class' => 'form-control',
+							'value' => $this->form_validation->set_value('password_confirm','12345'),
             );
-            $this->data['password'] = array(
-                'name'  => 'password',
-                'id'    => 'password',
-                'type'  => 'password',
-				'class' => 'form-control',
-                'value' => $this->form_validation->set_value('password'),
-            );
-            $this->data['password_confirm'] = array(
-                'name'  => 'password_confirm',
-                'id'    => 'password_confirm',
-                'type'  => 'password',
-				'class' => 'form-control',
-                'value' => $this->form_validation->set_value('password_confirm'),
-            );
-		
+
 			$this->data['button'] = "Simpan";
-            $this->data['action'] = site_url('auth/create_user/'.$id_jab);
+      $this->data['action'] = site_url('auth/create_user/'.$id_jab);
 			$this->data['controller'] = 'User';
 			$this->data['uri1'] = 'Tambah User';
 			$this->data['main_view'] = 'auth/create_user';
@@ -568,8 +572,8 @@ class Auth extends CI_Controller {
 		$currentGroups = $this->ion_auth->get_users_groups($id)->result();
 
 		// validate form input
-		$this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
-		$this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
+		// $this->form_validation->set_rules('first_name', $this->lang->line('edit_user_validation_fname_label'), 'required');
+		// $this->form_validation->set_rules('last_name', $this->lang->line('edit_user_validation_lname_label'), 'required');
 		$this->form_validation->set_rules('phone', $this->lang->line('edit_user_validation_phone_label'), 'required');
 		$this->form_validation->set_rules('company', $this->lang->line('edit_user_validation_company_label'), 'required');
 
@@ -848,6 +852,14 @@ class Auth extends CI_Controller {
 		$view_html = $this->load->view($view, $this->viewdata, $returnhtml);
 
 		if ($returnhtml) return $view_html;//This will return html on 3rd argument being true
+	}
+
+	public function my_reset_pass($user_id)
+	{
+		$this->load->model('Ion_auth_model');
+		$this->Ion_auth_model->reset_pass($user_id);
+		$this->session->set_flashdata('message', "Password berhasil di reset");
+		redirect('jabatan', 'refresh');
 	}
 
 }

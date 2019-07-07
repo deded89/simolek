@@ -7,6 +7,12 @@ class User_pekerjaan extends CI_Controller{
   {
     parent::__construct();
     $this->load->model('pengadaan/User_pekerjaan_model');
+    if (!$this->ion_auth->logged_in())
+    {
+      redirect('auth/login', 'refresh');
+    }else if (!$this->ion_auth->in_group('admin')) {
+      return show_error('You must be an admin to view this page.');
+    }
   }
 
   function list_user_pekerjaan()
@@ -25,7 +31,7 @@ class User_pekerjaan extends CI_Controller{
 
   function set_user(){
     $this->User_pekerjaan_model->update_user_pekerjaan();
-    redirect(site_url('pengadaan/pekerjaan'));
+    redirect(site_url('pengadaan/user_pekerjaan/list_user_pekerjaan'));
   }
 
 }

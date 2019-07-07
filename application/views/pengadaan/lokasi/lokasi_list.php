@@ -12,7 +12,9 @@
 
 <div class="row" style="margin-bottom: 10px">
 	<div class="col-md-4 text-left">
-		<?php echo anchor(site_url('pengadaan/lokasi/create/'.$pekerjaan_data->id_p), 'Tambah Data', 'class="btn btn-primary"'); ?>
+		<span <?php echo $hidden_attr ?>>
+			<?php echo anchor(site_url('pengadaan/lokasi/create/'.$pekerjaan_data->id_p), 'Tambah Data', 'class="btn btn-primary"'); ?>
+		</span>
 		<?php echo anchor(site_url('pengadaan/pekerjaan/read/'.$pekerjaan_data->id_p), 'Kembali', 'class="btn btn-danger"'); ?>
 	</div>
 </div>
@@ -33,7 +35,7 @@
 							<th>Latitude</th>
 							<th>Longitude</th>
 							<th>Deskripsi</th>
-							<th style="text-align:center">Aksi</th>
+							<th <?php echo $hidden_attr ?> style="text-align:center">Aksi</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -46,12 +48,8 @@
 							<td><?php echo $lokasi->latitude ?></td>
 							<td><?php echo $lokasi->longitude ?></td>
 							<td><?php echo $lokasi->deskripsi ?></td>
-							 <td style="text-align:center" width="120px">
+							<td <?php echo $hidden_attr ?> style="text-align:center" width="120px">
 							<?php
-								// echo anchor(site_url('pengadaan/serah_terima/read/'.$serah_terima->id),'<i class="fa fa-eye"></i>', 'title="Lihat" class="btn btn-info btn-sm"');
-								// echo '  ';
-								// echo anchor(site_url('pengadaan/serah_terima/update/'.$serah_terima->id),'<i class="fa fa-pencil-square-o"></i>', 'title="Update" class="btn btn-warning btn-sm"');
-								// echo '  ';
 								echo anchor(site_url('pengadaan/lokasi/delete/'.$lokasi->id),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
 							?>
 							</td>

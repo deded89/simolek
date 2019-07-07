@@ -9,60 +9,76 @@ class Serah_terima extends CI_Controller
   {
     parent::__construct();
     $this->load->model('pengadaan/Serah_terima_model');
+    $this->load->model('pengadaan/Pekerjaan_model');
     $this->load->library('form_validation');
-  }
-
-  public function index()
-  {
-    $serah_terima = $this->Serah_terima_model->get_all();
-
-    $data = array(
-      'serah_terima_data' => $serah_terima,
-      'controller' => 'pengadaan/serah_terima',
-      'uri1' => 'List Serah_terima',
-      'main_view' => 'pengadaan/serah_terima/serah_terima_list'
-    );
-
-    $this->load->view('template_view', $data);
-  }
-
-  public function read($id)
-  {
-    $row = $this->Serah_terima_model->get_by_id($id);
-    if ($row) {
-      $data = array(
-        'controller' => 'pengadaan/serah_terima',
-        'uri1' => 'Data Serah_terima',
-        'main_view' => 'pengadaan/serah_terima/serah_terima_read',
-
-        'id' => $row->id,
-        'nomor' => $row->nomor,
-        'tanggal' => $row->tanggal,
-        'penyedia' => $row->penyedia,
-      );
-      $this->load->view('template_view', $data);
-    } else {
-      $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-      redirect(site_url('pengadaan/serah_terima'));
+    if (!$this->ion_auth->logged_in())
+    {
+      redirect('auth/login', 'refresh');
+    }else if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('guest') ) {
+      return show_error('You must be an pptk to view this page.');
     }
   }
 
+  // public function index()
+  // {
+  //   $serah_terima = $this->Serah_terima_model->get_all();
+  //
+  //   $data = array(
+  //     'serah_terima_data' => $serah_terima,
+  //     'controller' => 'pengadaan/serah_terima',
+  //     'uri1' => 'List Serah_terima',
+  //     'main_view' => 'pengadaan/serah_terima/serah_terima_list'
+  //   );
+  //   $data['hidden_attr'] = '';
+  //   if (!$this->ion_auth->in_group('pptk')){
+  //     $data['hidden_attr'] = 'hidden';
+  //   }
+  //   $this->load->view('template_view', $data);
+  // }
+
+  // public function read($id)
+  // {
+  //   $row = $this->Serah_terima_model->get_by_id($id);
+  //   if ($row) {
+  //     $data = array(
+  //       'controller' => 'pengadaan/serah_terima',
+  //       'uri1' => 'Data Serah_terima',
+  //       'main_view' => 'pengadaan/serah_terima/serah_terima_read',
+  //
+  //       'id' => $row->id,
+  //       'nomor' => $row->nomor,
+  //       'tanggal' => $row->tanggal,
+  //       'penyedia' => $row->penyedia,
+  //     );
+  //     $this->load->view('template_view', $data);
+  //   } else {
+  //     $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+  //     redirect(site_url('pengadaan/serah_terima'));
+  //   }
+  // }
+
   public function create($id_p)
   {
-    $data = array(
-      'button' => 'Simpan',
-      'action' => site_url('pengadaan/serah_terima/create_action'),
-      'controller' => 'pengadaan/serah_terima',
-      'uri1' => 'Tambah Serah_terima',
-      'main_view' => 'pengadaan/serah_terima/serah_terima_form',
+    $row = $this->Pekerjaan_model->get_by_id($id_p);
+    if (!$row){
+      $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+      redirect(site_url('pengadaan/pekerjaan'));
+    } else {
+      $data = array(
+        'button' => 'Simpan',
+        'action' => site_url('pengadaan/serah_terima/create_action'),
+        'controller' => 'pengadaan/serah_terima',
+        'uri1' => 'Tambah Serah_terima',
+        'main_view' => 'pengadaan/serah_terima/serah_terima_form',
 
-      'id_p' => set_value('id_p',$id_p),
-      'nomor' => set_value('nomor'),
-      'tanggal' => set_value('tanggal'),
-      'penyedia' => set_value('penyedia'),
-      'id_st' => set_value('id_st'),
-    );
-    $this->load->view('template_view', $data);
+        'id_p' => set_value('id_p',$id_p),
+        'nomor' => set_value('nomor'),
+        'tanggal' => set_value('tanggal'),
+        'penyedia' => set_value('penyedia'),
+        'id_st' => set_value('id_st'),
+      );
+      $this->load->view('template_view', $data);
+    }
   }
 
   public function create_action()
@@ -130,15 +146,21 @@ class Serah_terima extends CI_Controller
 
   public function delete($id_k,$id_st)
   {
-    $row = $this->Serah_terima_model->get_by_id($id_st);
-
-    if ($row) {
-      $this->Serah_terima_model->delete($id_st);
-      $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
-      redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+    $row = $this->Pekerjaan_model->get_by_id($id_p);
+    if (!$row){
+      $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+      redirect(site_url('pengadaan/pekerjaan'));
     } else {
-      $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-      redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+      $row = $this->Serah_terima_model->get_by_id($id_st);
+
+      if ($row) {
+        $this->Serah_terima_model->delete($id_st);
+        $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+      } else {
+        $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+      }
     }
   }
 

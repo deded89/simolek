@@ -1,25 +1,18 @@
-<head>    
-  <!-- Theme style -->
-<link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.min.css">
-</head>
-<?php if ($message <> ""){ ?>
-<?php echo $message;?>
-<?php } ?>
 
 <!-- isi halaman -->
 <div class="row">
     <div class="col-xs-12">
-        <div class="box box-primary">	
+        <div class="box box-primary">
 			<div class="box-body table-responsive">
 				<table class="table table-bordered table-striped" id="mytable">
 				   <thead>
 						<tr>
 							<th width="30px">No</th>
-							<th><?php echo lang('index_username_th');?></th>		
+							<th><?php echo lang('index_username_th');?></th>
 							<th><?php echo lang('index_email_th');?></th>
 							<th><?php echo lang('index_groups_th');?></th>
 							<th><?php echo lang('index_status_th');?></th>
-							<th style="text-align:center"><?php echo lang('index_action_th');?></th>							
+							<th style="text-align:center"><?php echo lang('index_action_th');?></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -37,15 +30,15 @@
 								<?php endforeach?>
 							</td>
 							<td>
-							<?php echo ($user->active) ? anchor("auth/deactivate/".$user->id, lang('index_active_link')) : anchor("auth/activate/". $user->id, lang('index_inactive_link'));?>							
-							</td>							
-							
-							<td style="text-align:center" width="120px">							
-								<?php echo anchor("auth/edit_user/".$user->id, '<i class="fa fa-pencil-square-o"></i>', 'title="Update" class="btn btn-warning btn-sm"') ;?>							
+							<?php echo ($user->active) ? anchor("auth/deactivate/".$user->id, lang('index_active_link')) : anchor("auth/activate/". $user->id, lang('index_inactive_link'));?>
+							</td>
+
+							<td style="text-align:center" width="120px">
+								<?php echo anchor("auth/edit_user/".$user->id, '<i class="fa fa-pencil-square-o"></i>', 'title="Update" class="btn btn-warning btn-sm"') ;?>
 							</td>
 							</tr>
 						<?php
-						}	
+						}
 						?>
 					</tbody>
 				</table>
@@ -54,7 +47,7 @@
 		 </div>
 	</div>
 </div>
-		
+
 <!-- jQuery 2.2.3 -->
 <script src="<?php echo base_url();?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script type="text/javascript">
@@ -62,5 +55,3 @@
 		$("#mytable").dataTable();
 	});
 </script>
-	
-	

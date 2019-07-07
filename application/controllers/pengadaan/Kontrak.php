@@ -9,71 +9,90 @@ if (!defined('BASEPATH'))
       {
         parent::__construct();
         $this->load->model('pengadaan/Kontrak_model');
+        $this->load->model('pengadaan/Pekerjaan_model');
         $this->load->library('form_validation');
+        if (!$this->ion_auth->logged_in())
+        {
+          redirect('auth/login', 'refresh');
+        }else if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('guest') ) {
+          return show_error('You must be an pptk to view this page.');
+        }
       }
 
 
       // index for admin only
-      public function index()
-      {
-        $kontrak = $this->Kontrak_model->get_all();
+      // public function index()
+      // {
+      //   $kontrak = $this->Kontrak_model->get_all();
+      //
+      //   $data = array(
+      //     'kontrak_data' => $kontrak,
+      //     'controller' => 'Kontrak',
+      //     'uri1' => 'List Kontrak',
+      //     'main_view' => 'pengadaan/kontrak/kontrak_list'
+      //   );
+      //   $data['hidden_attr'] = '';
+      //   if (!$this->ion_auth->in_group('pptk')){
+      //     $data['hidden_attr'] = 'hidden';
+      //   }
+      //   $this->load->view('template_view', $data);
+      // }
 
-        $data = array(
-          'kontrak_data' => $kontrak,
-          'controller' => 'Kontrak',
-          'uri1' => 'List Kontrak',
-          'main_view' => 'pengadaan/kontrak/kontrak_list'
-        );
-
-        $this->load->view('template_view', $data);
-      }
-
-      public function read($id)
-      {
-        $row = $this->Kontrak_model->get_by_id($id);
-        if ($row) {
-          $data = array(
-            'controller' => 'Kontrak',
-            'uri1' => 'Data Kontrak',
-            'main_view' => 'pengadaan/kontrak/kontrak_read',
-
-            'id' => $row->id,
-            'nomor' => $row->nomor,
-            'tanggal' => $row->tanggal,
-            'penyedia' => $row->penyedia,
-            'lama' => $row->lama,
-            'awal' => $row->awal,
-            'akhir' => $row->akhir,
-            'ket' => $row->ket,
-          );
-          $this->load->view('template_view', $data);
-        } else {
-          $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-          redirect(site_url('kontrak'));
-        }
-      }
+      // public function read($id)
+      // {
+      //   $row = $this->Kontrak_model->get_by_id($id);
+      //   if ($row) {
+      //     $data = array(
+      //       'controller' => 'Kontrak',
+      //       'uri1' => 'Data Kontrak',
+      //       'main_view' => 'pengadaan/kontrak/kontrak_read',
+      //
+      //       'id' => $row->id,
+      //       'nomor' => $row->nomor,
+      //       'tanggal' => $row->tanggal,
+      //       'penyedia' => $row->penyedia,
+      //       'lama' => $row->lama,
+      //       'awal' => $row->awal,
+      //       'akhir' => $row->akhir,
+      //       'ket' => $row->ket,
+      //     );
+      //     $this->load->view('template_view', $data);
+      //   } else {
+      //     $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+      //     redirect(site_url('kontrak'));
+      //   }
+      // }
 
       public function create($id_p)
       {
-        $data = array(
-          'button' => 'Simpan',
-          'action' => site_url('pengadaan/kontrak/create_action'),
-          'controller' => 'Kontrak',
-          'uri1' => 'Tambah Kontrak',
-          'main_view' => 'pengadaan/kontrak/kontrak_form',
+        $row = $this->Pekerjaan_model->get_by_id($id_p);
+        if (!$row){
+          $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+          redirect(site_url('pengadaan/pekerjaan'));
+        } else {
+          if ($this->ion_auth->in_group('guest')) {
+             return show_error('Guest Forbid to Access This Page.');
+          }
+          $data = array(
+            'button' => 'Simpan',
+            'action' => site_url('pengadaan/kontrak/create_action'),
+            'controller' => 'Kontrak',
+            'uri1' => 'Tambah Kontrak',
+            'main_view' => 'pengadaan/kontrak/kontrak_form',
 
-          'id_p' => set_value('id_p',$id_p),
-          'nomor' => set_value('nomor'),
-          'tanggal' => set_value('tanggal'),
-          'penyedia' => set_value('penyedia'),
-          'nilai' => set_value('nilai'),
-          'lama' => set_value('lama'),
-          'awal' => set_value('awal'),
-          'akhir' => set_value('akhir'),
-          'ket' => set_value('ket'),
-          'id_k' => set_value('id_k'),
-        );
-        $this->load->view('template_view', $data);
+            'id_p' => set_value('id_p',$id_p),
+            'nomor' => set_value('nomor'),
+            'tanggal' => set_value('tanggal'),
+            'penyedia' => set_value('penyedia'),
+            'nilai' => set_value('nilai'),
+            'lama' => set_value('lama'),
+            'awal' => set_value('awal'),
+            'akhir' => set_value('akhir'),
+            'ket' => set_value('ket'),
+            'id_k' => set_value('id_k'),
+          );
+          $this->load->view('template_view', $data);
+        }
       }
 
       public function create_action()
@@ -101,33 +120,41 @@ if (!defined('BASEPATH'))
         }
       }
 
-      public function update($id_k,$id_p)
-      {
-        $row = $this->Kontrak_model->get_by_id($id_k);
-
-        if ($row) {
-          $data = array(
-            'button' => 'Update',
-            'action' => site_url('pengadaan/kontrak/update_action'),
-            'controller' => 'Kontrak',
-            'uri1' => 'Update Kontrak',
-            'main_view' => 'pengadaan/kontrak/kontrak_form',
-
-            'id_k' => set_value('id_k', $row->id),
-            'nomor' => set_value('nomor', $row->nomor),
-            'tanggal' => set_value('tanggal', $row->tanggal),
-            'penyedia' => set_value('penyedia', $row->penyedia),
-            'nilai' => set_value('nilai', $row->nilai),
-            'lama' => set_value('lama', $row->lama),
-            'awal' => set_value('awal', $row->awal),
-            'akhir' => set_value('akhir', $row->akhir),
-            'ket' => set_value('ket', $row->ket),
-            'id_p' => set_value('id_p', $row->pekerjaan),
-          );
-          $this->load->view('template_view', $data);
+      public function update($id_k,$id_p){
+        $row = $this->Pekerjaan_model->get_by_id($id_p);
+        if (!$row){
+          $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+          redirect(site_url('pengadaan/pekerjaan'));
         } else {
-          $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-          redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+          if ($this->ion_auth->in_group('guest')) {
+             return show_error('Guest Forbid to Access This Page.');
+          }
+          $row = $this->Kontrak_model->get_by_id($id_k);
+
+          if ($row) {
+            $data = array(
+              'button' => 'Update',
+              'action' => site_url('pengadaan/kontrak/update_action'),
+              'controller' => 'Kontrak',
+              'uri1' => 'Update Kontrak',
+              'main_view' => 'pengadaan/kontrak/kontrak_form',
+
+              'id_k' => set_value('id_k', $row->id),
+              'nomor' => set_value('nomor', $row->nomor),
+              'tanggal' => set_value('tanggal', $row->tanggal),
+              'penyedia' => set_value('penyedia', $row->penyedia),
+              'nilai' => set_value('nilai', $row->nilai),
+              'lama' => set_value('lama', $row->lama),
+              'awal' => set_value('awal', $row->awal),
+              'akhir' => set_value('akhir', $row->akhir),
+              'ket' => set_value('ket', $row->ket),
+              'id_p' => set_value('id_p', $row->pekerjaan),
+            );
+            $this->load->view('template_view', $data);
+          } else {
+            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+            redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+          }
         }
       }
 
@@ -156,17 +183,26 @@ if (!defined('BASEPATH'))
         }
       }
 
-      public function delete($id_k,$id_p)
-      {
-        $row = $this->Kontrak_model->get_by_id($id_k);
-
-        if ($row) {
-          $this->Kontrak_model->delete($id_k);
-          $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
-          redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+      public function delete($id_k,$id_p){
+        $row = $this->Pekerjaan_model->get_by_id($id_p);
+        if (!$row){
+          $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+          redirect(site_url('pengadaan/pekerjaan'));
         } else {
-          $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-          redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+
+          if ($this->ion_auth->in_group('guest')) {
+             return show_error('Guest Forbid to Access This Page.');
+          }
+          $row = $this->Kontrak_model->get_by_id($id_k);
+
+          if ($row) {
+            $this->Kontrak_model->delete($id_k);
+            $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
+            redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+          } else {
+            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+            redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
+          }
         }
       }
 

@@ -1,19 +1,16 @@
-<head>    
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.min.css">
-</head>
+
 
 <div class="row">
 	<div class="col-xs-12">
-		<div class="box box-primary">		
+		<div class="box box-primary">
 			<form action="<?php echo $action ?>" method="post">
 				<div class="box-body">
 					<div class="col-xs-6"><?php echo cmb_list_laporan() ?></div>
-					<div class="col-xs-4"><button type="submit" class="btn btn-primary">Lihat Status</button></div>			
+					<div class="col-xs-4"><button type="submit" class="btn btn-primary">Lihat Status</button></div>
 				</div>
 			</form>
 		</div>
-	</div>	
+	</div>
 </div>
 
 
@@ -48,10 +45,10 @@
               </div>
             </div>
             <div class="box-body">
-			<!-- 
+			<!--
 			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			-->	
-			
+			-->
+
 					<div class="col-lg-4 col-xs-6">
 					  <!-- small box -->
 					  <div class="small-box bg-red">
@@ -59,7 +56,7 @@
 						  <p>Belum Lapor  <br>:</p>
 						  <h1><?php echo $jml_belum_lapor ?></h1>
 
-						  <p>						  
+						  <p>
 						  dari <?php echo $jml_pelapor ?> Pelapor
 						  </p>
 						</div>
@@ -79,7 +76,7 @@
 						  <p>Sudah Lapor/ <br>Diminta Perbaiki/ Direvisi : </p>
 						  <h1><?php echo $jml_sudah_lapor ?></h1>
 
-						  <p>						  
+						  <p>
 						  dari <?php echo $jml_pelapor ?> Pelapor
 						  </p>
 						</div>
@@ -99,7 +96,7 @@
 						  <p>Laporan Oke  <br>:</p>
 						  <h1><?php echo $jml_oke ?></h1>
 
-						  <p>						  
+						  <p>
 						  dari <?php echo $jml_pelapor ?> Pelapor
 						  </p>
 						</div>
@@ -112,10 +109,10 @@
 					  </div>
 					</div>
 					<!-- ./col -->
-			
-			<!-- 
+
+			<!--
 			+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-			-->	
+			-->
             </div>
             <!-- /.box-body -->
           </div>
@@ -125,7 +122,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="box box-primary">			
+        <div class="box box-primary">
 				<div class="box-header with-border">
 					<h3 class="box-title"><strong><?php echo strtoupper($nama_lap).' '.$filter ?> </strong></h3>
 					<?php if($nama_lap <> ''){ ?>
@@ -145,14 +142,14 @@
 							<!-- <th>Id Lap</th> -->
 							<th>Nama SKPD</th>
 							<th>Status Pelaporan</th>
-							<th>Keterangan</th>							
+							<th>Keterangan</th>
 							<th>Last Upload by</th>
-							<th>Last Upload on</th>	
+							<th>Last Upload on</th>
 							<th>Download</th>
 						</tr>
 					</thead>
 					<tbody>
-					<?php						
+					<?php
 						$start = 0;
 						foreach ($pelaporan_data as $pelaporan){
 					?>
@@ -161,8 +158,8 @@
 							<!-- <td><?php echo $pelaporan->id_lap ?></td> -->
 							<td><?php echo $pelaporan->nama_skpd ?></td>
 							<!-- WARNAI STATUS -->
-							
-							<?php 
+
+							<?php
 							if($pelaporan->id_status==1){ //belum lapor
 								$warna = "badge bg-red";
 							}else if($pelaporan->id_status==2){ //sudah lapor
@@ -176,38 +173,38 @@
 							}else{
 								$warna = "badge bg-yellow";
 							}
-							?>							
-							
+							?>
+
 							<td><span class="<?php echo $warna ?>"><?php echo $pelaporan->status ?></td>
 							<td><?php echo $pelaporan->ket ?></td>
 							<td><?php echo $pelaporan->nama_jab ?></td>
 							<td>
-							<?php 
+							<?php
 								if ($pelaporan->tgl_upload <> null){
 									echo date("d-m-Y H:i:s",strtotime($pelaporan->tgl_upload));
 								}else {
 									echo $pelaporan->tgl_upload;
 								}
 							?>
-							</td>							 
+							</td>
 							<td style="text-align:center">
 								<?php
 								if($pelaporan->id_status <> 1 && $laporan->id_jab == $this->session->userdata('id_jab') || $pelaporan->id_status <> 1 && $pelaporan->id_skpd == $this->session->userdata('id_skpd')){
-									echo anchor(site_url('dashboard/hal_download/'.$pelaporan->id_pelaporan.'/'.$pelaporan->id_lap.'/'.$pelaporan->id_skpd),'<i class="fa fa-download"></i>', 'target="_blank" title="Hal Download" class="btn btn-primary btn-sm"'); 
+									echo anchor(site_url('dashboard/hal_download/'.$pelaporan->id_pelaporan.'/'.$pelaporan->id_lap.'/'.$pelaporan->id_skpd),'<i class="fa fa-download"></i>', 'target="_blank" title="Hal Download" class="btn btn-primary btn-sm"');
 								}
 								?>
 							</td>
 							</tr>
 						<?php
-						}						
+						}
 						?>
 					</tbody>
-				</table>			
+				</table>
 			</div>
 		 </div>
 	</div>
 </div>
-		
+
 <!-- jQuery 2.2.3 -->
 <script src="<?php echo base_url();?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script type="text/javascript">
@@ -230,7 +227,7 @@ $(document).ready(function () {
                             '</tr>' :
                             '';
 						} ).join('');
- 
+
 						return data ?
                         $('<table/>').append( data ) :
                         false;
@@ -276,5 +273,3 @@ $(document).ready(function () {
 	});
 });
 </script>
-
-	

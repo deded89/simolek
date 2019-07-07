@@ -11,9 +11,10 @@ class User_pekerjaan_model extends CI_Model{
   }
 
   public function get_user_pekerjaan(){
-    $this->db->select('p.nama, p.user, u.id, u.username');
+    $this->db->select('p.nama, p.user, u.id, u.username, s.id_skpd, s.nama_skpd');
     $this->db->from('simolek_p.pekerjaan p');
     $this->db->join('simolek.users u','u.id=p.user','left');
+    $this->db->join('simolek.skpd s','s.id_skpd=p.skpd','left');
     return $this->db->get()->result();
   }
 

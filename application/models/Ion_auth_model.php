@@ -1841,7 +1841,7 @@ class Ion_auth_model extends CI_Model
 		$skpd		= '';
 		$level		= '';
 		//++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
-	if ($user->company <> 0){		
+	if ($user->company <> 0){
 		$this->db->select('*');
 		$this->db->from('jabatan j');
 		$this->db->where('j.id_jab',$user->company);
@@ -1849,7 +1849,7 @@ class Ion_auth_model extends CI_Model
 		$this->db->join('skpd s', 's.id_skpd=j.id_skpd', 'left');
 		$this->db->join('level_jabatan l', 'j.id_level=l.id_level', 'left');
 		$data_user = $this->db->get()->row();
-			
+
 		$id_jab		= $user->company;
 		$namauser	= $data_user->nama_lengkap;
 		$jabatan    = $data_user->nama_jab;
@@ -1873,7 +1873,7 @@ class Ion_auth_model extends CI_Model
 		    'email'                => $user->email,
 		    'user_id'              => $user->id, //everyone likes to overwrite id so we'll use user_id
 		    'old_last_login'       => $user->last_login,
-		    'last_check'           => time(),			
+		    'last_check'           => time(),
 			'id_jab'			   => $id_jab,
 			'namauser'			   => $namauser,
 			'jabatan'			   => $jabatan,
@@ -2403,5 +2403,12 @@ class Ion_auth_model extends CI_Model
 	protected function _prepare_ip($ip_address) {
 		// just return the string IP address now for better compatibility
 		return $ip_address;
+	}
+
+	public function reset_pass($user_id)
+	{//12345
+		$this->db->set('password', '$2y$08$8Z6OzjCPvwjtd9kH.iujX.iwH97rcaB4qjnQT/oW8ZfHocNOba4gy');
+		$this->db->where('id', $user_id);
+		$this->db->update('users');
 	}
 }

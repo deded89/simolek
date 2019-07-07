@@ -10,6 +10,12 @@ class Metode extends CI_Controller
         parent::__construct();
         $this->load->model('pengadaan/Metode_model');
         $this->load->library('form_validation');
+        if (!$this->ion_auth->logged_in())
+        {
+          redirect('auth/login', 'refresh');
+        }else if (!$this->ion_auth->in_group('admin')) {
+          return show_error('You must be an admin to view this page.');
+        }
     }
 
     public function index()
@@ -26,7 +32,7 @@ class Metode extends CI_Controller
         $this->load->view('template_view', $data);
     }
 
-    public function read($id) 
+    public function read($id)
     {
         $row = $this->Metode_model->get_by_id($id);
         if ($row) {
@@ -34,7 +40,7 @@ class Metode extends CI_Controller
 			'controller' => 'Metode',
 			'uri1' => 'Data Metode',
 			'main_view' => 'pengadaan/metode/metode_read',
-			
+
 			'id' => $row->id,
 			'nama' => $row->nama,
 	    );
@@ -45,7 +51,7 @@ class Metode extends CI_Controller
         }
     }
 
-    public function create() 
+    public function create()
     {
         $data = array(
             'button' => 'Simpan',
@@ -53,14 +59,14 @@ class Metode extends CI_Controller
 			'controller' => 'Metode',
 			'uri1' => 'Tambah Metode',
 			'main_view' => 'pengadaan/metode/metode_form',
-			
+
 			'id' => set_value('id'),
 			'nama' => set_value('nama'),
 	);
         $this->load->view('template_view', $data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         $this->_rules();
 
@@ -76,8 +82,8 @@ class Metode extends CI_Controller
             redirect(site_url('pengadaan/metode'));
         }
     }
-    
-    public function update($id) 
+
+    public function update($id)
     {
         $row = $this->Metode_model->get_by_id($id);
 
@@ -88,7 +94,7 @@ class Metode extends CI_Controller
 				'controller' => 'Metode',
 				'uri1' => 'Update Metode',
 				'main_view' => 'pengadaan/metode/metode_form',
-			
+
 			'id' => set_value('id', $row->id),
 			'nama' => set_value('nama', $row->nama),
 	    );
@@ -98,8 +104,8 @@ class Metode extends CI_Controller
             redirect(site_url('pengadaan/metode'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         $this->_rules();
 
@@ -115,8 +121,8 @@ class Metode extends CI_Controller
             redirect(site_url('pengadaan/metode'));
         }
     }
-    
-    public function delete($id) 
+
+    public function delete($id)
     {
         $row = $this->Metode_model->get_by_id($id);
 
@@ -130,7 +136,7 @@ class Metode extends CI_Controller
         }
     }
 
-    public function _rules() 
+    public function _rules()
     {
 	$this->form_validation->set_rules('nama', 'nama', 'trim|required');
 
