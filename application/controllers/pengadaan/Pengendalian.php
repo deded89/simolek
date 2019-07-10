@@ -7,6 +7,7 @@ class Pengendalian extends CI_Controller{
   {
     parent::__construct();
     $this->load->model('pengadaan/Pengendalian_model');
+    $this->load->model('pengadaan/Pekerjaan_model');
     if (!$this->ion_auth->logged_in())
     {
       redirect('auth/login', 'refresh');
@@ -38,4 +39,48 @@ class Pengendalian extends CI_Controller{
     $this->load->view('template_view', $data);
   }
 
+  function filter_pagu($filter1,$filter2){
+    $pekerjaan = $this->Pekerjaan_model->filter_pagu($filter1,$filter2);
+    $data = array(
+      'pekerjaan_data' => $pekerjaan,
+      'controller' => 'Pekerjaan',
+      'uri1' => 'List Pekerjaan',
+      'main_view' => 'pengadaan/pekerjaan/pekerjaan_list',
+    );
+    $data['hidden_attr'] = '';
+    if (!$this->ion_auth->in_group('pengelola')){
+      $data['hidden_attr'] = 'hidden';
+    }
+    $this->load->view('template_view', $data);
+  }
+
+  function filter_jenis_metode($filter1,$filter2){
+    $pekerjaan = $this->Pekerjaan_model->filter_jenis_metode($filter1,$filter2);
+    $data = array(
+      'pekerjaan_data' => $pekerjaan,
+      'controller' => 'Pekerjaan',
+      'uri1' => 'List Pekerjaan',
+      'main_view' => 'pengadaan/pekerjaan/pekerjaan_list',
+    );
+    $data['hidden_attr'] = '';
+    if (!$this->ion_auth->in_group('pengelola')){
+      $data['hidden_attr'] = 'hidden';
+    }
+    $this->load->view('template_view', $data);
+  }
+
+  function filter_pagu_progress($filter1,$filter2,$filter3){
+    $pekerjaan = $this->Pekerjaan_model->filter_pagu_progress($filter1,$filter2,$filter3);
+    $data = array(
+      'pekerjaan_data' => $pekerjaan,
+      'controller' => 'Pekerjaan',
+      'uri1' => 'List Pekerjaan',
+      'main_view' => 'pengadaan/pekerjaan/pekerjaan_list',
+    );
+    $data['hidden_attr'] = '';
+    if (!$this->ion_auth->in_group('pengelola')){
+      $data['hidden_attr'] = 'hidden';
+    }
+    $this->load->view('template_view', $data);
+  }
 }

@@ -75,6 +75,47 @@ class Pekerjaan_model extends CI_Model
       $this->db2->delete($this->table);
     }
 
+    // FILTER JENIS dan METODE UNTUK DASHBOARD
+    function filter_jenis_metode($filter1,$filter2){
+      $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
+      $this->db->from('simolek_p.pekerjaan p');
+      $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      $this->db->where('p.'.$filter1,$filter2);
+      $this->db->order_by('p.skpd', 'asc');
+      $this->db->order_by('p.pagu', 'desc');
+      return $this->db->get()->result();
+    }
+
+    // FILTER PAGU UNTUK DASHBOARD
+    function filter_pagu($filter1,$filter2){
+      $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
+      $this->db->from('simolek_p.pekerjaan p');
+      $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      $this->db->where('p.pagu <',$filter1);
+      $this->db->where('p.pagu >',$filter2);
+      $this->db->order_by('p.skpd', 'asc');
+      $this->db->order_by('p.pagu', 'desc');
+      return $this->db->get()->result();
+    }
+
+    // FILTER PAGU_PROGRESS UNTUK DASHBOARD xxxxxxxx
+    function filter_pagu_progress($filter1,$filter2,$filter3){
+      $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
+      $this->db->from('simolek_p.pekerjaan p');
+      $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      $this->db->where('p.pagu <',$filter1);
+      $this->db->where('p.pagu >',$filter2);
+      $this->db->where('p.progress_now',$filter3);
+      $this->db->order_by('p.skpd', 'asc');
+      $this->db->order_by('p.pagu', 'desc');
+      return $this->db->get()->result();
+    }
 }
 
 /* End of file Pekerjaan_model.php */
