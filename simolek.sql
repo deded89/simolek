@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 17, 2019 at 03:21 AM
+-- Generation Time: Jul 10, 2019 at 03:18 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -36,6 +36,15 @@ CREATE TABLE `file_upload` (
   `id_jab` mediumint(9) UNSIGNED DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `file_upload`
+--
+
+INSERT INTO `file_upload` (`id_file`, `nama_file`, `id_pelaporan`, `tgl_upload`, `id_jab`) VALUES
+(1, 'REKAP_RFK_-_Mei_2019.xls', 2253, '2019-06-20 10:09:53', 29),
+(2, 'REKAP_RFK_KEC_BJM_UTARA_PER_30_JUNI_2019_Kecamatan.xls', 2253, '2019-07-05 08:47:34', 29),
+(3, 'REKAP_RFK_KEC_BJM_UTARA_PER_30_JUNI_2019_Kecamatan_Dana_Kelurahan.xls', 2253, '2019-07-05 09:11:25', 29);
+
 -- --------------------------------------------------------
 
 --
@@ -55,7 +64,9 @@ CREATE TABLE `groups` (
 INSERT INTO `groups` (`id`, `name`, `description`) VALUES
 (1, 'admin', 'Administrator'),
 (2, 'user_biasa', 'General User'),
-(3, 'pengelola', 'Pengelola di SKPD');
+(3, 'pengelola', 'Pengelola di SKPD'),
+(4, 'pptk', 'Pengendali Pekerjaan di Pengendalian'),
+(5, 'guest', 'untuk tamu fitur pengendalian');
 
 -- --------------------------------------------------------
 
@@ -116,7 +127,12 @@ INSERT INTO `jabatan` (`id_jab`, `id_level`, `nama_jab`, `id_skpd`, `nip`) VALUE
 (38, 2, 'pelapor_kecbarat', 38, '38'),
 (39, 2, 'pelapor_kecselatan', 39, '39'),
 (40, 2, 'pelapor_barenlitbangda', 40, '40'),
-(41, 1, 'Staf (Munawarah)', 29, '198008032005012017');
+(41, 1, 'Staf (Munawarah)', 29, '198008032005012017'),
+(43, 2, 'pptk_disdik1', 1, '111111111111111111'),
+(44, 10, 'Walikota', 41, '1'),
+(46, 9, 'Wakil Walikota', 41, '111111111111111111'),
+(47, 2, 'pptk_bagpbg1', 29, '198910302015021002'),
+(48, 2, 'pptk_disdik2', 1, '867676');
 
 -- --------------------------------------------------------
 
@@ -138,7 +154,8 @@ INSERT INTO `klasifikasi` (`id_klasifikasi`, `nama_klasifikasi`) VALUES
 (2, 'Dinas'),
 (3, 'Badan'),
 (4, 'Kecamatan'),
-(5, 'Satuan/Setwan/Itko');
+(5, 'Satuan/Setwan/Itko'),
+(6, 'Non SKPD');
 
 -- --------------------------------------------------------
 
@@ -224,7 +241,7 @@ INSERT INTO `laporan` (`id_lap`, `nama_lap`, `batas_waktu`, `status`, `id_skpd`,
 (76, 'Laporan RFK Rekap SKPD per 31 Maret 2019', '2019-04-08 23:59:59', 'closed', 29, 29),
 (77, 'Laporan DAK Triwulan I Tahun 2019', '2019-04-10 23:59:59', 'closed', 29, 29),
 (78, 'Laporan RFK Per Kegiatan s.d 30 April 2019', '2019-05-07 23:59:59', 'closed', 29, 29),
-(79, 'Laporan RFK Rekap SKPD per 30 April 2019', '2019-05-07 23:59:59', 'closed', 29, 29);
+(79, 'Laporan RFK Rekap SKPD per 30 April 2019', '2019-07-05 23:59:59', 'closed', 29, 29);
 
 -- --------------------------------------------------------
 
@@ -248,7 +265,11 @@ INSERT INTO `level_jabatan` (`id_level`, `level`, `nama_level`) VALUES
 (3, 3, 'Kabid'),
 (4, 4, 'Sekretaris'),
 (5, 5, 'Kepala SKPD'),
-(6, 4, 'Kabag');
+(6, 4, 'Kabag'),
+(7, 6, 'Asisten Sekda'),
+(8, 6, 'Staf Ahli'),
+(9, 7, 'Wakil Walikota'),
+(10, 7, 'Walikota');
 
 -- --------------------------------------------------------
 
@@ -320,7 +341,11 @@ INSERT INTO `pegawai` (`nip`, `nama_lengkap`, `id_skpd`) VALUES
 ('37', 'pegawai_kectengah', 37),
 ('38', 'pegawai_kecbarat', 38),
 ('39', 'pegawai_kecselatan', 39),
-('40', 'pegawai_barenlitbangda', 40);
+('40', 'pegawai_barenlitbangda', 40),
+('111111111111111111', 'siudin', 1),
+('1', 'Ibnu Sina', 41),
+('198910302015021002', 'Dedy Setiawan, S.Kom', 0),
+('867676', 'utuh disdik', 0);
 
 -- --------------------------------------------------------
 
@@ -2555,7 +2580,7 @@ INSERT INTO `pelaporan` (`id_pelaporan`, `id_lap`, `id_skpd`, `id_status`, `id_j
 (2250, 79, 26, 7, 26, '2019-05-07 14:13:42', ''),
 (2251, 79, 27, 7, 27, '2019-05-07 12:03:36', ''),
 (2252, 79, 28, 1, NULL, NULL, ''),
-(2253, 79, 29, 7, 29, '2019-05-06 11:18:41', ''),
+(2253, 79, 29, 2, 29, '2019-07-05 09:11:25', ''),
 (2254, 79, 1, 7, 1, '2019-05-06 18:15:12', ''),
 (2255, 79, 2, 7, 2, '2019-05-06 14:29:53', ''),
 (2256, 79, 3, 7, 3, '2019-05-08 08:42:52', ''),
@@ -2684,7 +2709,8 @@ INSERT INTO `skpd` (`id_skpd`, `nama_skpd`, `id_klasifikasi`) VALUES
 (37, 'Kecamatan Banjarmasin Tengah', 4),
 (38, 'Kecamatan Banjarmasin Barat', 4),
 (39, 'Kecamatan Banjarmasin Selatan', 4),
-(40, 'Badan Perencanaan, Penelitian dan Pengembangan Daerah', 3);
+(40, 'Badan Perencanaan, Penelitian dan Pengembangan Daerah', 3),
+(41, 'KDH WKDH', 6);
 
 -- --------------------------------------------------------
 
@@ -2741,9 +2767,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`, `activation_code`, `forgotten_password_code`, `forgotten_password_time`, `remember_code`, `created_on`, `last_login`, `active`, `first_name`, `last_name`, `company`, `phone`) VALUES
-(1, '127.0.0.1', 'administrator', '$2y$08$Ak9J9m9UfGL.0hGSLPCMVeXakFtt8hqJeKNNqKz.CI2JtfsALHs6i', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1559746752, 1, 'Dedy', 'Setiawan', 0, '0'),
-(2, '::1', 'disdik', '$2y$08$j/fNPmY9wl2k1E5qQKcOQu7h7/.89pgQH.YJfehdgJJDEXAFpFPYm', '', '-@gmail.com', '', '', 0, NULL, 0, 1557279099, 1, 'pegawai', 'disdik', 1, '81'),
-(3, '::1', 'diskes', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557368479, 1, 'pegawai', 'diskes', 2, '81'),
+(1, '127.0.0.1', 'administrator', '$2y$08$Ak9J9m9UfGL.0hGSLPCMVeXakFtt8hqJeKNNqKz.CI2JtfsALHs6i', '', 'admin@admin.com', '', NULL, NULL, NULL, 1268889823, 1562731107, 1, 'Dedy', 'Setiawan', 0, '0'),
+(2, '::1', 'disdik', '$2y$08$8Z6OzjCPvwjtd9kH.iujX.iwH97rcaB4qjnQT/oW8ZfHocNOba4gy', '', '-@gmail.com', '', '', 0, NULL, 0, 1562252052, 1, 'pegawai', 'disdik', 1, '81'),
+(3, '::1', 'diskes', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1562251797, 1, 'pegawai', 'diskes', 2, '81'),
 (4, '::1', 'dpupr', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557371097, 1, 'pegawai', 'dpupr', 3, '81'),
 (5, '::1', 'dpkp', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557206079, 1, 'pegawai', 'dpkp', 4, '81'),
 (6, '::1', 'satpolppdamkar', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557195850, 1, 'pegawai', 'satpolppdamkar', 5, '81'),
@@ -2770,7 +2796,7 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`
 (27, '::1', 'baghumpro', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557210546, 1, 'pegawai', 'baghumpro', 26, '81'),
 (28, '::1', 'bagumm', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557366306, 1, 'pegawai', 'bagumm', 27, '81'),
 (29, '::1', 'baglp', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557292122, 1, 'pegawai', 'baglp', 28, '81'),
-(30, '::1', 'bagpbg', '$2y$08$xolKHclzmOUt0YEpEvpWbe0cawTcPkLUOi32YsBy12lK7oPwLBmMW', '', '-@gmail.com', '', '', 0, NULL, 0, 1559746636, 1, 'pegawai', 'bagpbg', 29, '81'),
+(30, '::1', 'bagpbg', '$2y$08$xolKHclzmOUt0YEpEvpWbe0cawTcPkLUOi32YsBy12lK7oPwLBmMW', '', '-@gmail.com', '', '', 0, NULL, 0, 1562762971, 1, 'pegawai', 'bagpbg', 29, '81'),
 (31, '::1', 'setwan', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1556862862, 1, 'pegawai', 'setwan', 30, '81'),
 (32, '::1', 'bakeuda', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557121030, 1, 'pegawai', 'bakeuda', 31, '81'),
 (33, '::1', 'inspektorat', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1556784834, 1, 'pegawai', 'inspektorat', 32, '81'),
@@ -2782,7 +2808,12 @@ INSERT INTO `users` (`id`, `ip_address`, `username`, `password`, `salt`, `email`
 (39, '::1', 'kecbarat', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, NULL, 0, 1557103258, 1, 'pegawai', 'kecbarat', 38, '81'),
 (40, '::1', 'kecselatan', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, '', 0, 1557887688, 1, 'pegawai', 'kecselatan', 39, '81'),
 (41, '::1', 'barenlitbangda', '$2y$08$kIJNDCIPUjCe9o.TDnSC7eJ9NJR8tZOXTXvD47fIReUpRl27KH9su', '', '-@gmail.com', '', '', 0, NULL, 0, 1557120654, 1, 'pegawai', 'barenlitbangda', 40, '81'),
-(42, '110.139.130.136', 'stafadpem1', '$2y$08$i9dgl2gb23n5bDAwpTmEjemz46ITuv6MLQ8vv8G4AzJVhHAcLDzwG', NULL, '-@gmail.com', NULL, NULL, NULL, NULL, 1504755762, 1504755956, 1, NULL, NULL, 41, '091');
+(42, '110.139.130.136', 'stafadpem1', '$2y$08$i9dgl2gb23n5bDAwpTmEjemz46ITuv6MLQ8vv8G4AzJVhHAcLDzwG', NULL, '-@gmail.com', NULL, NULL, NULL, NULL, 1504755762, 1504755956, 1, NULL, NULL, 41, '091'),
+(43, '::1', 'pptk_disdik1', '$2y$08$8Z6OzjCPvwjtd9kH.iujX.iwH97rcaB4qjnQT/oW8ZfHocNOba4gy', NULL, 'user@gmail.com', NULL, NULL, NULL, NULL, 1562246779, 1562731728, 1, '', '', 43, '08xxx'),
+(44, '::1', 'wawalibjm', '$2y$08$OuPGguYBOiVjE/vumpf5wej0wPt3yUcEd2apCQbmerajmJ10X0iqq', NULL, 'user@gmail.com', NULL, NULL, NULL, NULL, 1562254880, NULL, 1, NULL, NULL, 46, '08xxx'),
+(45, '::1', 'walikotabjm', '$2y$08$i/oahCUhcOryrRpV69yXAOlen0RsgSiVnArkTg5aW6oRIL1HWmu0q', NULL, 'user@gmail.com', NULL, NULL, NULL, NULL, 1562255099, 1562473650, 1, '', '', 44, '08xxx'),
+(46, '::1', 'pptk_bagpbg1', '$2y$08$/I4ayQwgKJ6COMEGfebzNeCrOS0dwBvNyrnqdo6MFp6nlsLD5mDje', NULL, 'user@gmail.com', NULL, NULL, NULL, NULL, 1562508201, 1562508231, 1, NULL, NULL, 47, '08xxx'),
+(47, '::1', 'pptk_disdik2', '$2y$08$QsqiExUGsbVZUHXIknuTzu4fecohVb6Mb8/XuTk.rztEIm7HCvbX6', NULL, 'user@gmail.com', NULL, NULL, NULL, NULL, 1562515049, NULL, 1, NULL, NULL, 48, '08xxx');
 
 -- --------------------------------------------------------
 
@@ -2801,9 +2832,9 @@ CREATE TABLE `users_groups` (
 --
 
 INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
-(1, 1, 1),
-(2, 1, 2),
-(3, 1, 3),
+(58, 1, 3),
+(57, 1, 2),
+(56, 1, 1),
 (4, 2, 2),
 (5, 3, 2),
 (6, 4, 2),
@@ -2832,8 +2863,7 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (29, 27, 2),
 (30, 28, 2),
 (31, 29, 2),
-(49, 30, 2),
-(50, 30, 3),
+(72, 30, 4),
 (33, 31, 2),
 (34, 32, 2),
 (35, 33, 2),
@@ -2845,7 +2875,16 @@ INSERT INTO `users_groups` (`id`, `user_id`, `group_id`) VALUES
 (41, 39, 2),
 (42, 40, 2),
 (43, 41, 2),
-(51, 42, 2);
+(51, 42, 2),
+(59, 1, 4),
+(55, 43, 4),
+(60, 1, 5),
+(61, 44, 4),
+(63, 45, 5),
+(64, 46, 4),
+(65, 47, 4),
+(71, 30, 3),
+(70, 30, 2);
 
 --
 -- Indexes for dumped tables
@@ -2954,22 +2993,22 @@ ALTER TABLE `users_groups`
 -- AUTO_INCREMENT for table `file_upload`
 --
 ALTER TABLE `file_upload`
-  MODIFY `id_file` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id_file` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 --
 -- AUTO_INCREMENT for table `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- AUTO_INCREMENT for table `jabatan`
 --
 ALTER TABLE `jabatan`
-  MODIFY `id_jab` mediumint(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id_jab` mediumint(9) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
 --
 -- AUTO_INCREMENT for table `klasifikasi`
 --
 ALTER TABLE `klasifikasi`
-  MODIFY `id_klasifikasi` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id_klasifikasi` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `laporan`
 --
@@ -2979,12 +3018,12 @@ ALTER TABLE `laporan`
 -- AUTO_INCREMENT for table `level_jabatan`
 --
 ALTER TABLE `level_jabatan`
-  MODIFY `id_level` tinyint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id_level` tinyint(5) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- AUTO_INCREMENT for table `login_attempts`
 --
 ALTER TABLE `login_attempts`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=367;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=377;
 --
 -- AUTO_INCREMENT for table `pelaporan`
 --
@@ -2994,7 +3033,7 @@ ALTER TABLE `pelaporan`
 -- AUTO_INCREMENT for table `skpd`
 --
 ALTER TABLE `skpd`
-  MODIFY `id_skpd` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
+  MODIFY `id_skpd` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
 --
 -- AUTO_INCREMENT for table `status`
 --
@@ -3004,12 +3043,12 @@ ALTER TABLE `status`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=43;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=48;
 --
 -- AUTO_INCREMENT for table `users_groups`
 --
 ALTER TABLE `users_groups`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;COMMIT;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=73;COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

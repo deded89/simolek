@@ -21,10 +21,10 @@ class Pekerjaan_model extends CI_Model
     function get_all()
     {
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
-      $this->db->from('simolek_p.pekerjaan p');
-      $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
-      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
-      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
+      $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
         $this->db->where('p.user',$this->session->userdata('user_id'));
       }
@@ -37,16 +37,16 @@ class Pekerjaan_model extends CI_Model
     function get_by_id($id)
     {
       $this->db->select('p.id as id_p, p.nama, p.kegiatan, p.progress_now, pr.id, pr.nama as pr_now, s.id_skpd, s.nama_skpd, j.id as id_j, j.nama as jenis, m.id as id_m, m.nama as metode, p.pagu');
-      $this->db->from('simolek_p.pekerjaan p');
-      $this->db->join('simolek.skpd s', 'p.skpd=s.id_skpd', 'left');
-      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
-      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
-      $this->db->join('simolek_p.progress pr', 'pr.id=p.progress_now', 'left');
+      $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
+      $this->db->join('epiz_21636198_simolek.skpd s', 'p.skpd=s.id_skpd', 'left');
+      $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
+      $this->db->join('epiz_21636198_pengendalian.progress pr', 'pr.id=p.progress_now', 'left');
       $this->db->where('p.id', $id);
       if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
         $this->db->where('p.user',$this->session->userdata('user_id'));
       }
-      return $this->db->get('simolek_p.pekerjaan')->row();
+      return $this->db->get('epiz_21636198_pengendalian.pekerjaan')->row();
     }
 
     // insert data
@@ -78,10 +78,10 @@ class Pekerjaan_model extends CI_Model
     // FILTER JENIS dan METODE UNTUK DASHBOARD
     function filter_jenis_metode($filter1,$filter2){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
-      $this->db->from('simolek_p.pekerjaan p');
-      $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
-      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
-      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
+      $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       $this->db->where('p.'.$filter1,$filter2);
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');
@@ -91,10 +91,10 @@ class Pekerjaan_model extends CI_Model
     // FILTER PAGU UNTUK DASHBOARD
     function filter_pagu($filter1,$filter2){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
-      $this->db->from('simolek_p.pekerjaan p');
-      $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
-      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
-      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
+      $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       $this->db->where('p.pagu <',$filter1);
       $this->db->where('p.pagu >',$filter2);
       $this->db->order_by('p.skpd', 'asc');
@@ -105,10 +105,10 @@ class Pekerjaan_model extends CI_Model
     // FILTER PAGU_PROGRESS UNTUK DASHBOARD xxxxxxxx
     function filter_pagu_progress($filter1,$filter2,$filter3){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
-      $this->db->from('simolek_p.pekerjaan p');
-      $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
-      $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
-      $this->db->join('simolek_p.metode m', 'p.metode=m.id', 'left');
+      $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
+      $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       $this->db->where('p.pagu <',$filter1);
       $this->db->where('p.pagu >',$filter2);
       $this->db->where('p.progress_now',$filter3);

@@ -14,7 +14,7 @@ class Metode_model extends CI_Model
     function __construct()
     {
         parent::__construct();
-		$this->db2 = $this->load->database('db2',TRUE);	
+		$this->db2 = $this->load->database('db2',TRUE);
     }
 
     // get all
@@ -30,22 +30,22 @@ class Metode_model extends CI_Model
         $this->db2->where($this->id, $id);
         return $this->db2->get($this->table)->row();
     }
-    
+
     // get total rows
     function total_rows($q = NULL) {
-        $this->db2->like('id', $q);
-	$this->db2->or_like('nama', $q);
-	$this->db2->from($this->table);
-        return $this->db2->count_all_results();
+      $this->db2->like('id', $q);
+      $this->db2->or_like('nama', $q);
+      $this->db2->from($this->table);
+      return $this->db2->count_all_results();
     }
 
     // get data with limit and search
     function get_limit_data($limit, $start = 0, $q = NULL) {
-        $this->db2->order_by($this->id, $this->order);
-        $this->db2->like('id', $q);
-	$this->db2->or_like('nama', $q);
-	$this->db2->limit($limit, $start);
-        return $this->db2->get($this->table)->result();
+      $this->db2->order_by($this->id, $this->order);
+      $this->db2->like('id', $q);
+      $this->db2->or_like('nama', $q);
+      $this->db2->limit($limit, $start);
+      return $this->db2->get($this->table)->result();
     }
 
     // insert data
