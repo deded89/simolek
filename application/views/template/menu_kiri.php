@@ -134,19 +134,29 @@
 <!-- AKHIR MENU PENGELOLA -->
 
 <!-- MENU DASHBOARD UNTUK USER selain PPTK-->
-<?php  if (!$this->ion_auth->in_group('pptk') OR !$this->ion_auth->in_group('pptk')) { ?>
-<li class="active treeview">
-  <a href="<?php echo base_url();?>dashboard">
-    <i class="fa fa-user"></i>
-    <span>Dashboard</span>
-  </a>
-  <!-- AKHIR MENU DASHBOARD UTAMA SIMOLEK-->
+<?php
+if ($this->ion_auth->logged_in()){
+  if ($this->ion_auth->in_group('user_biasa')) { ?>
+  <li class="active treeview">
+    <a href="<?php echo base_url();?>dashboard">
+      <i class="fa fa-user"></i>
+      <span>Dashboard</span>
+    </a>
+<?php
+  }
+} else { ?>
+  <li class="active treeview">
+    <a href="<?php echo base_url();?>dashboard">
+      <i class="fa fa-user"></i>
+      <span>Dashboard</span>
+    </a>
 <?php } ?>
+<!-- AKHIR MENU DASHBOARD UTAMA SIMOLEK-->
 
   <?php if ($this->ion_auth->logged_in())
   {
     ?>
-    <?php  if (!$this->ion_auth->in_group('guest') AND !$this->ion_auth->in_group('pptk')) { ?>
+    <?php  if ($this->ion_auth->in_group('user_biasa')) { ?>
     <!-- MENU LAPORAN -->
     <li class="treeview">
       <a href="#">

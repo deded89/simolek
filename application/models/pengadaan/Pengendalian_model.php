@@ -11,6 +11,13 @@ class Pengendalian_model extends CI_Model{
      $this->db2 = $this->load->database('db2',TRUE);
   }
 
+  public function total_pekerjaan(){
+    $db2 = $this->db2;
+    $db2->select('id');
+    $db2->from('pekerjaan');
+    return $db2->count_all_results();
+  }
+
   // DAPATKAN DATA PEKERJAAN PER JENIS PENGADAAN
   public function count_pekerjaan_jenis(){
     $db2 = $this->db2;
@@ -35,6 +42,15 @@ class Pengendalian_model extends CI_Model{
     $db2->order_by('p.id','asc');
 
     return $db2->get()->result();
+  }
+
+  // DAPATKAN DATA PEKERJAAN DENGAN PAGU <200 JT
+  public function count_k200(){
+    $db2 = $this->db2;
+
+    $db2->where('pagu <=',200000000);
+    $db2->from('pekerjaan');
+    return $db2->count_all_results();
   }
   // DAPATKAN DATA PEKERJAAN DENGAN PAGU >200 JT <= 2.5 m
   public function count_200(){

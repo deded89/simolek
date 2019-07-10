@@ -61,7 +61,29 @@
 <!-- jQuery 2.2.3 -->
 <script src="<?php echo base_url();?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script type="text/javascript">
-	$(document).ready(function () {
-		$("#mytable").dataTable();
+$(document).ready(function () {
+	var groupColumn = 3;
+	var table = $('#mytable').DataTable({
+		"columnDefs": [
+			{ "visible": false, "targets": groupColumn }
+		],
+		// "order": [[ groupColumn, 'asc' ]],
+		// "displayLength": 25,
+		"drawCallback": function ( settings ) {
+			var api = this.api();
+			var rows = api.rows( {page:'current'} ).nodes();
+			var last=null;
+
+			api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
+				if ( last !== group ) {
+					$(rows).eq( i ).before(
+						'<tr class="group"><td colspan="5"><strong> '+group+' </strong></td></tr>'
+					);
+
+					last = group;
+				}
+			} );
+		}
 	});
+});
 </script>

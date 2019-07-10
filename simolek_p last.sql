@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 09, 2019 at 08:10 PM
+-- Generation Time: Jul 09, 2019 at 08:35 PM
 -- Server version: 10.1.22-MariaDB
 -- PHP Version: 7.1.4
 
@@ -113,10 +113,10 @@ INSERT INTO `metode` (`id`, `nama`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `pekerjaan`
+-- Table structure for table `pekerjaanku`
 --
 
-CREATE TABLE `pekerjaan` (
+CREATE TABLE `pekerjaanku` (
   `id` int(10) UNSIGNED NOT NULL,
   `nama` varchar(200) NOT NULL,
   `kegiatan` varchar(200) NOT NULL,
@@ -129,10 +129,10 @@ CREATE TABLE `pekerjaan` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `pekerjaan`
+-- Dumping data for table `pekerjaanku`
 --
 
-INSERT INTO `pekerjaan` (`id`, `nama`, `kegiatan`, `skpd`, `jenis`, `metode`, `pagu`, `progress_now`, `user`) VALUES
+INSERT INTO `pekerjaanku` (`id`, `nama`, `kegiatan`, `skpd`, `jenis`, `metode`, `pagu`, `progress_now`, `user`) VALUES
 (14, 'Penyusunan Rencana Pengembangan Kawasan Industri Terpadu Mantuil Kota Banjarmasin', 'Koordinasi  Perencanaan  Pembangunan  Sub Bidang   Ekonomi Hulu', 40, 3, 5, '300000000.00', NULL, NULL),
 (15, 'Pembangunan Gedung TK Pembina Negeri Banjarmasin Selatan (Pembangunan Unit Sekolah Baru (USB) TK Negeri)', 'Pembangunan Gedung Sekolah', 1, 2, 2, '1337873000.00', NULL, NULL),
 (16, 'Pembangunan Gedung TK Pembina Negeri Banjarmasin Utara (lanjutan)', 'Pembangunan Gedung Sekolah', 1, 2, 2, '798355000.00', NULL, NULL),
@@ -318,9 +318,9 @@ ALTER TABLE `metode`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `pekerjaan`
+-- Indexes for table `pekerjaanku`
 --
-ALTER TABLE `pekerjaan`
+ALTER TABLE `pekerjaanku`
   ADD PRIMARY KEY (`id`),
   ADD KEY `skpd` (`skpd`),
   ADD KEY `jenis` (`jenis`),
@@ -385,9 +385,9 @@ ALTER TABLE `lokasi`
 ALTER TABLE `metode`
   MODIFY `id` tinyint(3) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
--- AUTO_INCREMENT for table `pekerjaan`
+-- AUTO_INCREMENT for table `pekerjaanku`
 --
-ALTER TABLE `pekerjaan`
+ALTER TABLE `pekerjaanku`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=89;
 --
 -- AUTO_INCREMENT for table `pic`
@@ -417,22 +417,22 @@ ALTER TABLE `serah_terima`
 -- Constraints for table `kondisi_img`
 --
 ALTER TABLE `kondisi_img`
-  ADD CONSTRAINT `img_pekerjaan` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `img_pekerjaan` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaanku` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `lokasi`
 --
 ALTER TABLE `lokasi`
-  ADD CONSTRAINT `lokasi_pekerjaan` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `lokasi_pekerjaan` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaanku` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
--- Constraints for table `pekerjaan`
+-- Constraints for table `pekerjaanku`
 --
-ALTER TABLE `pekerjaan`
-  ADD CONSTRAINT `pekerjaan_ibfk_2` FOREIGN KEY (`metode`) REFERENCES `metode` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pekerjaan_ibfk_4` FOREIGN KEY (`jenis`) REFERENCES `jenis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pekerjaan_ibfk_5` FOREIGN KEY (`progress_now`) REFERENCES `progress` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `pekerjaan_skpd` FOREIGN KEY (`skpd`) REFERENCES `simolek`.`skpd` (`id_skpd`) ON DELETE CASCADE ON UPDATE CASCADE;
+ALTER TABLE `pekerjaanku`
+  ADD CONSTRAINT `pekerjaan_skpd` FOREIGN KEY (`skpd`) REFERENCES `simolek`.`skpd` (`id_skpd`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pekerjaanku_ibfk_2` FOREIGN KEY (`metode`) REFERENCES `metode` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pekerjaanku_ibfk_4` FOREIGN KEY (`jenis`) REFERENCES `jenis` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `pekerjaanku_ibfk_5` FOREIGN KEY (`progress_now`) REFERENCES `progress` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `progress_pekerjaan`
@@ -440,7 +440,7 @@ ALTER TABLE `pekerjaan`
 ALTER TABLE `progress_pekerjaan`
   ADD CONSTRAINT `progress_pekerjaan_ibfk_1` FOREIGN KEY (`progress`) REFERENCES `progress` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `progress_pekerjaan_ibfk_2` FOREIGN KEY (`next_progress`) REFERENCES `progress` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `progress_pekerjaan_ibfk_3` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaan` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `progress_pekerjaan_ibfk_3` FOREIGN KEY (`pekerjaan`) REFERENCES `pekerjaanku` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

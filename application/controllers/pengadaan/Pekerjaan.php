@@ -45,7 +45,6 @@ class Pekerjaan extends CI_Controller
         $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
         redirect(site_url('pengadaan/pekerjaan'));
       } else {
-        $this->Progress_pekerjaan_model->update_progress_now($id);
         $kontrak_data = $this->Kontrak_model->get_by_id_p($id);
         $st_data = $this->Serah_terima_model->get_by_id_p($id);
         $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id);

@@ -107,7 +107,7 @@ class Progress_pekerjaan_model extends CI_Model
     if ($now) {
       $now = $now;
     } else {
-      $now = null;
+      $now = 9;
     }
     $this->db2->set('progress_now',$now);
     $this->db2->where('id', $id_p);

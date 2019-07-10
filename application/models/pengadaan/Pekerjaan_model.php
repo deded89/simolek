@@ -20,7 +20,7 @@ class Pekerjaan_model extends CI_Model
     // get all
     function get_all()
     {
-      $this->db->select('p.id, p.nama, p.kegiatan, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
+      $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
       $this->db->from('simolek_p.pekerjaan p');
       $this->db->join('simolek.skpd s', 's.id_skpd=p.skpd', 'left');
       $this->db->join('simolek_p.jenis j', 'p.jenis=j.id', 'left');
@@ -28,7 +28,8 @@ class Pekerjaan_model extends CI_Model
       if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
         $this->db->where('p.user',$this->session->userdata('user_id'));
       }
-      $this->db->order_by('p.id', 'desc');
+      $this->db->order_by('p.skpd', 'asc');
+      $this->db->order_by('p.pagu', 'desc');
       return $this->db->get()->result();
     }
 

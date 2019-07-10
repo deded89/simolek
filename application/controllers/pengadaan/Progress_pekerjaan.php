@@ -126,11 +126,11 @@ class Progress_pekerjaan extends CI_Controller
         'ket' => $this->input->post('ket',TRUE),
         'real_keu' => $this->input->post('real_keu',TRUE),
         'real_fisik' => $this->input->post('real_fisik',TRUE),
-        // 'create_date' => '2019-07-24 15:30:45',
         'create_date' => date('Y-m-d H:i:s'),
       );
 
       $this->Progress_pekerjaan_model->insert($data);
+      $this->Progress_pekerjaan_model->update_progress_now($this->input->post('id_p',TRUE));
       $id_p = $this->input->post('id_p',TRUE);
 
       $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
@@ -188,7 +188,7 @@ class Progress_pekerjaan extends CI_Controller
   //   }
   // }
 
-  public function delete($id)
+  public function delete($id,$id_p)
   {
     $row = $this->Pekerjaan_model->get_by_id($id_p);
     if (!$row){
@@ -199,11 +199,11 @@ class Progress_pekerjaan extends CI_Controller
 
       if ($row) {
         $this->Progress_pekerjaan_model->delete($id);
-
+        $this->Progress_pekerjaan_model->update_progress_now($id_p);
         $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
         redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
       } else {
-        $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+        $this->session->set_flashdata('error', 'Data Tidak Ditemukan or Akses Prohibited');
         redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
       }
     }

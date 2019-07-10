@@ -7,7 +7,7 @@
         rencana pada <strong><?php echo date('F Y',strtotime($pp->tgl_n_progress)); ?> </strong>
         akan masuk tahapan <strong><?php echo $pp->next_progress ?></strong>
         <span <?php echo $hidden_attr ?>>
-          <?php echo anchor(site_url('pengadaan/progress_pekerjaan/delete/'.$pp->id_pp),
+          <?php echo anchor(site_url('pengadaan/progress_pekerjaan/delete/'.$pp->id_pp.'/'.$pp->pekerjaan),
           '<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-xs"
           onclick="javasciprt: return confirm(\'Are You Sure ?\')"'); ?>
         </span>

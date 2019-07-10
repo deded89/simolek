@@ -19,9 +19,12 @@ class Pengendalian extends CI_Controller{
   {
     $data_jenis = $this->Pengendalian_model->count_pekerjaan_jenis();
     $data_metode = $this->Pengendalian_model->count_pekerjaan_metode();
+
     $data = array(
+      'total_pekerjaan' => $this->Pengendalian_model->total_pekerjaan(),
       'count_jenis' => $data_jenis,
       'count_metode' => $data_metode,
+      'ck200' => $this->Pengendalian_model->count_k200(),
       'c200' => $this->Pengendalian_model->count_200(),
       'c25' => $this->Pengendalian_model->count_25(),
       'c50' => $this->Pengendalian_model->count_50(),
