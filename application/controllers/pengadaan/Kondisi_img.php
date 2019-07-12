@@ -33,7 +33,7 @@ class Kondisi_img extends CI_Controller
          'id_p'=>$id_p,
        );
        $data['hidden_attr'] = '';
-       if (!$this->ion_auth->in_group('pptk')){
+       if (!$this->ion_auth->in_group('pptk') and !$this->ion_auth->in_group('pengelola') ){
          $data['hidden_attr'] = 'hidden';
        }
        $this->load->view('template_view', $data);

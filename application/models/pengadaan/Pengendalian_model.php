@@ -11,6 +11,13 @@ class Pengendalian_model extends CI_Model{
      $this->db2 = $this->load->database('db2',TRUE);
   }
 
+  public function total_pagu_pekerjaan(){
+    $db2 = $this->db2;
+    $db2->select('sum(pagu) as total_pagu');
+    $db2->from('pekerjaan');
+    return $db2->get()->row()->total_pagu;
+  }
+
   public function total_pekerjaan(){
     $db2 = $this->db2;
     $db2->select('id');

@@ -1,4 +1,32 @@
 <div class="row">
+  <div class="col-md-6 ">
+    <div class="box box-info">
+      <div class="box-header with-border bg-aqua">
+        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Belanja Langsung APBD 2019</h3>
+      </div>
+      <div class="box-body">
+        <h4>
+          <?php echo "Rp. " . number_format($pagu_bl,2,',','.'); ?>
+        </h4>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-6">
+    <div class="box box-warning">
+      <div class="box-header with-border bg-yellow">
+        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Pengadaan Strategis</h3>
+      </div>
+      <div class="box-body">
+        <h4>
+          <?php echo "Rp. " . number_format($pagu_pekerjaan,2,',','.'); ?>
+          <?php echo "  ( ".number_format($persen_pagu_pekerjaan,2,',','.')." %) dari Pagu Belanja Langsung" ?>
+        </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
   <div class="col-md-4">
     <div class="box box-widget widget-user-2">
       <!-- Add the bg color to the header using any of the bg-* classes -->

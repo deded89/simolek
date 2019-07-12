@@ -20,7 +20,9 @@ class Pengendalian extends CI_Controller{
   {
     $data_jenis = $this->Pengendalian_model->count_pekerjaan_jenis();
     $data_metode = $this->Pengendalian_model->count_pekerjaan_metode();
-
+    $pagu_bl = 1094077580263;
+    $pagu_pekerjaan = $this->Pengendalian_model->total_pagu_pekerjaan();
+    $persen_pagu_pekerjaan = $pagu_pekerjaan / $pagu_bl *100;
     $data = array(
       'total_pekerjaan' => $this->Pengendalian_model->total_pekerjaan(),
       'count_jenis' => $data_jenis,
@@ -32,6 +34,9 @@ class Pengendalian extends CI_Controller{
       'tahapan_200' => $this->Pengendalian_model->count_200_tahapan(),
       'tahapan_25' => $this->Pengendalian_model->count_25_tahapan(),
       'tahapan_50' => $this->Pengendalian_model->count_50_tahapan(),
+      'pagu_bl' => $pagu_bl,
+      'pagu_pekerjaan' => $pagu_pekerjaan,
+      'persen_pagu_pekerjaan' => $persen_pagu_pekerjaan,
       'controller' => 'Pengendalian',
       'uri1' => 'Dashboard',
       'main_view' => 'pengadaan/pengendalian/dashboard'
