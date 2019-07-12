@@ -128,7 +128,6 @@ class Progress_pekerjaan extends CI_Controller
         'real_fisik' => $this->input->post('real_fisik',TRUE),
         'create_date' => date('Y-m-d H:i:s'),
       );
-
       $this->Progress_pekerjaan_model->insert($data);
       $this->Progress_pekerjaan_model->update_progress_now($this->input->post('id_p',TRUE));
       $id_p = $this->input->post('id_p',TRUE);

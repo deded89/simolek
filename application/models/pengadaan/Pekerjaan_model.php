@@ -36,7 +36,7 @@ class Pekerjaan_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
-      $this->db->select('p.id as id_p, p.nama, p.kegiatan, p.progress_now, pr.id, pr.nama as pr_now, s.id_skpd, s.nama_skpd, j.id as id_j, j.nama as jenis, m.id as id_m, m.nama as metode, p.pagu');
+      $this->db->select('p.id as id_p, p.id_rup, p.id_lpse, p.link_rup, p.link_lpse, p.nama, p.kegiatan, p.progress_now, pr.id, pr.nama as pr_now, s.id_skpd, s.nama_skpd, j.id as id_j, j.nama as jenis, m.id as id_m, m.nama as metode, p.pagu');
       $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
       $this->db->join('epiz_21636198_simolek.skpd s', 'p.skpd=s.id_skpd', 'left');
       $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
@@ -46,7 +46,7 @@ class Pekerjaan_model extends CI_Model
       if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
         $this->db->where('p.user',$this->session->userdata('user_id'));
       }
-      return $this->db->get('epiz_21636198_pengendalian.pekerjaan')->row();
+      return $this->db->get()->row();
     }
 
     // insert data
@@ -66,6 +66,16 @@ class Pekerjaan_model extends CI_Model
     {
         $this->db2->where($this->id, $id);
         $this->db2->update($this->table, $data);
+    }
+
+    function update_id_pengadaan($id, $data)
+    {
+        $this->db2->set('id_rup',$data['id_rup']);
+        $this->db2->set('id_lpse',$data['id_lpse']);
+        $this->db2->set('link_rup','https://sirup.lkpp.go.id/sirup/ro/cari?tahunAnggaran=2019&keyword='.$data['id_rup'].'&jenisPengadaan=0&metodePengadaan=0');
+        $this->db2->set('link_lpse','http://lpse.banjarmasinkota.go.id/eproc4/lelang/'.$data['id_lpse'].'/pengumumanlelang');
+        $this->db2->where($this->id, $id);
+        $this->db2->update($this->table);
     }
 
     // delete data

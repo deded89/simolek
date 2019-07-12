@@ -60,9 +60,13 @@ class Progress_pekerjaan_model extends CI_Model
   function get_persen_real_keu($id_p){
     $this->load->model('Kontrak_model');
     $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id_p)->total_kontrak;
-    $real_keu = $this->get_max_real_keu($id_p)->real_keu;
-    if ($real_keu <> 0){
-      $persen = $real_keu / $total_kontrak *100;
+    if ($total_kontrak > 0){
+      $real_keu = $this->get_max_real_keu($id_p)->real_keu;
+      if ($real_keu <> 0){
+        $persen = $real_keu / $total_kontrak *100;
+      }else{
+        $persen = 0;
+      }
     }else{
       $persen = 0;
     }

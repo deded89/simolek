@@ -27,18 +27,20 @@
 			</tr>
 			<tr>
 				<td width="200px"><b>Progress saat ini</b></td><td><?php echo $progress_now ?></td>
+				<td width="200px"><b>ID SiRUP</b></td><td><a href="<?php echo $link_rup ?>" target="_blank"><?php echo $id_rup ?></a></td>
 			</tr>
 			<tr>
 				<td width="200px"><b>Realisasi Keuangan (Kumulatif)</b></td>
 					<td><?php echo "Rp " . number_format($now_real_keu,2,',','.')."   dari Total Kontrak" ?></td>
-
+					<td width="200px"><b>ID LPSE</b></td><td><a href="<?php echo $link_lpse ?>" target="_blank"><?php echo $id_lpse ?></a></td>
 			</tr>
 	    <tr <?php echo $hidden_attr ?>>
 				<td colspan="4">
+					<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Lokasi</button> </a>
+					<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Progress</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
-	    		<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Progress</button> </a>
-	    		<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Lokasi</button> </a>
+	    		<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add ID Pengadaan</button> </a>
 				</td>
 			</tr>
 
@@ -56,14 +58,14 @@
 				<div class="progress-group">
 					<span class="progress-text">Realisasi Keuangan</span>
 					<span class="progress-number"><b><?php echo number_format($persen_real_keu,2) ?></b> %</span>
-					<div class="progress sm">
+					<div class="progress">
 						<div class="progress-bar progress-bar-striped progress-bar-success" style="width: <?php echo number_format($persen_real_keu,2) ?>%"></div>
 					</div>
 				</div>
 				<div class="progress-group">
 					<span class="progress-text">Realisasi Fisik</span>
 					<span class="progress-number"><b><?php echo $now_real_fisik ?></b> %</span>
-					<div class="progress sm">
+					<div class="progress">
 						<div class="progress-bar progress-bar-striped progress-bar-aqua" style="width: <?php echo $now_real_fisik ?>%"></div>
 					</div>
 				</div>

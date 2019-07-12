@@ -78,7 +78,7 @@ $db['default'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'simolek',
+	'database' => 'epiz_21636198_simolek',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -100,7 +100,7 @@ $db['db2'] = array(
 	'hostname' => 'localhost',
 	'username' => 'root',
 	'password' => '',
-	'database' => 'simolek_p',
+	'database' => 'epiz_21636198_pengendalian',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
@@ -116,4 +116,3 @@ $db['db2'] = array(
 	'failover' => array(),
 	'save_queries' => TRUE
 );
-

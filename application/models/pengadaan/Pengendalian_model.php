@@ -66,7 +66,7 @@ class Pengendalian_model extends CI_Model{
     $db2 = $this->db2;
 
     $db2->where('pagu >',2500000000);
-    $db2->where('pagu <=',5000000000);
+    $db2->where('pagu <=',50000000000);
     $db2->from('pekerjaan');
     return $db2->count_all_results();
   }
@@ -74,7 +74,7 @@ class Pengendalian_model extends CI_Model{
   public function count_50(){
     $db2 = $this->db2;
 
-    $db2->where('pagu >',5000000000);
+    $db2->where('pagu >',50000000000);
     $db2->from('pekerjaan');
     return $db2->count_all_results();
   }
@@ -99,7 +99,7 @@ class Pengendalian_model extends CI_Model{
     $db2->from('pekerjaan p');
     $db2->join('progress pr', 'pr.id=p.progress_now','left');
     $db2->where('p.pagu >',2500000000);
-    $db2->where('p.pagu <=',5000000000);
+    $db2->where('p.pagu <=',50000000000);
     $db2->where('p.progress_now <>',null);
     $db2->group_by('p.progress_now');
     return $db2->get()->result();
@@ -111,7 +111,7 @@ class Pengendalian_model extends CI_Model{
     $db2->select('p.id, p.pagu, p.progress_now, count(p.progress_now) as c_progress, pr.id, pr.nama');
     $db2->from('pekerjaan p');
     $db2->join('progress pr', 'pr.id=p.progress_now','left');
-    $db2->where('p.pagu >',5000000000);
+    $db2->where('p.pagu >',50000000000);
     $db2->where('p.progress_now <>',null);
     $db2->group_by('p.progress_now');
     return $db2->get()->result();

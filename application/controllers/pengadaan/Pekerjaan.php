@@ -67,6 +67,10 @@ class Pekerjaan extends CI_Controller
             'metode' => $row->metode,
             'pagu' => $row->pagu,
             'progress_now' => $row->pr_now,
+            'id_rup' => $row->id_rup,
+            'id_lpse' => $row->id_lpse,
+            'link_rup' => $row->link_rup,
+            'link_lpse' => $row->link_lpse,
 
             'kontrak_data'=>$kontrak_data,
             'st_data'=>$st_data,
@@ -137,8 +141,9 @@ class Pekerjaan extends CI_Controller
     }
 
     public function update($id)
-    { if (!$this->ion_auth->in_group('pengelola')) {
-      return show_error('You must be an pengelola to view this page.');
+    {
+      if (!$this->ion_auth->in_group('pengelola')) {
+        return show_error('You must be an pengelola to view this page.');
       }
       $row = $this->Pekerjaan_model->get_by_id($id);
 
@@ -187,6 +192,51 @@ class Pekerjaan extends CI_Controller
       }
     }
 
+    public function update_id_pengadaan($id)
+    {
+      if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('pptk')) {
+        return show_error('You must be an pengelola or pptk to view this page.');
+      }
+      $row = $this->Pekerjaan_model->get_by_id($id);
+
+      if ($row) {
+        $data = array(
+          'button' => 'Update',
+          'action' => site_url('pengadaan/pekerjaan/update_action_id_pengadaan'),
+          'controller' => 'Pekerjaan',
+          'uri1' => 'Update ID Pengadaan',
+          'main_view' => 'pengadaan/pekerjaan/edit_id_rup_lpse_form',
+
+          'id_p' => set_value('id', $id),
+          'id_rup' => set_value('id_rup', $row->id_rup),
+          'id_lpse' => set_value('id_lpse', $row->id_lpse),
+        );
+        $this->load->view('template_view', $data);
+      } else {
+        $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$id));
+      }
+    }
+
+    public function update_action_id_pengadaan()
+    {
+      $this->_rules_id_pengadaan();
+
+      if ($this->form_validation->run() == FALSE) {
+        $this->update_id_pengadaan($this->input->post('id', TRUE));
+      } else {
+        $data = array(
+          'id_rup' => $this->input->post('id_rup',TRUE),
+          'id_lpse' => $this->input->post('id_lpse',TRUE),
+        );
+
+        $this->Pekerjaan_model->update_id_pengadaan($this->input->post('id', TRUE), $data);
+        $this->session->set_flashdata('message', 'Update Data Berhasil');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id',true)));
+      }
+    }
+
+
     public function delete($id)
     { if (!$this->ion_auth->in_group('pengelola')) {
       return show_error('You must be an pengelola to view this page.');
@@ -211,6 +261,15 @@ class Pekerjaan extends CI_Controller
       $this->form_validation->set_rules('jenis', 'jenis', 'trim|required');
       $this->form_validation->set_rules('metode', 'metode', 'trim|required');
       $this->form_validation->set_rules('pagu', 'pagu', 'trim|required|numeric');
+
+      $this->form_validation->set_rules('id', 'id', 'trim');
+      $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+    public function _rules_id_pengadaan()
+    {
+      $this->form_validation->set_rules('id_rup', 'ID RUP', 'trim|numeric');
+      $this->form_validation->set_rules('id_lpse', 'ID LPSE', 'trim|numeric');
 
       $this->form_validation->set_rules('id', 'id', 'trim');
       $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
