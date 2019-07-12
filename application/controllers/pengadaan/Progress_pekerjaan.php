@@ -10,11 +10,12 @@ class Progress_pekerjaan extends CI_Controller
     parent::__construct();
     $this->load->model('pengadaan/Progress_pekerjaan_model');
     $this->load->model('pengadaan/Pekerjaan_model');
+    $this->load->model('pengadaan/Kontrak_model');
     $this->load->library('form_validation');
     if (!$this->ion_auth->logged_in())
     {
       redirect('auth/login', 'refresh');
-    }else if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('pengelola')) {
+    }else if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('pengelola')) {
       return show_error('You must be an pptk to view this page.');
     }
   }
@@ -128,6 +129,16 @@ class Progress_pekerjaan extends CI_Controller
         'real_fisik' => $this->input->post('real_fisik',TRUE),
         'create_date' => date('Y-m-d H:i:s'),
       );
+      //CEK JIKA MAU ADD REALISASI KEUANGAN NILAINYA TIDAK BOLEH > TOTAL KONTRAK
+      $new_real_keu = $this->input->post('real_keu',TRUE) + 0;
+      // $int_real_keu = int()$new_real_keu;
+      $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($this->input->post('id_p',TRUE));
+      if($new_real_keu > $total_kontrak){
+        $this->session->set_flashdata('error', 'Realisasi Pengadaan Tidak Boleh Melebihi Total Kontrak');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
+      }
+
+
       $this->Progress_pekerjaan_model->insert($data);
       $this->Progress_pekerjaan_model->update_progress_now($this->input->post('id_p',TRUE));
       $id_p = $this->input->post('id_p',TRUE);

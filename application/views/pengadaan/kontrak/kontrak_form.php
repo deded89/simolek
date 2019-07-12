@@ -122,7 +122,7 @@
 				var date2 = $('#akhir').datepicker('getDate');
 				var diff = 0;
 				if (date1 && date2) {
-					diff = Math.floor((date2.getTime() - date1.getTime()) / 86400000);
+					diff = Math.floor((date2.getTime() - date1.getTime()) / 86400000 + 1);
 				}
 				if (diff >= 0 ){
 					$('#lama').val(diff+" Hari Kalender");

@@ -174,7 +174,7 @@ class Jabatan extends CI_Controller
     $this->form_validation->set_rules('id_level', 'id level', 'trim|required');
     $this->form_validation->set_rules('nama_jab', 'nama jab', 'trim|required');
     $this->form_validation->set_rules('id_skpd', 'id skpd', 'trim|required');
-    $this->form_validation->set_rules('nip', 'nama pegawai', 'trim|required');
+    $this->form_validation->set_rules('nip', 'nama pegawai', 'trim');
 
     $this->form_validation->set_rules('id_jab', 'id_jab', 'trim');
     $this->form_validation->set_error_delimiters('<div class="callout callout-danger">', '</div>');

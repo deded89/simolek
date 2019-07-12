@@ -43,9 +43,9 @@ class Pekerjaan_model extends CI_Model
       $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       $this->db->join('epiz_21636198_pengendalian.progress pr', 'pr.id=p.progress_now', 'left');
       $this->db->where('p.id', $id);
-      if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
-        $this->db->where('p.user',$this->session->userdata('user_id'));
-      }
+      if (!$this->ion_auth->in_group('pengelola') and !$this->ion_auth->in_group('guest')){
+          $this->db->where('p.user',$this->session->userdata('user_id'));
+      };
       return $this->db->get()->row();
     }
 

@@ -3,7 +3,7 @@
     <div class="box box-primary">
       <div class="box-body">
         <form action="<?php echo $form_action ?>" method="post">
-          <p><?php echo cmb_dinamiss2('pekerjaan','simolek_p.pekerjaan','nama','id',false) ?></p>
+          <p><?php echo cmb_dinamiss2('pekerjaan','epiz_21636198_pengendalian.pekerjaan','nama','id',false) ?></p>
           <p><?php echo cmb_dinamiss2('users','users','username','id',false) ?></p>
           <button class="btn btn-primary" type="submit" name="button">Set User</button>
         </form>
