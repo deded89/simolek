@@ -11,7 +11,7 @@ class Pengendalian extends CI_Controller{
     if (!$this->ion_auth->logged_in())
     {
       redirect('auth/login', 'refresh');
-    } else if (!$this->ion_auth->in_group('guest') AND !$this->ion_auth->in_group('pengelola')  ) {
+    } else if ($this->ion_auth->in_group('user_biasa')) {
       return show_error('You must be an pengelola to view this page.');
     }
   }

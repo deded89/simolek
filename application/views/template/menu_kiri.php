@@ -178,7 +178,7 @@ if ($this->ion_auth->logged_in()){
     <!-- AKHIR MENU LAPORAN -->
   <?php } ?>
 
-  <?php  if ($this->ion_auth->in_group('pengelola') OR $this->ion_auth->in_group('guest') OR $this->ion_auth->in_group('pptk') OR $this->ion_auth->in_group('admin')) { ?>
+  <?php  if (!$this->ion_auth->in_group('user_biasa')) { ?>
     <!-- MENU PENGENDALIAN -->
     <li class="treeview">
       <a href="#">
@@ -189,7 +189,7 @@ if ($this->ion_auth->logged_in()){
         </span>
       </a>
       <ul class="treeview-menu">
-        <?php if ($this->ion_auth->in_group('guest') OR $this->ion_auth->in_group('pengelola')) { ?>
+        <?php if ($this->ion_auth->in_group('guest') OR $this->ion_auth->in_group('pengelola') OR $this->ion_auth->in_group('pimskpd')) { ?>
               <li><a href="<?php echo base_url();?>pengadaan/pengendalian"><i class="fa fa-circle-o"></i> Dashbord</a></li>
         <?php }  ?>
         <li><a href="<?php echo base_url();?>pengadaan/pekerjaan"><i class="fa fa-circle-o"></i> List Pekerjaan</a></li>

@@ -25,7 +25,10 @@ class Pekerjaan_model extends CI_Model
       $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
       $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
       $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
-      if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') ){
+      if ($this->ion_auth->in_group('pimskpd')){
+        $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
+      if (!$this->ion_auth->in_group('pengelola') AND !$this->ion_auth->in_group('guest') AND !$this->ion_auth->in_group('pimskpd') ){
         $this->db->where('p.user',$this->session->userdata('user_id'));
       }
       $this->db->order_by('p.skpd', 'asc');
@@ -42,8 +45,11 @@ class Pekerjaan_model extends CI_Model
       $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
       $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       $this->db->join('epiz_21636198_pengendalian.progress pr', 'pr.id=p.progress_now', 'left');
+      if ($this->ion_auth->in_group('pimskpd')){
+        $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
       $this->db->where('p.id', $id);
-      if (!$this->ion_auth->in_group('pengelola') and !$this->ion_auth->in_group('guest')){
+      if (!$this->ion_auth->in_group('pengelola') and !$this->ion_auth->in_group('guest') and !$this->ion_auth->in_group('pimskpd')){
           $this->db->where('p.user',$this->session->userdata('user_id'));
       };
       return $this->db->get()->row();
@@ -94,6 +100,9 @@ class Pekerjaan_model extends CI_Model
       $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
       $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       $this->db->where('p.'.$filter1,$filter2);
+      if ($this->ion_auth->in_group('pimskpd')){
+        $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');
       return $this->db->get()->result();
@@ -108,6 +117,9 @@ class Pekerjaan_model extends CI_Model
       $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
       $this->db->where('p.pagu <',$filter1);
       $this->db->where('p.pagu >',$filter2);
+      if ($this->ion_auth->in_group('pimskpd')){
+        $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');
       return $this->db->get()->result();
@@ -123,6 +135,9 @@ class Pekerjaan_model extends CI_Model
       $this->db->where('p.pagu <',$filter1);
       $this->db->where('p.pagu >',$filter2);
       $this->db->where('p.progress_now',$filter3);
+      if ($this->ion_auth->in_group('pimskpd')){
+        $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');
       return $this->db->get()->result();

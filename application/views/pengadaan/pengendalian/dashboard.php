@@ -2,7 +2,7 @@
   <div class="col-md-6 ">
     <div class="box box-info">
       <div class="box-header with-border bg-aqua">
-        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Belanja Langsung APBD 2019</h3>
+        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Belanja Langsung APBD 2019 Pemkot Banjarmasin</h3>
       </div>
       <div class="box-body">
         <h4>
@@ -14,7 +14,7 @@
   <div class="col-md-6">
     <div class="box box-warning">
       <div class="box-header with-border bg-yellow">
-        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Pengadaan Strategis</h3>
+        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Pengadaan Strategis Pemkot Banjarmasin</h3>
       </div>
       <div class="box-body">
         <h4>

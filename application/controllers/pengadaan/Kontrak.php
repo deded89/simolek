@@ -15,7 +15,7 @@ if (!defined('BASEPATH'))
         {
           redirect('auth/login', 'refresh');
         }else if (!$this->ion_auth->in_group('pengelola') and !$this->ion_auth->in_group('pptk')){
-          return show_error('You must be an pptk to view this page.');
+          return show_error('You must be an pptk or pengelola to view this page.');
         }
       }
 

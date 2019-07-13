@@ -36,7 +36,7 @@
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
               <img src="<?php echo base_url();?>assets/dist/img/logo-pemko.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">
-                <?php echo strtoupper($this->session->userdata('namauser'));?>
+                <?php echo strtoupper($this->session->userdata('jabatan'));?>
               </span>
             </a>
             <ul class="dropdown-menu">
