@@ -9,6 +9,14 @@
       <form class="form-horizontal" action="<?php echo $action; ?>" method="post">
         <div class="box-body">
           <div class="form-group">
+            <label for="deskripsi" class="col-sm-2 control-label">Deskripsi</label>
+
+            <div class="col-sm-10">
+              <textarea rows="5" class="form-control" name='deskripsi' id="deskripsi" placeholder="Deskripsi Singkat Pekerjaan"><?php echo $deskripsi ?></textarea>
+              <?php echo form_error('deskripsi') ?>
+            </div>
+          </div>
+          <div class="form-group">
             <label for="id_rup" class="col-sm-2 control-label">ID SiRUP</label>
 
             <div class="col-sm-10">

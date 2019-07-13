@@ -16,6 +16,11 @@
 					<a href="<?php echo site_url('pengadaan/kondisi_img/index/'.$id_p) ?>" >Tampilkan Gambar Kondisi</a>
 				</td>
 			</tr>
+	    <tr><td width="200px"><b>Deskripsi Singkat Pekerjaan</b></td>
+					<td colspan="3">
+						<textarea style="background-color:white;border:0;padding:0;" name="deskripsi" class="form-control" rows="3" readonly><?php echo $deskripsi; ?></textarea>
+					</td>
+			</tr>
 	    <tr><td width="200px"><b>SKPD</b></td><td><?php echo $skpd; ?></td></tr>
 	    <tr>
 				<td width="200px"><b>Jenis Pengadaan</b></td><td><?php echo $jenis; ?></td>
@@ -35,12 +40,15 @@
 					<td width="200px"><b>ID LPSE</b></td><td><a href="<?php echo $link_lpse ?>" target="_blank"><?php echo $id_lpse ?></a></td>
 			</tr>
 	    <tr <?php echo $hidden_attr ?>>
+				<td>
+					<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-warning btn-xs" name="add_st">Add Progress</button> </a>
+				</td>
 				<td colspan="4">
+					<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add Deskripsi Singkat</button> </a>
+					<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add ID Pengadaan</button> </a>
 					<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Lokasi</button> </a>
-					<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Progress</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
 	    		<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
-	    		<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add ID Pengadaan</button> </a>
 				</td>
 			</tr>
 

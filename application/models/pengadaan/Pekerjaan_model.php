@@ -36,7 +36,7 @@ class Pekerjaan_model extends CI_Model
     // get data by id
     function get_by_id($id)
     {
-      $this->db->select('p.id as id_p, p.id_rup, p.id_lpse, p.link_rup, p.link_lpse, p.nama, p.kegiatan, p.progress_now, pr.id, pr.nama as pr_now, s.id_skpd, s.nama_skpd, j.id as id_j, j.nama as jenis, m.id as id_m, m.nama as metode, p.pagu');
+      $this->db->select('p.id as id_p, p.deskripsi, p.id_rup, p.id_lpse, p.link_rup, p.link_lpse, p.nama, p.kegiatan, p.progress_now, pr.id, pr.nama as pr_now, s.id_skpd, s.nama_skpd, j.id as id_j, j.nama as jenis, m.id as id_m, m.nama as metode, p.pagu');
       $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
       $this->db->join('epiz_21636198_simolek.skpd s', 'p.skpd=s.id_skpd', 'left');
       $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
@@ -70,6 +70,7 @@ class Pekerjaan_model extends CI_Model
 
     function update_id_pengadaan($id, $data)
     {
+        $this->db2->set('deskripsi',$data['deskripsi']);
         $this->db2->set('id_rup',$data['id_rup']);
         $this->db2->set('id_lpse',$data['id_lpse']);
         $this->db2->set('link_rup','https://sirup.lkpp.go.id/sirup/ro/cari?tahunAnggaran=2019&keyword='.$data['id_rup'].'&jenisPengadaan=0&metodePengadaan=0');

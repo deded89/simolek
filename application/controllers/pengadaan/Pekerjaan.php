@@ -62,6 +62,7 @@ class Pekerjaan extends CI_Controller
             'id_p' => $row->id_p,
             'nama' => $row->nama,
             'kegiatan' => $row->kegiatan,
+            'deskripsi' => $row->deskripsi,
             'skpd' => $row->nama_skpd,
             'jenis' => $row->jenis,
             'metode' => $row->metode,
@@ -208,6 +209,7 @@ class Pekerjaan extends CI_Controller
           'main_view' => 'pengadaan/pekerjaan/edit_id_rup_lpse_form',
 
           'id_p' => set_value('id', $id),
+          'deskripsi' => set_value('deskripsi', $row->deskripsi),
           'id_rup' => set_value('id_rup', $row->id_rup),
           'id_lpse' => set_value('id_lpse', $row->id_lpse),
         );
@@ -226,6 +228,7 @@ class Pekerjaan extends CI_Controller
         $this->update_id_pengadaan($this->input->post('id', TRUE));
       } else {
         $data = array(
+          'deskripsi' => $this->input->post('deskripsi',TRUE),
           'id_rup' => $this->input->post('id_rup',TRUE),
           'id_lpse' => $this->input->post('id_lpse',TRUE),
         );
