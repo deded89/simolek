@@ -114,6 +114,9 @@ if (!defined('BASEPATH'))
             'ket' => $this->input->post('ket',TRUE),
           );
 
+          // CEK NILAI KONTRAK TIDAK BOLEH > PAGU
+          $this->cek_kontrak_melebihi_pagu($this->input->post('id_p',TRUE));
+
           $this->Kontrak_model->insert($data);
           $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
           redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
@@ -176,6 +179,8 @@ if (!defined('BASEPATH'))
             'ket' => $this->input->post('ket',TRUE),
             'pekerjaan' => $this->input->post('id_p',TRUE),
           );
+          // CEK NILAI KONTRAK TIDAK BOLEH > PAGU
+          $this->cek_kontrak_melebihi_pagu($this->input->post('id_p',TRUE));
 
           $this->Kontrak_model->update($this->input->post('id_k', TRUE), $data);
           $this->session->set_flashdata('message', 'Update Data Berhasil');
@@ -203,6 +208,16 @@ if (!defined('BASEPATH'))
             $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
             redirect(site_url('pengadaan/pekerjaan/read/'.$row->pekerjaan));
           }
+        }
+      }
+
+      public function cek_kontrak_melebihi_pagu($id_p){
+        $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id_p)->total_kontrak;
+        $pagu = $this->Pekerjaan_model->get_by_id($id_p)->pagu;
+        $melebihi_pagu = $this->Kontrak_model->kontrak_melebihi_pagu($total_kontrak,$pagu);
+        if ($melebihi_pagu = true){
+          $this->session->set_flashdata('error', 'Total Kontrak Tidak Boleh Lebih dari Pagu');
+          redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
         }
       }
 
