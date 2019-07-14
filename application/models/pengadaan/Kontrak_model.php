@@ -69,9 +69,9 @@ class Kontrak_model extends CI_Model
     //cek nilai kontrak tidak boleh lebih dari pagu pekerjaan
     public function kontrak_melebihi_pagu($total_kontrak,$pagu){
       if ($total_kontrak > $pagu){
-        return false;
-      }else{
         return true;
+      }else{
+        return false;
       }
     }
 

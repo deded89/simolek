@@ -64,6 +64,8 @@ class Progress_pekerjaan extends CI_Controller
 
   public function create($id_p)
   {
+    $this->cek_kelengkapan_data_awal($id_p);
+
     $row = $this->Pekerjaan_model->get_by_id($id_p);
     if (!$row){
       $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
@@ -129,6 +131,9 @@ class Progress_pekerjaan extends CI_Controller
         'real_fisik' => $this->input->post('real_fisik',TRUE),
         'create_date' => date('Y-m-d H:i:s'),
       );
+      //CEK KELENGKAPAN DATA
+      $this->cek_kelengkapan_data($this->input->post('id_p',TRUE),$this->input->post('progress',TRUE));
+
       //CEK JIKA MAU ADD REALISASI KEUANGAN NILAINYA TIDAK BOLEH > TOTAL KONTRAK
       $new_real_keu = $this->input->post('real_keu',TRUE) + 0;
       // $int_real_keu = int()$new_real_keu;
@@ -148,6 +153,68 @@ class Progress_pekerjaan extends CI_Controller
     }
   }
 
+  public function cek_kelengkapan_data_awal($id_p){
+    $pekerjaan_data = $this->Pekerjaan_model->get_by_id($id_p);
+    if ($pekerjaan_data->deskripsi == ''){
+      $this->session->set_flashdata('error', $pekerjaan_data->deskripsi.'Mohon lengkapi deskripsi singkat pekerjaan terlebih dahulu');
+      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+    }
+    if ($pekerjaan_data->id_rup == '-' OR $pekerjaan_data->id_rup == ''){
+      $this->session->set_flashdata('error', 'Mohon lengkapi ID SiRUP terlebih dahulu');
+      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+    }
+    $this->load->model('pengadaan/Lokasi_model');
+    $lokasi_pekerjaan = $this->Lokasi_model->get_by_id_p($id_p);
+    if (!$lokasi_pekerjaan){
+      $this->session->set_flashdata('error', 'Mohon lengkapi Lokasi Pekerjaan terlebih dahulu');
+      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+    }
+  }
+
+  public function cek_kelengkapan_data($id_p, $progress_input){
+    $pekerjaan_data = $this->Pekerjaan_model->get_by_id($id_p);
+    if ($progress_input > 1 AND $progress_input < 8){
+      if ($pekerjaan_data->metode <> 4){
+        if ($pekerjaan_data->id_lpse == '-' OR $pekerjaan_data->id_lpse == ''){
+          $this->session->set_flashdata('error', 'Mohon lengkapi ID LPSE/ ID Lelang terlebih dahulu');
+          redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+        }
+      }
+    }
+    if ($progress_input > 3  AND $progress_input < 8){
+      $kontrak_data = $this->Kontrak_model->get_by_id_p($id_p);
+      if (!$kontrak_data){
+        $this->session->set_flashdata('error', 'Mohon lengkapi Data Kontrak terlebih dahulu');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+      }
+    }
+    if ($progress_input > 4  AND $progress_input < 8){
+      //CEK DATA SERAH TERIMA
+      $this->load->model('pengadaan/Serah_terima_model');
+      $serah_terima_data = $this->Serah_terima_model->get_by_id_p($id_p);
+      if (!$serah_terima_data){
+        $this->session->set_flashdata('error', 'Mohon lengkapi data Serah Terima terlebih dahulu');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+      }
+
+      //CEK DATA FOTO KONDISI
+      $this->load->model('pengadaan/Kondisi_img_model');
+      $img_100 = $this->Kondisi_img_model->get_img_by_kondisi($id_p,100);
+      if (!$img_100){
+        $this->session->set_flashdata('error', 'Mohon lengkapi Foto Kondisi 100 % terlebih dahulu');
+        redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+      } else {
+        if ($pekerjaan_data->jenis == 2){
+          $img_0 = $this->Kondisi_img_model->get_img_by_kondisi($id_p,0);
+          if(!$img_0){
+            $this->session->set_flashdata('error', 'Mohon lengkapi Foto Kondisi 0 % terlebih dahulu');
+            redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+          }
+        }
+      }
+
+    }
+  }
 
   // public function update($id)
   // {

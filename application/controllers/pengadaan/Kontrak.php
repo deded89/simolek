@@ -213,10 +213,13 @@ if (!defined('BASEPATH'))
 
       public function cek_kontrak_melebihi_pagu($id_p){
         $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id_p)->total_kontrak;
+        if (!$total_kontrak){
+          $total_kontrak = 0;
+        }
         $pagu = $this->Pekerjaan_model->get_by_id($id_p)->pagu;
         $melebihi_pagu = $this->Kontrak_model->kontrak_melebihi_pagu($total_kontrak,$pagu);
-        if ($melebihi_pagu = true){
-          $this->session->set_flashdata('error', 'Total Kontrak Tidak Boleh Lebih dari Pagu');
+        if ($melebihi_pagu == true){
+          $this->session->set_flashdata('error', $total_kontrak.'vvv'.$melebihi_pagu.'Total Kontrak Tidak Boleh Lebih dari Pagu');
           redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
         }
       }

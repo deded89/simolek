@@ -21,7 +21,7 @@
 						<textarea style="background-color:white;border:0;padding:0;" name="deskripsi" class="form-control" rows="3" readonly><?php echo $deskripsi; ?></textarea>
 					</td>
 			</tr>
-	    <tr><td width="200px"><b>SKPD</b></td><td><?php echo $skpd; ?></td></tr>
+	    <tr><td width="200px"><b>SKPD</b></td><td colspan="3"><?php echo $skpd; ?></td></tr>
 	    <tr>
 				<td width="200px"><b>Jenis Pengadaan</b></td><td><?php echo $jenis; ?></td>
 	    	<td width="200px"><b>Metode Pemilihan</b></td><td><?php echo $metode; ?></td>

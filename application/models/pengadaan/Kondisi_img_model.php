@@ -33,6 +33,13 @@ class Kondisi_img_model extends CI_Model{
         return $this->db2->get($this->_table)->result();
     }
 
+    public function get_img_by_kondisi($id_p,$kondisi){
+      $this->db2->where('pekerjaan',$id_p);
+      $this->db2->where('kondisi',$kondisi);
+      $this->db2->order_by('kondisi','asc');
+      return $this->db2->get($this->_table)->row();
+    }
+
     public function getById($id)
     {
         return $this->db2->get_where($this->_table, ["id" => $id])->row();
