@@ -14,13 +14,51 @@
   <div class="col-md-6">
     <div class="box box-warning">
       <div class="box-header with-border bg-yellow">
-        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Pengadaan Strategis Pemkot Banjarmasin</h3>
+        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Pekerjaan Strategis ( Paket Pekerjaan >200 Jt Rupiah)</h3>
       </div>
       <div class="box-body">
         <h4>
           <?php echo "Rp. " . number_format($pagu_pekerjaan,2,',','.'); ?>
           <?php echo "  ( ".number_format($persen_pagu_pekerjaan,2,',','.')." %) dari Pagu Belanja Langsung" ?>
         </h4>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-info box-solid collapsed-box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Pagu Pekerjaan Strategis per SKPD</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tbody>
+          <tr>
+            <th></th>
+            <th>Nama SKPD</th>
+            <th>Jumlah Paket</th>
+            <th>Nilai</th>
+          </tr>
+          <?php foreach ($count_skpd as $pekerjaan_skpd) { ?>
+            <tr>
+              <td>
+                <a href="<?php echo site_url('pengadaan/pengendalian/filter_skpd/'.$pekerjaan_skpd->skpd) ?>"class="btn btn-info btn-xs">
+                  <i class="fa fa-eye"></i>
+                </a>
+              </td>
+              <td><?php echo $pekerjaan_skpd->nama_skpd ?></td>
+              <td><span class="label label-default"><?php echo $pekerjaan_skpd->c_skpd ?></span></td>
+              <td><?php echo "Rp. " . number_format($pekerjaan_skpd->sum_pagu,2,',','.'); ?></td>
+            </tr>
+            <?php } ?>
+          </tbody>
+        </table>
       </div>
     </div>
   </div>

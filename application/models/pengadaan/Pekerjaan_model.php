@@ -92,6 +92,19 @@ class Pekerjaan_model extends CI_Model
       $this->db2->delete($this->table);
     }
 
+    // FILTER SKPD UNTUK DASHBOARD
+    function filter_skpd($filter){
+      $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
+      $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
+      $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
+      $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
+      $this->db->where('p.skpd',$filter);
+      $this->db->order_by('p.skpd', 'asc');
+      $this->db->order_by('p.pagu', 'desc');
+      return $this->db->get()->result();
+    }
+
     // FILTER JENIS dan METODE UNTUK DASHBOARD
     function filter_jenis_metode($filter1,$filter2){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');

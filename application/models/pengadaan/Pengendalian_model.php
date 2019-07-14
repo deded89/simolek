@@ -28,6 +28,22 @@ class Pengendalian_model extends CI_Model{
     return $db2->count_all_results();
   }
 
+  // DAPATKAN DATA PEKERJAAN PER SKPD
+  public function count_pekerjaan_skpd(){
+    $db2 = $this->db2;
+
+    $db2->select('s.id_skpd, s.nama_skpd, count(p.skpd) as c_skpd, sum(p.pagu) as sum_pagu, p.id, p.skpd');
+    $db2->from('epiz_21636198_pengendalian.pekerjaan p');
+    $db2->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd','left');
+    if ($this->ion_auth->in_group('pimskpd')){
+      $db2->where('p.skpd',$this->session->userdata('id_skpd'));
+    }
+    $db2->group_by('p.skpd');
+    $db2->order_by('s.id_skpd','asc');
+
+    return $db2->get()->result();
+  }
+
   // DAPATKAN DATA PEKERJAAN PER JENIS PENGADAAN
   public function count_pekerjaan_jenis(){
     $db2 = $this->db2;

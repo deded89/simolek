@@ -136,27 +136,27 @@
 <!-- MENU DASHBOARD UNTUK USER selain PPTK-->
 <?php
 if ($this->ion_auth->logged_in()){
-  if ($this->ion_auth->in_group('user_biasa')) { ?>
-  <li class="active treeview">
-    <a href="<?php echo base_url();?>dashboard">
-      <i class="fa fa-user"></i>
-      <span>Dashboard</span>
-    </a>
-<?php
-  }
-} else { ?>
-  <li class="active treeview">
-    <a href="<?php echo base_url();?>dashboard">
-      <i class="fa fa-user"></i>
-      <span>Dashboard</span>
-    </a>
-<?php } ?>
+  if ($this->ion_auth->in_group('user_biasa') or $this->ion_auth->in_group('pengelola')) { ?>
+    <li class="active treeview">
+      <a href="<?php echo base_url();?>dashboard">
+        <i class="fa fa-user"></i>
+        <span>Dashboard</span>
+      </a>
+      <?php
+    }
+  } else { ?>
+    <li class="active treeview">
+      <a href="<?php echo base_url();?>dashboard">
+        <i class="fa fa-user"></i>
+        <span>Dashboard</span>
+      </a>
+    <?php } ?>
 <!-- AKHIR MENU DASHBOARD UTAMA SIMOLEK-->
 
-  <?php if ($this->ion_auth->logged_in())
-  {
-    ?>
-    <?php  if ($this->ion_auth->in_group('user_biasa')) { ?>
+<?php if ($this->ion_auth->logged_in())
+{
+  ?>
+  <?php  if ($this->ion_auth->in_group('user_biasa') or $this->ion_auth->in_group('pengelola') ) { ?>
     <!-- MENU LAPORAN -->
     <li class="treeview">
       <a href="#">

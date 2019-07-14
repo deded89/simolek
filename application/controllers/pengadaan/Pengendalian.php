@@ -20,6 +20,7 @@ class Pengendalian extends CI_Controller{
   {
     $data_jenis = $this->Pengendalian_model->count_pekerjaan_jenis();
     $data_metode = $this->Pengendalian_model->count_pekerjaan_metode();
+    $data_pekerjaan_skpd =  $this->Pengendalian_model->count_pekerjaan_skpd();
     $pagu_bl = 1094077580263;
     $pagu_pekerjaan = $this->Pengendalian_model->total_pagu_pekerjaan();
     $persen_pagu_pekerjaan = $pagu_pekerjaan / $pagu_bl *100;
@@ -27,6 +28,7 @@ class Pengendalian extends CI_Controller{
       'total_pekerjaan' => $this->Pengendalian_model->total_pekerjaan(),
       'count_jenis' => $data_jenis,
       'count_metode' => $data_metode,
+      'count_skpd' => $data_pekerjaan_skpd,
       'ck200' => $this->Pengendalian_model->count_k200(),
       'c200' => $this->Pengendalian_model->count_200(),
       'c25' => $this->Pengendalian_model->count_25(),
@@ -41,6 +43,21 @@ class Pengendalian extends CI_Controller{
       'uri1' => 'Dashboard',
       'main_view' => 'pengadaan/pengendalian/dashboard'
     );
+    $this->load->view('template_view', $data);
+  }
+
+  function filter_skpd($filter){
+    $pekerjaan = $this->Pekerjaan_model->filter_skpd($filter);
+    $data = array(
+      'pekerjaan_data' => $pekerjaan,
+      'controller' => 'Pekerjaan',
+      'uri1' => 'List Pekerjaan',
+      'main_view' => 'pengadaan/pekerjaan/pekerjaan_list',
+    );
+    $data['hidden_attr'] = '';
+    if (!$this->ion_auth->in_group('pengelola')){
+      $data['hidden_attr'] = 'hidden';
+    }
     $this->load->view('template_view', $data);
   }
 
