@@ -50,7 +50,7 @@
 							<td><?php echo $lokasi->deskripsi ?></td>
 							<td <?php echo $hidden_attr ?> style="text-align:center" width="120px">
 							<?php
-								echo anchor(site_url('pengadaan/lokasi/delete/'.$lokasi->id),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
+								echo anchor(site_url('pengadaan/lokasi/delete/'.$lokasi->id.'/'.$pekerjaan_data->id_p),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Are You Sure ?\')"');
 							?>
 							</td>
 							</tr>

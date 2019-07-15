@@ -449,7 +449,7 @@ class Auth extends CI_Controller {
         {
 			//VALIDASI JIKA IDENTITY TIDAK PAKAI EMAIL ALIAS PAKAI USERNAME
             $this->form_validation->set_rules('identity',$this->lang->line('create_user_validation_identity_label'),'required|is_unique['.$tables['users'].'.'.$identity_column.']');
-            $this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
+            //$this->form_validation->set_rules('email', $this->lang->line('create_user_validation_email_label'), 'required|valid_email');
         }
         else
         {

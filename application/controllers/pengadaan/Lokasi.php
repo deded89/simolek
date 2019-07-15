@@ -169,7 +169,7 @@ if (!defined('BASEPATH'))
       //   }
       // }
 
-      public function delete($id_l)
+      public function delete($id_l,$id_p)
       {
         $row = $this->Pekerjaan_model->get_by_id($id_p);
         if (!$row){

@@ -11,6 +11,8 @@ class Progress_pekerjaan extends CI_Controller
     $this->load->model('pengadaan/Progress_pekerjaan_model');
     $this->load->model('pengadaan/Pekerjaan_model');
     $this->load->model('pengadaan/Kontrak_model');
+    $this->load->model('pengadaan/Serah_terima_model');
+    $this->load->model('pengadaan/Kondisi_img_model');
     $this->load->library('form_validation');
     if (!$this->ion_auth->logged_in())
     {
@@ -65,7 +67,7 @@ class Progress_pekerjaan extends CI_Controller
   public function create($id_p)
   {
     $this->cek_kelengkapan_data_awal($id_p);
-
+    $this->show_info_kelengkapan($id_p);
     $row = $this->Pekerjaan_model->get_by_id($id_p);
     if (!$row){
       $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
@@ -156,7 +158,7 @@ class Progress_pekerjaan extends CI_Controller
   public function cek_kelengkapan_data_awal($id_p){
     $pekerjaan_data = $this->Pekerjaan_model->get_by_id($id_p);
     if ($pekerjaan_data->deskripsi == ''){
-      $this->session->set_flashdata('error', $pekerjaan_data->deskripsi.'Mohon lengkapi deskripsi singkat pekerjaan terlebih dahulu');
+      $this->session->set_flashdata('error', 'Mohon lengkapi deskripsi singkat pekerjaan terlebih dahulu');
       redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
     }
     if ($pekerjaan_data->id_rup == '-' OR $pekerjaan_data->id_rup == ''){
@@ -190,7 +192,6 @@ class Progress_pekerjaan extends CI_Controller
     }
     if ($progress_input > 4  AND $progress_input < 8){
       //CEK DATA SERAH TERIMA
-      $this->load->model('pengadaan/Serah_terima_model');
       $serah_terima_data = $this->Serah_terima_model->get_by_id_p($id_p);
       if (!$serah_terima_data){
         $this->session->set_flashdata('error', 'Mohon lengkapi data Serah Terima terlebih dahulu');
@@ -198,7 +199,6 @@ class Progress_pekerjaan extends CI_Controller
       }
 
       //CEK DATA FOTO KONDISI
-      $this->load->model('pengadaan/Kondisi_img_model');
       $img_100 = $this->Kondisi_img_model->get_img_by_kondisi($id_p,100);
       if (!$img_100){
         $this->session->set_flashdata('error', 'Mohon lengkapi Foto Kondisi 100 % terlebih dahulu');
@@ -285,6 +285,46 @@ class Progress_pekerjaan extends CI_Controller
       }
     }
   }
+
+  public function show_info_kelengkapan($id_p){
+    if ($this->ion_auth->in_group('pptk') OR $this->ion_auth->in_group('pengelola')){
+      $pekerjaan_data = $this->Pekerjaan_model->get_by_id($id_p);
+      if ($pekerjaan_data->progress_now >= 1 AND $pekerjaan_data->progress_now < 8){
+        if ($pekerjaan_data->metode <> 4){
+          if ($pekerjaan_data->id_lpse == '-' OR $pekerjaan_data->id_lpse == ''){
+            $this->session->set_flashdata('info', 'Mohon lengkapi ID LPSE/ ID Lelang terlebih dahulu sebelum lanjut ke tahapan berikutnya');
+          }
+        }
+      }
+      if ($pekerjaan_data->progress_now >= 3  AND $pekerjaan_data->progress_now < 8){
+        $kontrak_data = $this->Kontrak_model->get_by_id_p($id_p);
+        if (!$kontrak_data){
+          $this->session->set_flashdata('info', 'Mohon lengkapi Data Kontrak terlebih dahulu sebelum lanjut ke tahapan berikutnya');
+        }
+      }
+      if ($pekerjaan_data->progress_now >= 4  AND $pekerjaan_data->progress_now < 8){
+        //CEK DATA SERAH TERIMA
+        $serah_terima_data = $this->Serah_terima_model->get_by_id_p($id_p);
+        if (!$serah_terima_data){
+          $this->session->set_flashdata('info', 'Mohon lengkapi data Serah Terima terlebih dahulu  sebelum lanjut ke tahapan berikutnya');
+        }
+
+        //CEK DATA FOTO KONDISI
+        $img_100 = $this->Kondisi_img_model->get_img_by_kondisi($id_p,100);
+        if (!$img_100){
+          $this->session->set_flashdata('info', 'Mohon lengkapi Foto Kondisi 100 % terlebih dahulu sebelum lanjut ke tahapan berikutnya');
+        } else {
+          if ($pekerjaan_data->jenis == 2){
+            $img_0 = $this->Kondisi_img_model->get_img_by_kondisi($id_p,0);
+            if(!$img_0){
+              $this->session->set_flashdata('info', 'Mohon lengkapi Foto Kondisi 0 % terlebih dahulu sebelum lanjut ke tahapan berikutnya');
+            }
+          }
+        }
+      }
+    }
+  }
+
 
   public function _rules()
   {
