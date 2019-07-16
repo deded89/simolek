@@ -72,6 +72,10 @@ class Auth extends CI_Controller {
 				$this->session->set_flashdata('message', $this->ion_auth->messages());
 				if ($this->ion_auth->in_group('admin')){
 					redirect(site_url('auth'));
+				} else if ($this->ion_auth->in_group('guest')) {
+					redirect(site_url('pengadaan/pengendalian'));
+				} else if ($this->ion_auth->in_group('pimskpd')) {
+					redirect(site_url('pengadaan/pengendalian'));
 				} else if ($this->ion_auth->in_group('pengelola')) {
 					redirect(site_url('laporan'));
 				} else if ($this->ion_auth->in_group('user_biasa')) {

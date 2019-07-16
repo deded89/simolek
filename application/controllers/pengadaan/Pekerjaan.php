@@ -12,6 +12,7 @@ class Pekerjaan extends CI_Controller
         $this->load->model('pengadaan/Kontrak_model');
         $this->load->model('pengadaan/Serah_terima_model');
         $this->load->model('pengadaan/Progress_pekerjaan_model');
+        $this->load->model('pengadaan/Pic_model');
         $this->load->library('form_validation');
         if (!$this->ion_auth->logged_in())
         {
@@ -48,6 +49,7 @@ class Pekerjaan extends CI_Controller
         // SHOW INFO KELENGKAPAN DATA FOR PPTK
         $kontrak_data = $this->Kontrak_model->get_by_id_p($id);
         $st_data = $this->Serah_terima_model->get_by_id_p($id);
+        $pic_data = $this->Pic_model->get_by_id_p($id);
         $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id);
         $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id);
         $now_real_keu = $this->Progress_pekerjaan_model->get_max_real_keu($id)->real_keu;
@@ -77,6 +79,7 @@ class Pekerjaan extends CI_Controller
             'kontrak_data'=>$kontrak_data,
             'st_data'=>$st_data,
             'pp_data'=>$pp_data,
+            'pic_data'=>$pic_data,
             'nilai_kontrak'=>$total_kontrak,
             'now_real_keu'=>$now_real_keu,
             'now_real_fisik'=>$now_real_fisik,

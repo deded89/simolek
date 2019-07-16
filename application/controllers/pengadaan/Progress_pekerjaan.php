@@ -13,6 +13,8 @@ class Progress_pekerjaan extends CI_Controller
     $this->load->model('pengadaan/Kontrak_model');
     $this->load->model('pengadaan/Serah_terima_model');
     $this->load->model('pengadaan/Kondisi_img_model');
+    $this->load->model('pengadaan/Lokasi_model');
+    $this->load->model('pengadaan/Pic_model');
     $this->load->library('form_validation');
     if (!$this->ion_auth->logged_in())
     {
@@ -165,7 +167,16 @@ class Progress_pekerjaan extends CI_Controller
       $this->session->set_flashdata('error', 'Mohon lengkapi ID SiRUP terlebih dahulu');
       redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
     }
-    $this->load->model('pengadaan/Lokasi_model');
+    $pptk_data = $this->Pic_model->get_pptk($id_p);
+    if (!$pptk_data){
+      $this->session->set_flashdata('error', 'Mohon lengkapi Data PPTK Pekerjaan terlebih dahulu melalui tombol Add PIC');
+      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+    }
+    $ppk_data = $this->Pic_model->get_ppk($id_p);
+    if (!$ppk_data){
+      $this->session->set_flashdata('error', 'Mohon lengkapi Data Pejabat Pembuat Komitmen (PPK) Pekerjaan terlebih dahulu melalui tombol Add PIC');
+      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+    }
     $lokasi_pekerjaan = $this->Lokasi_model->get_by_id_p($id_p);
     if (!$lokasi_pekerjaan){
       $this->session->set_flashdata('error', 'Mohon lengkapi Lokasi Pekerjaan terlebih dahulu');

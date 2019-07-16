@@ -1,6 +1,6 @@
 <div class="row">
   <div class="col-md-6 ">
-    <div class="box box-info">
+    <div class="box box-info box-solid">
       <div class="box-header with-border bg-aqua">
         <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Belanja Langsung APBD 2019 Pemkot Banjarmasin</h3>
       </div>
@@ -12,7 +12,7 @@
     </div>
   </div>
   <div class="col-md-6">
-    <div class="box box-warning">
+    <div class="box box-warning box-solid">
       <div class="box-header with-border bg-yellow">
         <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Pekerjaan Strategis ( Paket Pekerjaan >200 Jt Rupiah)</h3>
       </div>
