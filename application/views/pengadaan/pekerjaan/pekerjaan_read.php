@@ -54,7 +54,7 @@
 						<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add Deskripsi Singkat</button> </a>
 						<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add ID Pengadaan</button> </a>
 						<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_lokasi">Add Lokasi</button> </a>
-						<a href="<?php echo site_url('pengadaan/pic_pekerjaan/add_pic/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_pic">Add PIC</button> </a>
+						<a href="<?php echo site_url('pengadaan/PIC_pekerjaan/add_pic/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_pic">Add PIC</button> </a>
 						<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
 						<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
 					</td>

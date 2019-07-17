@@ -52,6 +52,16 @@
             </div>
           </div>
 
+          <div class="form-group">
+            <label for="kontak" class="col-sm-2 control-label">No HP/WA</label>
+
+            <div class="col-sm-9">
+              <input type="number" class="form-control" name="kontak" id="kontak" placeholder="No HP/WA tanpa spasi" value="">
+              <small class="form-text text-muted">Mohon diisi untuk memudahkan koordinasi, Nomor Kontak hanya akan bisa dilihat oleh Bagian Pembangunan</small>
+              <?php echo form_error('kontak') ?>
+            </div>
+          </div>
+
           <input type="hidden" name="id_p" value="<?php echo $pekerjaan_data->id_p ?>">
 
           <div class="col-xs-12 text-center">

@@ -9,6 +9,7 @@
                   <th>Nama</th>
                   <th>NIP</th>
                   <th>Terhitung Mulai Tanggal</th>
+                  <th <?php echo $hidden_attr ?>>Kontak</th>
                   <th>Aksi</th>
                 </tr>
               </thead>
@@ -28,6 +29,7 @@
                   <td><?php echo $pic->nama ?></td>
                   <td><?php echo $pic->nip ?></td>
                   <td><?php echo $pic->tmt ?></td>
+                  <td <?php echo $hidden_attr ?>><?php echo $pic->kontak ?></td>
                   <td>
                     <a href="<?php echo site_url('pengadaan/pic_pekerjaan/delete/'.$pic->id."/".$pic->pekerjaan) ?>" title="Hapus" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure ?')"><i class="fa fa-trash-o"></i></a>
                   </td>

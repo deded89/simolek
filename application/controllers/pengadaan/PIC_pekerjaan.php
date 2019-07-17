@@ -53,6 +53,7 @@ class PIC_pekerjaan extends CI_Controller
         'status' => $this->input->post('status',TRUE),
         'tmt' => $this->input->post('tmt',TRUE),
         'pekerjaan' => $this->input->post('id_p',TRUE),
+        'kontak' => $this->input->post('kontak',TRUE),
       );
 
       $this->Pic_model->insert($data);
