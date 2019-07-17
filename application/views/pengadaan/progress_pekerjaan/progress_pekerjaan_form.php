@@ -45,7 +45,7 @@
 					</tr>
 
 					<tr>
-						<td><label for="varchar">Ket <?php echo form_error('ket') ?></label></td>
+						<td><label for="varchar">Keterangan <?php echo form_error('ket') ?></label></td>
 						<td><input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" /></td>
 					</tr>
 
@@ -69,6 +69,55 @@
 					<input type="hidden" name="id_p" value="<?php echo $id_p; ?>" />
 				</table>
 			</form>
+		</div>
+	</div>
+</div>
+
+<!-- PANDUAN PENGISIAN -->
+<div class="row">
+	<div class="col-xs-12">
+		<div class="box box-primary box-solid collapsed-box">
+			<div class="box-header with-border bg-aqua">
+				<h4 class="box-title">
+					<a data-toggle="collapse" data-parent="#accordion" href="#collapseOne" aria-expanded="true" class="">
+						Panduan Pengisian
+					</a>
+				</h4>
+				<div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+          </button>
+        </div>
+			</div>
+			<div class="box-body">
+				<ul>
+					<li>Penjelasan Progress :</li>
+						<ol>
+							<li><strong>Persiapan, </strong>adalah progress ketika pekerjaan dalam proses seperti penetapan HPS, penyusunan rancangan kontrak dll.</li>
+							<li><strong>Pemilihan Penyedia, </strong>adalah progress ketika pekerjaan dalam proses pengumuman tender/ seleksi (tayang di LPSE untuk tender dan seleksi) untuk melihat pekerjaan yang sudah diumumkan tender/ seleksi lihat pada web <a href="http://lpse.banjarmasinkota.go.id/eproc4">LPSE Kota Banjarmasin</a>.</li>
+							<li><strong>Hasil Pemilihan, </strong>adalah progress penyedia sudah ditetapkan.</li>
+							<li><strong>Kontrak, </strong>adalah progress ketika sudah dilakukan penandatanganan kontrak dengan penyedia.</li>
+							<li><strong>Serah Terima (PHO), </strong>adalah progress ketika fisik pekerjaan sudah diselesaikan 100 % oleh penyedia dan sudah dilakukan penyerahan hasil pekerjaan kepada PPK.</li>
+							<li><strong>Serah Terima Akhir (FHO), </strong>adalah progress ketika masa pemeliharaan pekerjaan sudah berakhir.</li>
+							<li><strong>Selesai, </strong>adalah progress ketika pekerjaan sudah selesai (hanya diisikan di rencana berikutnya dengan tanggal next progress sama dengan tanggal progress FHO).</li>
+							<li><strong>Dibatalkan, </strong>adalah progress ketika pekerjaan tidak jadi dilaksanakan (mohon tambahkan alasan pembatalan di kolom keterangan).</li>
+						</ol>
+						<br>
+					<li>Penjelasan untuk field Keterangan : </li>
+						<ul>
+							<li>Diisi dengan penjelasan detail dari progress saat ini.</li>
+						</ul>
+						<br>
+					<li>Penjelasan Realisasi Keuangan : </li>
+						<ul>
+							<li>Diisi dengan nilai rupiah realisasi keuangan <strong>KUMULATIF</strong> dengan format pengisian adalah angka tanpa spasi, jika desimal tambahkan tanda koma (',') maksimal 2 angka desimal</li>
+						</ul>
+						<br>
+					<li>Penjelasan Realisasi Fisik : </li>
+						<ul>
+							<li>Diisi dengan nilai persen realisasi fisik <strong>KUMULATIF</strong> dengan format pengisian adalah angka tanpa spasi, jika desimal tambahkan tanda koma (',') maksimal 2 angka desimal</li>
+						</ul>
+				</ul>
+			</div>
 		</div>
 	</div>
 </div>
