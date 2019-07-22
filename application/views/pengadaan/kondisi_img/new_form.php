@@ -2,25 +2,26 @@
 	<div class='col-xs-12'>
 	    <div class='box box-primary'  style="padding:20px">
         <form action="<?php base_url('pengadaan/kondisi_img/add') ?>" method="post" enctype="multipart/form-data" >
-					<div class="form-group">
+					<div class="form-group <?php echo form_error('kondisi') ? 'has-error':'' ?>">
 						<label for="kondisi">Kondisi*</label>
 						<input class="form-control <?php echo form_error('kondisi') ? 'is-invalid':'' ?>"
 						 type="number" min=0 max=100 name="kondisi" placeholder="Persentase kondisi tanpa desimal" />
-						<div class="invalid-feedback">
+						<div class="help-block">
 							<?php echo form_error('kondisi') ?>
 						</div>
 					</div>
 
-					<div class="form-group">
+					<div class="form-group <?php echo form_error('filename') ? 'has-error':'' ?>">
 						<label for="filename">Photo</label>
-						<input class="form-control-file <?php echo form_error('filename') ? 'is-invalid':'' ?>"
+						<input class="form-control-file"
 						 type="file" name="filename" />
-						<div class="invalid-feedback">
-							<?php echo form_error('filename') ?>
-						</div>
+						 <div class="help-block"><?php echo form_error('filename') ?></div>
+						 <div  style="margin-top:10px"
+						 	<small class="form-text text-muted">File yang diupload hanya format jpg|png|bmp dengan max ukuran file 2 MB</small>
+						 </div>
 					</div>
 					<input class="btn btn-primary" type="submit" name="btn" value="Simpan" />
-          <a href="<?php echo site_url('pengadaan/kondisi_img/index/'.$id_p) ?>" class="btn btn-danger">Cancel</a>
+          <a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$id_p) ?>" class="btn btn-danger">Cancel</a>
 
           <input type="hidden" name="id_p" value="<?php echo $id_p ?>">
 

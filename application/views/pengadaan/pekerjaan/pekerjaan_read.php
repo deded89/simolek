@@ -35,7 +35,7 @@
 				</tr>
 				<tr>
 					<td width="200px"><b>Pagu</b></td><td><?php echo "Rp " . number_format($pagu,2,',','.'); ?></td>
-					<td width="200px"><b>Total Kontrak</b></td><td><?php echo "Rp " . number_format($nilai_kontrak->total_kontrak,2,',','.'); ?></td>
+					<td width="200px"><b>Total Kontrak</b></td><td><?php echo "Rp " . number_format($nilai_kontrak,2,',','.'); ?></td>
 				</tr>
 				<tr>
 					<td width="200px"><b>Progress saat ini</b></td><td><?php echo $progress_now ?></td>
@@ -55,6 +55,7 @@
 						<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add ID Pengadaan</button> </a>
 						<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_lokasi">Add Lokasi</button> </a>
 						<a href="<?php echo site_url('pengadaan/PIC_pekerjaan/add_pic/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_pic">Add PIC</button> </a>
+						<a href="<?php echo site_url('pengadaan/kondisi_img/add/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kondisi_img">Add Foto Kondisi</button> </a>
 						<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
 						<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
 					</td>

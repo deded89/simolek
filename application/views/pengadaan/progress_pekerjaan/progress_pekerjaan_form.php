@@ -25,6 +25,11 @@
 					</tr>
 
 					<tr>
+						<td><label for="varchar">Keterangan <?php echo form_error('ket') ?></label></td>
+						<td><input type="text" class="form-control" name="ket" id="ket" placeholder="Detail Progress Saat ini" value="<?php echo $ket; ?>" /></td>
+					</tr>
+
+					<tr>
 						<td><label for="tinyint">Rencana Berikutnya <?php echo form_error('next_progress') ?></label></td>
 						<!-- combo dinamis -->
 						<?php $id = $next_progress; ?>
@@ -42,11 +47,6 @@
 								<input type="text" class="form-control pull-right" name="tgl_n_progress" id="tgl_n_progress" placeholder="Tanggal Next Progress" value="<?php echo $tgl_n_progress; ?>" autocomplete="off" >
 							</div>
 						</td>
-					</tr>
-
-					<tr>
-						<td><label for="varchar">Keterangan <?php echo form_error('ket') ?></label></td>
-						<td><input type="text" class="form-control" name="ket" id="ket" placeholder="Ket" value="<?php echo $ket; ?>" /></td>
 					</tr>
 
 					<tr>

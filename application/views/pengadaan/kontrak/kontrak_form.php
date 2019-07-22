@@ -32,19 +32,19 @@
 					</tr>
 
 					<tr>
-						<td><label for="date">Awal <?php echo form_error('awal') ?></label></td>
+						<td><label for="date">Tanggal Awal <?php echo form_error('awal') ?></label></td>
 						<td>
 							<div class="input-group date">
 								<div class="input-group-addon">
 									<i class="fa fa-calendar"></i>
 								</div>
-								<input type="text" readonly tabindex="-1" class="form-control pull-right" name="awal" id="awal" placeholder="Tanggal Awal Pelaksanaan" value="<?php echo $awal; ?>" autocomplete="off" >
+								<input type="text" tabindex="-1" class="form-control pull-right" name="awal" id="awal" placeholder="Tanggal Awal Pelaksanaan" value="<?php echo $awal; ?>" autocomplete="off" >
 							</div>
 						</td>
 					</tr>
 
 					<tr>
-						<td><label for="date">Akhir <?php echo form_error('akhir') ?></label></td>
+						<td><label for="date">Tanggal Akhir <?php echo form_error('akhir') ?></label></td>
 						<td>
 							<div class="input-group date">
 								<div class="input-group-addon">
@@ -56,12 +56,12 @@
 					</tr>
 
 					<tr>
-						<td><label for="varchar">Lama <?php echo form_error('lama') ?></label></td>
+						<td><label for="varchar">Lama Pelaksanaan <?php echo form_error('lama') ?></label></td>
 						<td><input type="text" class="form-control" tabindex="-1" name="lama" id="lama" placeholder="Hari" readonly value="<?php echo $lama; ?>"/></td>
 					</tr>
 
 					<tr>
-						<td><label for="varchar">Ket <?php echo form_error('ket') ?></label></td>
+						<td><label for="varchar">Keterangan <?php echo form_error('ket') ?></label></td>
 						<td><input type="text" class="form-control" name="ket" id="ket" placeholder="Keterangan, misal :addendum" value="<?php echo $ket; ?>" /></td>
 					</tr>
 
@@ -96,17 +96,21 @@
 			format:'yyyy-mm-dd',
 			todayHighlight: true,
 			todayBtn: 'linked',
-		})
-		.on('changeDate',function(selected){
-			$("#awal").datepicker('setDate',selected.date);
-			var mindate = new Date(selected.date.valueOf());
-			$("#akhir").datepicker('setStartDate',mindate);
-			calcDiff();
+		// })
+		// .on('changeDate',function(selected){
+		// 	$("#awal").datepicker('setDate',selected.date);
+		// 	var mindate = new Date(selected.date.valueOf());
+		// 	$("#akhir").datepicker('setStartDate',mindate);
+		// 	calcDiff();
 		});
 
 		$("#awal").datepicker({
+			autoclose: true,
 			format:'yyyy-mm-dd',
-		});
+			todayHighlight: true,
+			todayBtn: 'linked',
+		})
+		.on('changeDate',calcDiff);
 
 		$("#akhir").datepicker({
 			autoclose: true,

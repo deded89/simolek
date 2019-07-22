@@ -91,6 +91,7 @@ class PIC_pekerjaan extends CI_Controller
     $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
     $this->form_validation->set_rules('status', 'Status', 'trim|required');
     $this->form_validation->set_rules('tmt', 'TMT', 'trim|required');
+    $this->form_validation->set_rules('kontak', 'Kontak', 'trim|required');
 
     $this->form_validation->set_rules('id_p', 'Pekerjaan', 'trim');
     $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');

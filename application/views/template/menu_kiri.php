@@ -195,13 +195,22 @@ if ($this->ion_auth->logged_in()){
         <li><a href="<?php echo base_url();?>pengadaan/pekerjaan"><i class="fa fa-circle-o"></i> List Pekerjaan</a></li>
       </ul>
     </li>
-    <!-- AKHIR MENU LAPORAN -->
+    <!-- AKHIR MENU PENGENDALIAN -->
 <?php } ?>
 
   <?php } ?>
 
   <!-- AKHIR MENU UNTUK USER -->
-
+  <?php
+  if ($this->ion_auth->logged_in()){
+    if (!$this->ion_auth->in_group('user_biasa')) { ?>
+      <li class="treeview">
+        <a href="https://drive.google.com/open?id=1AWvaz670z98LHGSUW-a6O33liohMSP8y" target="_blank">
+          <i class="fa fa-arrow-down"></i>
+          <span>Download Manual Book</span>
+        </a>
+      </li>
+    <?php } } ?>
 </ul>
 <!-- AKHIR MENU SAMPING KIRI -->
 </section>

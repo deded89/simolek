@@ -167,4 +167,13 @@ class Pengendalian_model extends CI_Model{
     return $db2->get()->result();
   }
 
+  //INFO KE PENGELOLA UNTUK LAST UPDATE DARI PROGRESS PEKERJAAN
+
+  //GET PEKERJAAN YANG STATUSNYA KONTRAK
+  // public function last_update_info(){
+  //   $db2 = $this->db2;
+  //   $db2->select(*);
+  //   $db2->from('pekerjaan p');
+  //
+  // }
 }

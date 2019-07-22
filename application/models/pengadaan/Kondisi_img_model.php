@@ -50,7 +50,7 @@ class Kondisi_img_model extends CI_Model{
         $post = $this->input->post();
         $this->kondisi = $post["kondisi"];
         $this->pekerjaan = $post["id_p"];
-        $this->filename = $this->_uploadImage();
+        $this->filename = $this->_uploadImage($post["id_p"]);
         $this->db2->insert($this->_table, $this);
     }
     //
@@ -70,7 +70,7 @@ class Kondisi_img_model extends CI_Model{
       return $this->db2->delete($this->_table, array("id" => $id));
     }
 
-    private function _uploadImage()
+    private function _uploadImage($id_p)
     {
       if (!is_dir('./images/pekerjaan/'.$this->pekerjaan))
   		{
@@ -81,14 +81,25 @@ class Kondisi_img_model extends CI_Model{
       $config['allowed_types']        = 'jpg|png|bmp';
       $config['file_name']            = $this->kondisi.'_'.$this->pekerjaan;
       $config['overwrite']			      = true;
-      $config['max_size']             = 10240; // 1MB
+      $config['max_size']             = 2048; // 2 MB
       // $config['max_width']            = 1024;
       // $config['max_height']           = 768;
 
       $this->load->library('upload', $config);
 
-      if ($this->upload->do_upload('filename')) {
-          return $this->upload->data("file_name");
+      // if ($this->upload->do_upload('filename')) {
+      //     return $this->upload->data("file_name");
+      // }
+
+      if ( !$this->upload->do_upload('filename'))
+      {
+        $error = $this->upload->display_errors();
+        $this->session->set_flashdata('error', $error);
+        redirect(site_url('pengadaan/kondisi_img/add/'.$id_p));
+      }
+      else
+      {
+        return $this->upload->data("file_name");
       }
     }
 

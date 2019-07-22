@@ -51,7 +51,7 @@ class Pekerjaan extends CI_Controller
         $st_data = $this->Serah_terima_model->get_by_id_p($id);
         $pic_data = $this->Pic_model->get_by_id_p($id);
         $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id);
-        $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id);
+        $total_kontrak = $this->Kontrak_model->get_last_kontrak($id);
         $now_real_keu = $this->Progress_pekerjaan_model->get_max_real_keu($id)->real_keu;
         $now_real_fisik = $this->Progress_pekerjaan_model->get_max_real_fisik($id)->real_fisik;
         $persen_real_keu = $this->Progress_pekerjaan_model->get_persen_real_keu($id);
@@ -209,7 +209,7 @@ class Pekerjaan extends CI_Controller
           'button' => 'Update',
           'action' => site_url('pengadaan/pekerjaan/update_action_id_pengadaan'),
           'controller' => 'Pekerjaan',
-          'uri1' => 'Update ID Pengadaan',
+          'uri1' => 'Update Deskripsi dan ID Pengadaan',
           'main_view' => 'pengadaan/pekerjaan/edit_id_rup_lpse_form',
 
           'id_p' => set_value('id', $id),

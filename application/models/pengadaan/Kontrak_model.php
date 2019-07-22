@@ -35,6 +35,7 @@ class Kontrak_model extends CI_Model
     function get_by_id_p($id_p)
     {
         $this->db2->where('pekerjaan', $id_p);
+        $this->db2->order_by('tanggal','desc');
         return $this->db2->get($this->table)->result();
     }
 
@@ -59,17 +60,40 @@ class Kontrak_model extends CI_Model
     }
 
     //sum nilai kontrak by pekerjaan_read
-    public function sum_nilai_kontrak($id_p){
-      $this->db2->select('sum(nilai) as total_kontrak');
-      $this->db2->from('kontrak');
-      $this->db2->where('pekerjaan',$id_p);
-      return $this->db2->get()->row();
+    // public function sum_nilai_kontrak($id_p){
+    //   $this->db2->select('sum(nilai) as total_kontrak');
+    //   $this->db2->from('kontrak');
+    //   $this->db2->where('pekerjaan',$id_p);
+    //   return $this->db2->get()->row();
+    // }
+
+    public function get_last_kontrak($id_p){
+      $db2 = $this->db2;
+      $db2->select('nilai');
+      $db2->from('kontrak');
+      $db2->where('pekerjaan',$id_p);
+      $db2->order_by('tanggal','desc');
+      return $this->db2->get()->row()->nilai;
     }
+
 
     //cek nilai kontrak tidak boleh lebih dari pagu pekerjaan
     public function kontrak_melebihi_pagu($total_kontrak,$pagu){
       if ($total_kontrak > $pagu){
         return true;
+      }else{
+        return false;
+      }
+    }
+
+    //CEK NILAI ADDENDUM MELEBIHI 10 % DARI NILAI KONTRAK AWAL
+    public function addendum_melebihi_ketentuan($id_p,$nilai_addendum){
+      $nilai_kontrak_awal = $this->get_last_kontrak($id_p);
+      if ($nilai_kontrak_awal){
+        $max_nilai_addendum = $nilai_kontrak_awal + ($nilai_kontrak_awal * 0.1);
+        if ($nilai_addendum > $max_nilai_addendum){
+          return true;
+        }
       }else{
         return false;
       }

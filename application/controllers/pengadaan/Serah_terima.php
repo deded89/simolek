@@ -14,7 +14,7 @@ class Serah_terima extends CI_Controller
     if (!$this->ion_auth->logged_in())
     {
       redirect('auth/login', 'refresh');
-    }else if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('guest') ) {
+    }else if ($this->ion_auth->in_group('user_biasa')) {
       return show_error('You must be an pptk to view this page.');
     }
   }
@@ -144,7 +144,7 @@ class Serah_terima extends CI_Controller
   //   }
   // }
 
-  public function delete($id_k,$id_st)
+  public function delete($id_st,$id_p)
   {
     $row = $this->Pekerjaan_model->get_by_id($id_p);
     if (!$row){

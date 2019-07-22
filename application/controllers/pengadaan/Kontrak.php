@@ -117,6 +117,9 @@ if (!defined('BASEPATH'))
           // CEK NILAI KONTRAK TIDAK BOLEH > PAGU
           $this->cek_kontrak_melebihi_pagu($this->input->post('id_p',TRUE));
 
+          //NILAI ADDENDUM TIDAK BOLEH > NILAI AWAL +10 %
+          $this->cek_addendum_melebihi_ketentuan($this->input->post('id_p',TRUE),$this->input->post('nilai',TRUE));
+
           $this->Kontrak_model->insert($data);
           $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
           redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
@@ -182,6 +185,9 @@ if (!defined('BASEPATH'))
           // CEK NILAI KONTRAK TIDAK BOLEH > PAGU
           $this->cek_kontrak_melebihi_pagu($this->input->post('id_p',TRUE));
 
+          //NILAI ADDENDUM TIDAK BOLEH > NILAI AWAL +10 %
+          $this->cek_addendum_melebihi_ketentuan($this->input->post('id_p',TRUE),$this->input->post('nilai',TRUE));
+
           $this->Kontrak_model->update($this->input->post('id_k', TRUE), $data);
           $this->session->set_flashdata('message', 'Update Data Berhasil');
           redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));
@@ -212,14 +218,23 @@ if (!defined('BASEPATH'))
       }
 
       public function cek_kontrak_melebihi_pagu($id_p){
-        $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($id_p)->total_kontrak;
+        $total_kontrak = $this->Kontrak_model->get_last_kontrak($id_p);
         if (!$total_kontrak){
           $total_kontrak = 0;
         }
-        $pagu = $this->Pekerjaan_model->get_by_id($id_p)->pagu;
-        $melebihi_pagu = $this->Kontrak_model->kontrak_melebihi_pagu($total_kontrak,$pagu);
-        if ($melebihi_pagu == true){
-          $this->session->set_flashdata('error', $total_kontrak.'vvv'.$melebihi_pagu.'Total Kontrak Tidak Boleh Lebih dari Pagu');
+          //CEK APAKAH NILAI KONTRAK YANG DIINPUT MELEBIHI PAGU
+          $pagu = $this->Pekerjaan_model->get_by_id($id_p)->pagu;
+          $melebihi_pagu = $this->Kontrak_model->kontrak_melebihi_pagu($total_kontrak,$pagu);
+          if ($melebihi_pagu == true){
+            $this->session->set_flashdata('error', 'Total Kontrak Tidak Boleh Lebih dari Pagu');
+            redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+          }
+      }
+
+      public function cek_addendum_melebihi_ketentuan($id_p,$nilai_akhir){
+        $lebih_dari_ketentuan = $this->Kontrak_model->addendum_melebihi_ketentuan($id_p,$nilai_akhir);
+        if ($lebih_dari_ketentuan == true){
+          $this->session->set_flashdata('error', 'Nilai Kontrak Akhir tidak boleh melebihi 10% dari yang tercantum di kontrak awal');
           redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
         }
       }

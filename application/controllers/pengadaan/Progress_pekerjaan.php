@@ -141,7 +141,7 @@ class Progress_pekerjaan extends CI_Controller
       //CEK JIKA MAU ADD REALISASI KEUANGAN NILAINYA TIDAK BOLEH > TOTAL KONTRAK
       $new_real_keu = $this->input->post('real_keu',TRUE) + 0;
       // $int_real_keu = int()$new_real_keu;
-      $total_kontrak = $this->Kontrak_model->sum_nilai_kontrak($this->input->post('id_p',TRUE));
+      $total_kontrak = $this->Kontrak_model->get_last_kontrak($this->input->post('id_p',TRUE));
       if($new_real_keu > $total_kontrak){
         $this->session->set_flashdata('error', 'Realisasi Pengadaan Tidak Boleh Melebihi Total Kontrak');
         redirect(site_url('pengadaan/pekerjaan/read/'.$this->input->post('id_p',TRUE)));

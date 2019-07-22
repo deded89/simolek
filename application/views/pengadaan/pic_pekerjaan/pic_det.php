@@ -1,20 +1,21 @@
 <?php if ($pic_data) { ?>
-    <div class="row">
-      <div class="col-xs-12">
-        <div class="box box-info box-solid">
-            <table class="table table-hover">
-              <thead>
-                <tr class="bg-aqua">
-                  <th>Status</th>
-                  <th>Nama</th>
-                  <th>NIP</th>
-                  <th>Terhitung Mulai Tanggal</th>
-                  <th <?php echo $hidden_attr ?>>Kontak</th>
-                  <th>Aksi</th>
-                </tr>
-              </thead>
-              <tbody>
-                <?php foreach ($pic_data as $pic){ ?>
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="box box-info box-solid">
+        <div class="table-responsive">
+          <table class="table table-hover">
+            <thead>
+              <tr class="bg-aqua">
+                <th>Status</th>
+                <th>Nama</th>
+                <th>NIP</th>
+                <th>Terhitung Mulai Tanggal</th>
+                <th <?php echo $hidden_attr ?>>Kontak</th>
+                <th <?php echo $hidden_attr ?>>Aksi</th>
+              </tr>
+            </thead>
+            <tbody>
+              <?php foreach ($pic_data as $pic){ ?>
                 <tr>
                   <!-- STYLING -->
                   <?php if ($pic->status == 'pa'){
@@ -30,16 +31,18 @@
                   <td><?php echo $pic->nip ?></td>
                   <td><?php echo $pic->tmt ?></td>
                   <td <?php echo $hidden_attr ?>><?php echo $pic->kontak ?></td>
-                  <td>
-                    <a href="<?php echo site_url('pengadaan/pic_pekerjaan/delete/'.$pic->id."/".$pic->pekerjaan) ?>" title="Hapus" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure ?')"><i class="fa fa-trash-o"></i></a>
+                  <td <?php echo $hidden_attr ?>>
+                    <a href="<?php echo site_url('pengadaan/PIC_pekerjaan/delete/'.$pic->id."/".$pic->pekerjaan) ?>" title="Hapus" class="btn btn-danger btn-xs" onclick="return confirm('Are You Sure ?')"><i class="fa fa-trash-o"></i></a>
                   </td>
                 </tr>
               <?php } ?>
-              </tbody>
-              </table>
-            </div>
+            </tbody>
+          </table>
+
         </div>
       </div>
-  <?php } else { ?>
-    <p>Data Penanggung Jawab tidak tersedia  </p>
-  <?php } ?>
+    </div>
+  </div>
+<?php } else { ?>
+  <p>Data Penanggung Jawab tidak tersedia  </p>
+<?php } ?>

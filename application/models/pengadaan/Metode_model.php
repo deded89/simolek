@@ -9,7 +9,7 @@ class Metode_model extends CI_Model
     public $table = 'metode';
     public $id = 'id';
     public $order = 'DESC';
-	private $db2;
+	  private $db2;
 
     function __construct()
     {

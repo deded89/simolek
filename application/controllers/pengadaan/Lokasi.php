@@ -38,7 +38,7 @@ if (!defined('BASEPATH'))
             'main_view' => 'pengadaan/lokasi/lokasi_list'
           );
           $data['hidden_attr'] = '';
-          if (!$this->ion_auth->in_group('pptk')){
+          if (!$this->ion_auth->in_group('pptk') AND !$this->ion_auth->in_group('pengelola')){
             $data['hidden_attr'] = 'hidden';
           }
           $this->load->view('template_view', $data);

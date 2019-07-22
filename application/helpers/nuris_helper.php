@@ -38,6 +38,7 @@ function cmb_db2($name,$table,$field,$pk,$selected){
         $cmb .=">".  ($d->$field)."</option>";
     }
     $cmb .="</select>";
+    $ci->db2->close();
     return $cmb;
 }
 
