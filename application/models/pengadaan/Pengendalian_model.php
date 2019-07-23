@@ -167,13 +167,23 @@ class Pengendalian_model extends CI_Model{
     return $db2->get()->result();
   }
 
-  //INFO KE PENGELOLA UNTUK LAST UPDATE DARI PROGRESS PEKERJAAN
+  //INFO KE PENGELOLA UNTUK PEKERJAAN YANG NEXT UPDATENYA BULAN LALU
 
-  //GET PEKERJAAN YANG STATUSNYA KONTRAK
-  // public function last_update_info(){
-  //   $db2 = $this->db2;
-  //   $db2->select(*);
-  //   $db2->from('pekerjaan p');
-  //
-  // }
+  //GET PROGRESS PROGRESS PEKERJAAN YANG NEXT PROGRESS BULAN LALU
+  public function get_next_last_month(){
+    $db2 = $this->db2;
+    $db2->select('id, pekerjaan, progress, tgl_progress, MAX(tgl_n_progress) as tgl_n_progress');
+    $db2->from('progress_pekerjaan');
+    $db2->group_by('pekerjaan');
+    $subquery = $db2->get_compiled_select();
+
+    $db2->select('p.id as id_p, p.nama, p.progress_now, p.kegiatan, p.pagu, pr.pekerjaan, pr.progress, pr.tgl_progress, pr.tgl_n_progress, s.nama_skpd');
+    $db2->from('pekerjaan p');
+    $db2->join('('.$subquery.') pr', 'pr.pekerjaan=p.id','left');
+    $db2->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd','left');
+    $db2->where('p.progress_now = pr.progress');
+    $db2->where('year(pr.tgl_n_progress) <= year(current_date - interval 1 month)');
+    $db2->where('month(pr.tgl_n_progress) <= month(current_date - interval 1 month)');
+    return $db2->get()->result();
+  }
 }

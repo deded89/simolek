@@ -199,3 +199,43 @@
     </div>
   </div>
 </div>
+
+<!-- PEKERJAAN TIDAK SESUAI RENCANA -->
+
+<div class="row">
+  <div class="col-xs-12">
+    <div class="box box-danger box-solid collapsed-box">
+      <div class="box-header with-border">
+        <h3 class="box-title">Pekerjaan tidak sesuai rencana</h3>
+        <div class="box-tools pull-right">
+          <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+          </button>
+        </div>
+      </div>
+      <div class="box-body table-responsive no-padding">
+        <table class="table table-hover">
+          <tbody>
+          <tr>
+            <th></th>
+            <th>Nama Pekerjaan</th>
+            <th>Kegiatan</th>
+            <th>SKPD</th>
+          </tr>
+          <?php foreach ($pekerjaan_next_last_month as $pekerjaan){ ?>
+            <tr>
+              <td>
+                <a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$pekerjaan->id_p) ?>"class="btn btn-info btn-xs">
+                  <i class="fa fa-eye"></i>
+                </a>
+              </td>
+              <td><?php echo $pekerjaan->nama ?></td>
+              <td><?php echo $pekerjaan->kegiatan ?></td>
+              <td><?php echo $pekerjaan->nama_skpd ?></td>
+            </tr>
+            <?php } ?>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

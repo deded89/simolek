@@ -47,7 +47,7 @@ class Progress_pekerjaan_model extends CI_Model
     $this->db2->join('progress p2', 'p2.id=pp.next_progress', 'left');
     $this->db2->where('pp.pekerjaan', $id_p);
     $this->db2->order_by('pp.progress','desc');
-    $this->db2->order_by('pp.id','desc');
+    $this->db2->order_by('pp.tgl_progress','desc');
     return $this->db2->get()->result();
   }
 

@@ -73,7 +73,10 @@ class Kontrak_model extends CI_Model
       $db2->from('kontrak');
       $db2->where('pekerjaan',$id_p);
       $db2->order_by('tanggal','desc');
-      return $this->db2->get()->row()->nilai;
+      $result = $this->db2->get()->row();
+      if($result){
+        return $result->nilai;
+        }
     }
 
 
