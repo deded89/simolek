@@ -8,14 +8,14 @@ class Laporan extends CI_Controller
   function __construct()
   {
     parent::__construct();
-    $this->load->model('Laporan_model');
-    $this->load->model('Pelaporan_model');
-    $this->load->library('form_validation');
-    $this->ubah_status_otomatis();
     if (!$this->ion_auth->logged_in())
     {
       redirect('auth/login', 'refresh');
     }
+    $this->load->model('Laporan_model');
+    $this->load->model('Pelaporan_model');
+    $this->load->library('form_validation');
+    $this->ubah_status_otomatis();
   }
 
   public function index()

@@ -8,6 +8,7 @@ class Kondisi_img_model extends CI_Model{
   public $filename;
   public $pekerjaan;
   public $kondisi;
+  public $deskripsi_gambar;
 
   public function __construct()
   {
@@ -51,18 +52,16 @@ class Kondisi_img_model extends CI_Model{
         $this->kondisi = $post["kondisi"];
         $this->pekerjaan = $post["id_p"];
         $this->filename = $this->_uploadImage($post["id_p"]);
+        $this->deskripsi_gambar = $post["deskripsi_gambar"] <> '' ? $post["deskripsi_gambar"] : 'Tidak Tersedia' ;
         $this->db2->insert($this->_table, $this);
     }
-    //
-    // public function update()
-    // {
-    //     $post = $this->input->post();
-    //     $this->id = $post["id"];
-    //     $this->pekerjaan = $post["id_p"];
-    //     $this->kondisi = $post["kondisi"];
-    //     $this->filename = $this->_uploadImage();
-    //     $this->db2->update($this->_table, $this, array('id' => $post['id']));
-    // }
+
+    public function update($data)
+    {
+      $this->db2->set('deskripsi_gambar',$data['deskripsi_gambar']);
+      $this->db2->where('id', $data['id']);
+      $this->db2->update('kondisi_img');
+    }
 
     public function delete($id)
     {
@@ -79,7 +78,7 @@ class Kondisi_img_model extends CI_Model{
 
       $config['upload_path']          = './images/pekerjaan/'.$this->pekerjaan.'/';
       $config['allowed_types']        = 'jpg|png|bmp';
-      $config['file_name']            = $this->kondisi.'_'.$this->pekerjaan;
+      $config['file_name']            = $this->kondisi.'_'.$this->pekerjaan.'_'.time();
       $config['overwrite']			      = true;
       $config['max_size']             = 2048; // 2 MB
       // $config['max_width']            = 1024;

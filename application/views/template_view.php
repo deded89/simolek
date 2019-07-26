@@ -37,9 +37,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- my custom css -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/custom.css">
-
-
-
+  <!-- FANCY BOX -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
 
   <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -52,7 +50,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 <!-- AKHIR HEAD HALAMAN TEMPLATE -->
 
 <!-- BODY HALAMAN TEMPLATE -->
-<body class="hold-transition skin-green sidebar-mini fixed">
+<body class="hold-transition skin-green sidebar-mini fixed sidebar-collapse">
+<!-- <body class="hold-transition skin-green sidebar-mini fixed"> -->
 <div class="wrapper">
   <?php $this->load->view('template/header'); ?>
   <?php $this->load->view('template/menu_kiri'); ?>
@@ -76,6 +75,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 <div>
 <!-- jQuery 2.2.3 -->
 <script src="<?php echo base_url();?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
+<!-- FANCY BOX -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 <!-- Bootstrap 3.3.6 -->
 <script src="<?php echo base_url();?>assets/bootstrap/js/bootstrap.min.js"></script>

@@ -24,7 +24,7 @@
       <ul class="nav navbar-nav">
         <?php if (!$this->ion_auth->logged_in()){ ?>
           <li class="dropdown user user-menu">
-            <a href="<?php echo base_url(); ?>auth/login">
+            <a href="<?php echo site_url('laporan'); ?>">
               <img src="<?php echo base_url();?>assets/dist/img/logo-pemko.jpg" class="user-image" alt="User Image">
               <span class="hidden-xs">LOGIN DISINI</span>
             </a>

@@ -20,6 +20,15 @@
 						 	<small class="form-text text-muted">File yang diupload hanya format jpg|png|bmp dengan max ukuran file 2 MB</small>
 						 </div>
 					</div>
+
+					<div class="form-group <?php echo form_error('deskripsi_gambar') ? 'has-error':'' ?>">
+						<label for="deskripsi_gambar">Deskripsi Foto</label>
+						<input class="form-control <?php echo form_error('deskripsi_gambar') ? 'is-invalid':'' ?>"
+						type="text" name="deskripsi_gambar" placeholder="Deskripsi Singkat Foto yang Diupload " />
+						<div class="help-block">
+							<?php echo form_error('deskripsi_gambar') ?>
+						</div>
+					</div>
 					<input class="btn btn-primary" type="submit" name="btn" value="Simpan" />
           <a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$id_p) ?>" class="btn btn-danger">Cancel</a>
 

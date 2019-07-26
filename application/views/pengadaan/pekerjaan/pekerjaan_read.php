@@ -1,3 +1,10 @@
+<div class="visible-xs-block">
+	<div class="alert alert-info alert-dismissible">
+		<button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+		<p>Untuk tampilan yang nyaman putar HP anda menjadi landscape.</p>
+	</div>
+</div>
+
 <div class='row'>
 	<div class='col-xs-12'>
 		<div class='box box-primary box-solid'>
@@ -8,62 +15,173 @@
 					</a>
 				</h4>
 			</div>
-			<table class="table table-hover">
-				<tr>
-					<td width="200px"><b>Nama Paket</b></td><td><?php echo $nama; ?></td>
-					<td width="200px"><b>Lokasi</b></td>
-					<td>
-						<a href="<?php echo site_url('pengadaan/lokasi/index/'.$id_p) ?>" >Tampilkan Peta</a>
-					</td>
-				</tr>
-				<tr>
-					<td width="200px"><b>Kegiatan</b></td><td><?php echo $kegiatan; ?></td>
-					<td width="200px"><b>Photo</b></td>
-					<td>
-						<a href="<?php echo site_url('pengadaan/kondisi_img/index/'.$id_p) ?>" >Tampilkan Gambar Kondisi</a>
-					</td>
-				</tr>
-				<tr><td width="200px"><b>Deskripsi Singkat Pekerjaan</b></td>
-					<td colspan="3">
-						<textarea style="background-color:white;border:0;padding:0;" name="deskripsi" class="form-control" rows="3" readonly><?php echo $deskripsi; ?></textarea>
-					</td>
-				</tr>
-				<tr><td width="200px"><b>SKPD</b></td><td colspan="3"><?php echo $skpd; ?></td></tr>
-				<tr>
-					<td width="200px"><b>Jenis Pengadaan</b></td><td><?php echo $jenis; ?></td>
-					<td width="200px"><b>Metode Pemilihan</b></td><td><?php echo $metode; ?></td>
-				</tr>
-				<tr>
-					<td width="200px"><b>Pagu</b></td><td><?php echo "Rp " . number_format($pagu,2,',','.'); ?></td>
-					<td width="200px"><b>Total Kontrak</b></td><td><?php echo "Rp " . number_format($nilai_kontrak,2,',','.'); ?></td>
-				</tr>
-				<tr>
-					<td width="200px"><b>Progress saat ini</b></td><td><?php echo $progress_now ?></td>
-					<td width="200px"><b>ID SiRUP</b></td><td><a href="<?php echo $link_rup ?>" target="_blank"><?php echo $id_rup ?></a></td>
-				</tr>
-				<tr>
-					<td width="200px"><b>Realisasi Keuangan (Kumulatif)</b></td>
-					<td><?php echo "Rp " . number_format($now_real_keu,2,',','.')."   dari Total Kontrak" ?></td>
-					<td width="200px"><b>ID LPSE</b></td><td><a href="<?php echo $link_lpse ?>" target="_blank"><?php echo $id_lpse ?></a></td>
-				</tr>
-				<tr <?php echo $hidden_attr ?>>
-					<td>
-						<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-warning btn-xs" name="add_st">Add Progress</button> </a>
-					</td>
-					<td colspan="4">
-						<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add Deskripsi Singkat</button> </a>
-						<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add ID Pengadaan</button> </a>
-						<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_lokasi">Add Lokasi</button> </a>
-						<a href="<?php echo site_url('pengadaan/PIC_pekerjaan/add_pic/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_pic">Add PIC</button> </a>
-						<a href="<?php echo site_url('pengadaan/kondisi_img/add/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kondisi_img">Add Foto Kondisi</button> </a>
-						<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
-						<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
-					</td>
-				</tr>
+			<div class="box-body">
+				<!-- ROW 1 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Nama Pekerjaan</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo $nama; ?>
+						</div>
+					</div>
+					<div class="col-xs-4 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Lokasi</b>
+						</div>
+						<div class="col-xs-8">
+							<a href="<?php echo site_url('pengadaan/lokasi/index/'.$id_p) ?>" >Tampilkan Peta</a>
+						</div>
+					</div>
+				</div>
 
-				<input type="hidden" name="id_p" value="<?php echo $id_p ?>">
-				<tr><td colspan="4"><a href="<?php echo site_url('pengadaan/pekerjaan') ?>" class="btn btn-danger pull-right">Kembali</a></td></tr>
-			</table>
+				<!-- ROW 2 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Kegiatan</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo $kegiatan; ?>
+						</div>
+					</div>
+					<div class="col-xs-4 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Foto</b>
+						</div>
+						<div class="col-xs-8">
+							<a href="<?php echo site_url('pengadaan/kondisi_img/index/'.$id_p) ?>" >Tampilkan Foto Kondisi</a>
+						</div>
+					</div>
+				</div>
+
+				<!-- ROW 3 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Deskripsi  <br>Singkat</b>
+						</div>
+						<div class="col-xs-8">
+							<textarea style="background-color:white;border:0;padding:0;" name="deskripsi" class="form-control" rows="3" readonly><?php echo $deskripsi; ?></textarea>
+						</div>
+					</div>
+				</div>
+
+				<!-- ROW 4 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>SKPD Pelaksana</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo $skpd; ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- ROW 5 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Jenis Pengadaan</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo $jenis; ?>
+						</div>
+					</div>
+					<div class="col-xs-4 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Metode Pemilihan</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo $metode; ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- ROW 6 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Pagu Pekerjaan</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo "Rp " . number_format($pagu,2,',','.'); ?>
+						</div>
+					</div>
+					<div class="col-xs-4 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Tahapan</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo $progress_now ?>
+						</div>
+					</div>
+				</div>
+
+				<!-- ROW 7 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Total Kontrak</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo "Rp " . number_format($nilai_kontrak,2,',','.'); ?>
+						</div>
+					</div>
+					<div class="col-xs-4 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>ID SiRUP</b>
+						</div>
+						<div class="col-xs-8">
+							<a href="<?php echo $link_rup ?>" target="_blank"><?php echo $id_rup ?></a>
+						</div>
+					</div>
+				</div>
+
+				<!-- ROW 8 -->
+				<div class="row bottom-row-margin">
+					<div class="col-xs-8 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>Realisasi Keuangan (Kumulatif)</b>
+						</div>
+						<div class="col-xs-8">
+							<?php echo "Rp " . number_format($now_real_keu,2,',','.')."   dari Total Kontrak" ?>
+						</div>
+					</div>
+					<div class="col-xs-4 no-left-right-padding">
+						<div class="col-xs-4">
+							<b>ID LPSE</b>
+						</div>
+						<div class="col-xs-8">
+							<a href="<?php echo $link_lpse ?>" target="_blank"><?php echo $id_lpse ?></a>
+						</div>
+					</div>
+				</div>
+
+				<!-- ROW 9 -->
+				<div <?php echo $hidden_attr ?> class="row bottom-row-margin">
+					<div class="col-xs-12 no-left-right-padding">
+						<div class="col-xs-2">
+							<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-warning btn-xs" name="add_st">Add Progress</button> </a>
+						</div>
+						<div class="col-xs-9">
+							<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add Deskripsi & ID Pengadaan</button> </a>
+							<a href="<?php echo site_url('pengadaan/lokasi/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_lokasi">Add Lokasi</button> </a>
+							<a href="<?php echo site_url('pengadaan/PIC_pekerjaan/add_pic/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_pic">Add PIC</button> </a>
+							<a href="<?php echo site_url('pengadaan/kondisi_img/add/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kondisi_img">Add Foto Kondisi</button> </a>
+							<a href="<?php echo site_url('pengadaan/kontrak/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_kontrak">Add Kontrak</button> </a>
+							<a href="<?php echo site_url('pengadaan/serah_terima/create/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_st">Add Serah Terima</button> </a>
+						</div>
+					</div>
+				</div>
+
+				<table class="table table-hover">
+					<input type="hidden" name="id_p" value="<?php echo $id_p ?>">
+					<tr><td colspan="4"><a href="<?php echo site_url('pengadaan/pekerjaan') ?>" class="btn btn-danger pull-right">Kembali</a></td></tr>
+				</table>
+			</div>
 		</div>
 	</div>
 </div>

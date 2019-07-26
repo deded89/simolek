@@ -70,24 +70,39 @@ class Kondisi_img extends CI_Controller
     }
    }
 
-   // public function edit($id = null)
-   //  {
-   //      if (!isset($id)) redirect('pengadaan/kondisi_img');
-   //
-   //      $kondisi_img = $this->Kondisi_img_model;
-   //      $validation = $this->form_validation;
-   //      $validation->set_rules($kondisi_img->rules());
-   //
-   //      if ($validation->run()) {
-   //          $kondisi_img->update();
-   //          $this->session->set_flashdata('success', 'Berhasil disimpan');
-   //      }
-   //
-   //      $data["kondisi_img_data"] = $kondisi_img->getById($id);
-   //      if (!$data["kondisi_img_data"]) show_404();
-   //
-   //      $this->load->view("pengadaa/kondisi_img/edit_form", $data);
-   //  }
+   public function update($id,$id_p)
+    {
+      $akses = $this->Pekerjaan_model->get_by_id($id_p);
+      if (!$akses){
+        $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+        redirect(site_url('pengadaan/pekerjaan'));
+      } else {
+      if ($this->ion_auth->in_group('guest')) {
+       return show_error('Guest Forbid to Access This Page.');
+      }
+
+        $kondisi_data = $this->Kondisi_img_model->getById($id);
+        if (!$kondisi_data) show_404();
+        $data = array(
+          'controller' => 'KPPBJ',
+          'uri1' => 'Edit Deskripsi Foto',
+          'main_view' => 'pengadaan/kondisi_img/edit_form',
+          'id_p' => $id_p,
+          'kondisi_img_data' => $kondisi_data,
+        );
+        $this->load->view('template_view', $data);
+      }
+    }
+
+    public function update_action(){
+      $data = array(
+        'deskripsi_gambar' => $this->input->post('deskripsi_gambar',true),
+        'id' => $this->input->post('id',true),
+      );
+      $this->Kondisi_img_model->update($data);
+      $this->session->set_flashdata('message', 'Berhasil diedit');
+      redirect(site_url('pengadaan/kondisi_img/index/'.$this->input->post('id_p',true)));
+    }
 
     public function delete($id=null,$id_p){
 
