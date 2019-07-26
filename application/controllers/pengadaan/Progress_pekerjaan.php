@@ -200,6 +200,13 @@ class Progress_pekerjaan extends CI_Controller
         $this->session->set_flashdata('error', 'Mohon lengkapi Data Kontrak terlebih dahulu');
         redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
       }
+      if ($pekerjaan_data->jenis == 'Pekerjaan Konstruksi'){
+        $img_0 = $this->Kondisi_img_model->get_img_by_kondisi($id_p,0);
+        if(!$img_0){
+          $this->session->set_flashdata('error', 'Mohon lengkapi Foto Kondisi 0 % terlebih dahulu');
+          redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+        }
+      }
     }
     if ($progress_input > 4  AND $progress_input < 8){
       //CEK DATA SERAH TERIMA
@@ -214,16 +221,7 @@ class Progress_pekerjaan extends CI_Controller
       if (!$img_100){
         $this->session->set_flashdata('error', 'Mohon lengkapi Foto Kondisi 100 % terlebih dahulu');
         redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
-      } else {
-        if ($pekerjaan_data->jenis == 2){
-          $img_0 = $this->Kondisi_img_model->get_img_by_kondisi($id_p,0);
-          if(!$img_0){
-            $this->session->set_flashdata('error', 'Mohon lengkapi Foto Kondisi 0 % terlebih dahulu');
-            redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
-          }
-        }
       }
-
     }
   }
 
@@ -303,21 +301,21 @@ class Progress_pekerjaan extends CI_Controller
       if ($pekerjaan_data->progress_now >= 1 AND $pekerjaan_data->progress_now < 8){
         if ($pekerjaan_data->metode <> 4){
           if ($pekerjaan_data->id_lpse == '-' OR $pekerjaan_data->id_lpse == ''){
-            $this->session->set_flashdata('info', 'Mohon lengkapi ID LPSE/ ID Lelang terlebih dahulu sebelum lanjut ke tahapan berikutnya');
+            $this->session->set_flashdata('info', 'Mohon lengkapi ID LPSE/ ID Lelang terlebih dahulu sebelum input tahapan progress "Pemlihan Penyedia"');
           }
         }
       }
       if ($pekerjaan_data->progress_now >= 3  AND $pekerjaan_data->progress_now < 8){
         $kontrak_data = $this->Kontrak_model->get_by_id_p($id_p);
         if (!$kontrak_data){
-          $this->session->set_flashdata('info', 'Mohon lengkapi Data Kontrak terlebih dahulu sebelum lanjut ke tahapan berikutnya');
+          $this->session->set_flashdata('info', 'Mohon lengkapi Data Kontrak terlebih dahulu sebelum input tahapan progress "Kontrak"');
         }
       }
       if ($pekerjaan_data->progress_now >= 4  AND $pekerjaan_data->progress_now < 8){
         //CEK DATA SERAH TERIMA
         $serah_terima_data = $this->Serah_terima_model->get_by_id_p($id_p);
         if (!$serah_terima_data){
-          $this->session->set_flashdata('info', 'Mohon lengkapi data Serah Terima terlebih dahulu  sebelum lanjut ke tahapan berikutnya');
+          $this->session->set_flashdata('info', 'Mohon lengkapi data Serah Terima terlebih dahulu  sebelum input tahapan progress "Serah Terima"');
         }
 
         //CEK DATA FOTO KONDISI

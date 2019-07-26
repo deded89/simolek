@@ -39,6 +39,8 @@ class Report_model extends CI_Model{
     $db2->join('pekerjaan p', 'pp.pekerjaan=p.id','left');
     $db2->join('progress pr', 'pr.id=pp.progress','left');
     $db2->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd','left');
+    $db2->order_by('s.id_skpd','asc');
+    $db2->order_by('p.pagu','desc');
     return $db2->get()->result();
   }
 
@@ -69,6 +71,8 @@ class Report_model extends CI_Model{
     if ($pagu == 'l50'){
       $db2->where('p.pagu > 50000000000');
     }
+    $db2->order_by('s.id_skpd','asc');
+    $db2->order_by('p.pagu','desc');
     return $db2->get()->result();
   }
 
