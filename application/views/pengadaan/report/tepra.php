@@ -74,6 +74,7 @@
               <th>Skpd</th>
               <th>Progress</th>
               <th>Tanggal</th>
+              <th>Detail</th>
               <th>Pagu</th>
               <th>Aksi</th>
             </tr>
@@ -90,6 +91,7 @@
                 <td><?php echo $pekerjaan->nama_skpd ?></td>
                 <td><?php echo $pekerjaan->nama ?></td>
                 <td><?php echo $pekerjaan->tgl_progress ?></td>
+                <td><?php echo $pekerjaan->ket ?></td>
                 <td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->pagu,2,',','.'); ?></td>
                 <td style="text-align:center" width="120px">
                  <?php

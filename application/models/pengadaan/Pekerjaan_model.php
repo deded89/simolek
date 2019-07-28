@@ -93,20 +93,28 @@ class Pekerjaan_model extends CI_Model
     }
 
     // FILTER SKPD UNTUK DASHBOARD
-    function filter_skpd($filter){
+    function filter_skpd($skpd){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
       $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
       $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
       $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
       $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
-      $this->db->where('p.skpd',$filter);
+      if ($this->ion_auth->in_group('pimskpd')){
+        $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
+      if ($skpd <> null){
+        if ($this->ion_auth->in_group('pengelola')){
+          $this->db->where('p.skpd',$skpd);
+        }
+      }
+      // $this->db->where('p.skpd',$skpd);
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');
       return $this->db->get()->result();
     }
 
     // FILTER JENIS dan METODE UNTUK DASHBOARD
-    function filter_jenis_metode($filter1,$filter2){
+    function filter_jenis_metode($filter1,$filter2,$skpd){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
       $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
       $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
@@ -116,22 +124,32 @@ class Pekerjaan_model extends CI_Model
       if ($this->ion_auth->in_group('pimskpd')){
         $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
       }
+      if ($skpd <> null){
+        if ($this->ion_auth->in_group('pengelola')){
+          $this->db->where('p.skpd',$skpd);
+        }
+      }
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');
       return $this->db->get()->result();
     }
 
     // FILTER PAGU UNTUK DASHBOARD
-    function filter_pagu($filter1,$filter2){
+    function filter_pagu($filter1,$filter2,$skpd=null){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
       $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
       $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
       $this->db->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
       $this->db->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
-      $this->db->where('p.pagu <',$filter1);
+      $this->db->where('p.pagu <=',$filter1);
       $this->db->where('p.pagu >',$filter2);
       if ($this->ion_auth->in_group('pimskpd')){
         $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
+      if ($skpd <> null){
+        if ($this->ion_auth->in_group('pengelola')){
+          $this->db->where('p.skpd',$skpd);
+        }
       }
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');
@@ -139,7 +157,7 @@ class Pekerjaan_model extends CI_Model
     }
 
     // FILTER PAGU_PROGRESS UNTUK DASHBOARD xxxxxxxx
-    function filter_pagu_progress($filter1,$filter2,$filter3){
+    function filter_pagu_progress($filter1,$filter2,$filter3,$skpd){
       $this->db->select('p.id, p.nama, p.kegiatan, p.pagu, p.user, p.skpd, s.nama_skpd, j.nama as jenis, m.nama as metode, p.pagu');
       $this->db->from('epiz_21636198_pengendalian.pekerjaan p');
       $this->db->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
@@ -150,6 +168,11 @@ class Pekerjaan_model extends CI_Model
       $this->db->where('p.progress_now',$filter3);
       if ($this->ion_auth->in_group('pimskpd')){
         $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
+      }
+      if ($skpd <> null){
+        if ($this->ion_auth->in_group('pengelola')){
+          $this->db->where('p.skpd',$skpd);
+        }
       }
       $this->db->order_by('p.skpd', 'asc');
       $this->db->order_by('p.pagu', 'desc');

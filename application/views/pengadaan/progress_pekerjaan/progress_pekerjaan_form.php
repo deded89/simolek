@@ -145,6 +145,7 @@ $(document).ready(function () {
 		autoclose:true,
 		format:'yyyy-mm-dd',
 		todayHighlight:true,
+		todayBtn:'linked',
 	});
 
 // xxxxxxxxxxxxxxxxxxxxxxx SELECT 2  XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX

@@ -63,7 +63,7 @@
 							<b>Deskripsi  <br>Singkat</b>
 						</div>
 						<div class="col-xs-8">
-							<textarea style="background-color:white;border:0;padding:0;" name="deskripsi" class="form-control" rows="3" readonly><?php echo $deskripsi; ?></textarea>
+							<textarea style="background-color:white;border:0;padding:0;" name="deskripsi" class="form-control" rows="6" readonly><?php echo $deskripsi; ?></textarea>
 						</div>
 					</div>
 				</div>

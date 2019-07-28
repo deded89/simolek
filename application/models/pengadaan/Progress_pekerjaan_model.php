@@ -51,6 +51,12 @@ class Progress_pekerjaan_model extends CI_Model
     return $this->db2->get()->result();
   }
 
+  function get_by_progress($id_p,$progress){
+    $this->db2->where('pekerjaan',$id_p);
+    $this->db2->where('progress',$progress);
+    return $this->db2->get('progress_pekerjaan')->row();
+  }
+
   function get_max_real_keu($id_p){
     $this->db2->select_max('real_keu');
     $this->db2->where('pekerjaan',$id_p);
