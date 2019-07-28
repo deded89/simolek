@@ -103,7 +103,7 @@ class Pekerjaan_model extends CI_Model
         $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
       }
       if ($skpd <> null){
-        if ($this->ion_auth->in_group('pengelola')){
+        if (!$this->ion_auth->in_group('pimskpd')){
           $this->db->where('p.skpd',$skpd);
         }
       }
@@ -125,7 +125,7 @@ class Pekerjaan_model extends CI_Model
         $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
       }
       if ($skpd <> null){
-        if ($this->ion_auth->in_group('pengelola')){
+        if (!$this->ion_auth->in_group('pimskpd')){
           $this->db->where('p.skpd',$skpd);
         }
       }
@@ -147,7 +147,7 @@ class Pekerjaan_model extends CI_Model
         $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
       }
       if ($skpd <> null){
-        if ($this->ion_auth->in_group('pengelola')){
+        if (!$this->ion_auth->in_group('pimskpd')){
           $this->db->where('p.skpd',$skpd);
         }
       }
@@ -170,7 +170,7 @@ class Pekerjaan_model extends CI_Model
         $this->db->where('p.skpd',$this->session->userdata('id_skpd'));
       }
       if ($skpd <> null){
-        if ($this->ion_auth->in_group('pengelola')){
+        if (!$this->ion_auth->in_group('pimskpd')){
           $this->db->where('p.skpd',$skpd);
         }
       }

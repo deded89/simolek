@@ -13,7 +13,7 @@ class Pengendalian extends CI_Controller{
     {
       redirect('auth/login', 'refresh');
     } else if ($this->ion_auth->in_group('user_biasa')) {
-      return show_error('You must be an pengelola to view this page.');
+      return show_error('Not Permitted, not have enough access.');
     }
   }
 
@@ -45,14 +45,18 @@ class Pengendalian extends CI_Controller{
       'uri1' => 'Dashboard',
       'main_view' => 'pengadaan/pengendalian/dashboard'
     );
+    $data['pengelola_only'] = '';
+    if (!$this->ion_auth->in_group('pengelola')){
+      $data['pengelola_only'] = 'hidden';
+    }
     $data['id_skpd'] = '';
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      // if ($this->ion_auth->in_group('pengelola')){
         $data_skpd = $this->Skpd_model->get_by_id($skpd);
         $data['id_skpd'] = $data_skpd->id_skpd;
         $_SESSION['info'] = 'Data Difilter untuk '.$data_skpd->nama_skpd;
         $this->session->mark_as_temp('info',1);
-      }
+      // }
     }
     $this->load->view('template_view', $data);
   }

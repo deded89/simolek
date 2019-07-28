@@ -205,7 +205,7 @@
 
 <!-- PEKERJAAN TIDAK SESUAI RENCANA -->
 
-<div class="row">
+<div <?php echo $pengelola_only ?> class="row">
   <div class="col-xs-12">
     <div class="box box-danger box-solid collapsed-box">
       <div class="box-header with-border">

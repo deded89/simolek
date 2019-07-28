@@ -19,7 +19,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -34,7 +34,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -68,7 +68,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('p.skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -89,7 +89,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('p.skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -109,7 +109,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -126,7 +126,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -143,7 +143,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -159,7 +159,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -178,7 +178,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('p.skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -198,7 +198,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('p.skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
@@ -217,7 +217,7 @@ class Pengendalian_model extends CI_Model{
       $db2->where('p.skpd',$this->session->userdata('id_skpd'));
     }
     if ($skpd <> null){
-      if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $db2->where('skpd',$skpd);
       }
     }
