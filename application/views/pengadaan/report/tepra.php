@@ -15,6 +15,14 @@
       </select>
       <input type="submit" name="submit" value="Tampilkan" class="btn btn-primary">
       <input type="text" class="btn btn-info pull-right" value="<?php echo date("d-m-Y H:i:s").' Wita' ?>">
+      <!-- CSRF TOKEN -->
+      <?php
+        $csrf = array(
+          'name' => $this->security->get_csrf_token_name(),
+          'hash' => $this->security->get_csrf_hash()
+        );
+      ?>
+      <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
     </form>
   </div>
 </div>

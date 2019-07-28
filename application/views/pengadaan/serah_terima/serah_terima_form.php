@@ -28,6 +28,14 @@
 					<?php  ?>
 					<input type="hidden" name="id_st" value="<?php echo $id_st; ?>" />
 					<input type="hidden" name="id_p" value="<?php echo $id_p; ?>" />
+					<!-- CSRF TOKEN -->
+					<?php
+						$csrf = array(
+							'name' => $this->security->get_csrf_token_name(),
+							'hash' => $this->security->get_csrf_hash()
+						);
+					?>
+					<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
 					<tr>
 						<td colspan='2'>
 							<button type="submit" class="btn btn-primary"><?php echo $button ?></button>

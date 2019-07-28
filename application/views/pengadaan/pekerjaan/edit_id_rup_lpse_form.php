@@ -34,6 +34,14 @@
           </div>
         </div>
         <input type="hidden" name="id" value="<?php echo $id_p ?>">
+        <!-- CSRF TOKEN -->
+        <?php
+          $csrf = array(
+            'name' => $this->security->get_csrf_token_name(),
+            'hash' => $this->security->get_csrf_hash()
+          );
+        ?>
+        <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
         <!-- /.box-body -->
         <div class="box-footer">
           <a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$id_p) ?>"><button type="button" class="btn btn-danger">Kembali</button></a>
