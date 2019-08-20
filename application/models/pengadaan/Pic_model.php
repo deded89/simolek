@@ -54,6 +54,15 @@ class Pic_model extends CI_Model
         $this->db2->where('status', 'ppk');
         return $this->db2->get($this->table)->result();
     }
+    // get data Pa/KPA by id_p
+    function get_pakpa($id_p)
+    {
+        $this->db2->where('pekerjaan', $id_p);
+        $this->db2->where('status', 'pa');
+        $this->db2->or_where('status', 'kpa');
+        $this->db2->where('pekerjaan', $id_p);
+        return $this->db2->get($this->table)->result();
+    }
 
     // insert data
     function insert($data)

@@ -15,6 +15,14 @@
 							}
 						?>
 					</tr>
+					<!-- CSRF TOKEN -->
+					<?php
+						$csrf = array(
+							'name' => $this->security->get_csrf_token_name(),
+							'hash' => $this->security->get_csrf_hash()
+						);
+					?>
+					<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
 					<?php echo form_input($phone);?>
 					<?php echo form_input($company);?>
 					<?php echo form_input($email);?>

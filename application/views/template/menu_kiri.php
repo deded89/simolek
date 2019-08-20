@@ -142,6 +142,7 @@ if ($this->ion_auth->logged_in()){
         <i class="fa fa-user"></i>
         <span>Dashboard</span>
       </a>
+    </li>
       <?php
     }
   } else { ?>
@@ -150,6 +151,7 @@ if ($this->ion_auth->logged_in()){
         <i class="fa fa-user"></i>
         <span>Dashboard</span>
       </a>
+    </li>
     <?php } ?>
 <!-- AKHIR MENU DASHBOARD UTAMA SIMOLEK-->
 
@@ -190,9 +192,12 @@ if ($this->ion_auth->logged_in()){
       </a>
       <ul class="treeview-menu">
         <?php if ($this->ion_auth->in_group('guest') OR $this->ion_auth->in_group('pengelola') OR $this->ion_auth->in_group('pimskpd')) { ?>
-              <li><a href="<?php echo base_url();?>pengadaan/pengendalian"><i class="fa fa-circle-o"></i> Dashbord</a></li>
+              <li><a href="<?php echo base_url();?>pengadaan/pengendalian"><i class="fa fa-dashboard"></i> Dashbord</a></li>
         <?php }  ?>
-        <li><a href="<?php echo base_url();?>pengadaan/pekerjaan"><i class="fa fa-circle-o"></i> List Pekerjaan</a></li>
+        <?php if ($this->ion_auth->in_group('pengelola')){ ?>
+              <li><a href="<?php echo base_url();?>pengadaan/report"><i class="fa fa-folder-open"></i> Laporan TEPRA</a></li>
+        <?php } ?>
+        <li><a href="<?php echo base_url();?>pengadaan/pekerjaan"><i class="fa fa-list-alt"></i> List Pekerjaan</a></li>
       </ul>
     </li>
     <!-- AKHIR MENU PENGENDALIAN -->

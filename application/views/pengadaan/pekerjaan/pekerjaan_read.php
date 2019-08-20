@@ -211,6 +211,18 @@
 						<div class="progress-bar progress-bar-striped progress-bar-aqua" style="width: <?php echo $now_real_fisik ?>%"></div>
 					</div>
 				</div>
+				<?php if($proyeksi_data){
+					 			if($pengelola_only == ''){?>
+					<div class="progress-group">
+						<span class="progress-text">Proyeksi Fisik Berdasarkan Masa Kontrak, Hari Terlaksana : <?php echo $hari_terlaksana ?> Hari Kalender</span>
+						<span class="progress-number"><b><?php echo number_format($proyeksi_data,2) ?></b> % </span>
+						<div class="progress">
+							<div class="progress-bar progress-bar-striped progress-bar-red" style="width: <?php echo $proyeksi_data ?>%"></div>
+						</div>
+					</div>
+				<?php
+								}
+							} ?>
 			</div>
 		</div>
 	</div>

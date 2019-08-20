@@ -77,7 +77,7 @@ class Kondisi_img_model extends CI_Model{
   		}
 
       $config['upload_path']          = './images/pekerjaan/'.$this->pekerjaan.'/';
-      $config['allowed_types']        = 'jpg|png|bmp';
+      $config['allowed_types']        = 'jpg|png|bmp|jpeg';
       $config['file_name']            = $this->kondisi.'_'.$this->pekerjaan.'_'.time();
       $config['overwrite']			      = true;
       $config['max_size']             = 2048; // 2 MB

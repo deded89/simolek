@@ -1,13 +1,10 @@
-<head>       
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.min.css">
-</head>
+
 
 <!-- DETAIL LAPORAN -->
 
 <div class='row'>
 	<div class='col-xs-12'>
-	    <div class='box box-primary'>      
+	    <div class='box box-primary'>
         <table class="table table-hover">
 	    <tr><td width="200px"><b>Nama Lap</b></td><td><?php echo $nama_lap; ?></td></tr>
 	    <tr><td width="200px"><b>Batas Waktu</b></td><td><?php echo date('d-m-Y H:i:s',strtotime($batas_waktu)).' WITA'; ?></td></tr>
@@ -29,7 +26,7 @@
 
 <!-- BARIS UNTUK MENAMBAH PELAPOR -->
 
-<div class="row"> 
+<div class="row">
 	<div class="col-md-12">
 	  <!-- Horizontal Form -->
 	  <div class="box box-info">
@@ -46,27 +43,43 @@
 			  <label for="mediumint" class="col-sm-2 control-label">SKPD/Pelapor</label>
 			  <div class="col-sm-8 text-left">
 				<?php echo cmb_dinamiss2('id_skpd','skpd','nama_skpd','id_skpd','')?>
-			  </div>	
+			  </div>
 			  <div class="col-sm-2">
 				<button type="submit" class="btn btn-info pull-left">Tambahkan</button>
 			  </div>
 			</div>
-				<input type="hidden" name="id_lap" value="<?php echo $id_lap; ?>" /> 
+				<input type="hidden" name="id_lap" value="<?php echo $id_lap; ?>" />
 				<input type="hidden" name="id_status" value="1" />
-		</form>	
-			
-		<form action="<?php echo $action_2 ?>" method="post" class="form-horizontal">	
+        <!-- CSRF TOKEN -->
+        <?php
+          $csrf = array(
+            'name' => $this->security->get_csrf_token_name(),
+            'hash' => $this->security->get_csrf_hash()
+          );
+        ?>
+        <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
+		</form>
+
+		<form action="<?php echo $action_2 ?>" method="post" class="form-horizontal">
 			<div class="form-group">
 			  <label for="mediumint" class="col-sm-2 control-label">Klasifikasi</label>
 			  <div class="col-sm-8 text-left">
 				<?php echo cmb_dinamiss2('id_klasifikasi','klasifikasi','nama_klasifikasi','id_klasifikasi','')?>
-			  </div>	
+			  </div>
 			  <div class="col-sm-2">
 				<button type="submit" class="btn btn-info pull-left">Tambahkan</button>
 			  </div>
 			</div>
-				<input type="hidden" name="id_lap" value="<?php echo $id_lap; ?>" /> 
-				<input type="hidden" name="id_status" value="1" /> 
+				<input type="hidden" name="id_lap" value="<?php echo $id_lap; ?>" />
+				<input type="hidden" name="id_status" value="1" />
+        <!-- CSRF TOKEN -->
+        <?php
+          $csrf = array(
+            'name' => $this->security->get_csrf_token_name(),
+            'hash' => $this->security->get_csrf_hash()
+          );
+        ?>
+        <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
 		  </div>
 		</form>
       </div>
@@ -77,7 +90,7 @@
 
 <div class="row">
     <div class="col-xs-12">
-        <div class="box box-primary">	
+        <div class="box box-primary">
 			<div class="box-body table-responsive">
 				<table class="table table-bordered table-striped" id="mytable">
 				   <thead>
@@ -101,9 +114,9 @@
 							<td><?php echo ++$start ?></td>
 							<!-- <td><?php echo $pelaporan->id_lap ?></td> -->
 							<td><?php echo $pelaporan->nama_skpd ?></td>
-							
-							
-							<?php 
+
+
+							<?php
 							if($pelaporan->id_status==1){ //belum lapor
 								$warna = "badge bg-red";
 							}else if($pelaporan->id_status==2){ //sudah lapor
@@ -115,13 +128,13 @@
 							}else if($pelaporan->id_status==5){ //diterima
 								$warna = "badge bg-blue";
 							}
-							?>							
-							
+							?>
+
 							<td><span class="<?php echo $warna ?>"><?php echo $pelaporan->status ?></td>
 							<td><?php echo $pelaporan->ket ?></td>
 							<td><?php echo $pelaporan->nama_jab ?></td>
 							<td>
-							<?php 
+							<?php
 								if ($pelaporan->tgl_upload <> null){
 									echo date("d-m-Y H:i:s",strtotime($pelaporan->tgl_upload));
 								}else {
@@ -129,20 +142,20 @@
 								}
 							?></td>
 							 <td style="text-align:center" width="120px">
-							 
-							<?php 	
+
+							<?php
 								if($pelaporan->id_status <> 1){
-									echo anchor(site_url('dashboard/hal_download/'.$pelaporan->id_pelaporan.'/'.$pelaporan->id_lap.'/'.$pelaporan->id_skpd),'<i class="fa fa-download"></i>', 'target="_blank" title="Hal Download" class="btn btn-primary btn-sm"'); 
+									echo anchor(site_url('dashboard/hal_download/'.$pelaporan->id_pelaporan.'/'.$pelaporan->id_lap.'/'.$pelaporan->id_skpd),'<i class="fa fa-download"></i>', 'target="_blank" title="Hal Download" class="btn btn-primary btn-sm"');
 								}
 								echo '  ';
-								echo anchor(site_url('laporan/hapus_pelapor/'.$pelaporan->id_pelaporan.'/'.$id_lap),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Semua file yang sudah diupload juga akan terhapus, Apa Anda Yakin ?\')"'); 
+								echo anchor(site_url('laporan/hapus_pelapor/'.$pelaporan->id_pelaporan.'/'.$id_lap),'<i class="fa fa-trash-o"></i>', 'title="Hapus" class="btn btn-danger btn-sm" onclick="javasciprt: return confirm(\'Semua file yang sudah diupload juga akan terhapus, Apa Anda Yakin ?\')"');
 								echo '  ';
-								echo anchor(site_url('laporan/cek_akses_upload/'.$pelaporan->id_lap),'<i class="fa fa-upload"></i>', 'title="Upload File" class="btn bg-purple btn-sm"'); 
+								echo anchor(site_url('laporan/cek_akses_upload/'.$pelaporan->id_lap),'<i class="fa fa-upload"></i>', 'title="Upload File" class="btn bg-purple btn-sm"');
 							?>
 							</td>
 							</tr>
 						<?php
-						}	
+						}
 						?>
 					</tbody>
 				</table>
@@ -150,7 +163,7 @@
 		 </div>
 	</div>
 </div>
-		
+
 <!-- jQuery 2.2.3 -->
 <script src="<?php echo base_url();?>assets/plugins/jQuery/jquery-2.2.3.min.js"></script>
 <script type="text/javascript">
@@ -161,7 +174,7 @@
 		$('#id_skpd').select2({
 			placeholder: "Pilih SKPD/Pelapor",
 			allowClear:	true,
-		}).data('select2').listeners['*'].push(function(name, target) { 
+		}).data('select2').listeners['*'].push(function(name, target) {
 			if(name == 'focus') {
 				$(this.$element).select2("open");
 			}
@@ -169,7 +182,7 @@
 		$('#id_klasifikasi').select2({
 			placeholder: "Pilih Klasifikasi",
 			allowClear:	true,
-		}).data('select2').listeners['*'].push(function(name, target) { 
+		}).data('select2').listeners['*'].push(function(name, target) {
 			if(name == 'focus') {
 				$(this.$element).select2("open");
 			}

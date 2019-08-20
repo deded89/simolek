@@ -51,12 +51,12 @@ class Pengendalian extends CI_Controller{
     }
     $data['id_skpd'] = '';
     if ($skpd <> null){
-      // if ($this->ion_auth->in_group('pengelola')){
+      if (!$this->ion_auth->in_group('pimskpd')){
         $data_skpd = $this->Skpd_model->get_by_id($skpd);
         $data['id_skpd'] = $data_skpd->id_skpd;
         $_SESSION['info'] = 'Data Difilter untuk '.$data_skpd->nama_skpd;
         $this->session->mark_as_temp('info',1);
-      // }
+      }
     }
     $this->load->view('template_view', $data);
   }

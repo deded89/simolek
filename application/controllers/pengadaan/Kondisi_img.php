@@ -55,9 +55,9 @@ class Kondisi_img extends CI_Controller
      $validation->set_rules($kondisi_img->rules());
 
      if ($validation->run()) {
-         $kondisi_img->save();
-         $this->session->set_flashdata('message', 'Berhasil diupload');
-         redirect(site_url('pengadaan/kondisi_img/index/'.$id_p));
+       $kondisi_img->save();
+       $this->session->set_flashdata('message', 'Berhasil diupload');
+       redirect(site_url('pengadaan/kondisi_img/index/'.$id_p));
      }
 
      $data = array(

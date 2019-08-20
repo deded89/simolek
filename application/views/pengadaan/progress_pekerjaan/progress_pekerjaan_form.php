@@ -100,12 +100,12 @@
 				<ul>
 					<li>Penjelasan Progress :</li>
 						<ol>
-							<li><strong>Persiapan, </strong>adalah progress ketika pekerjaan dalam proses seperti penetapan HPS, penyusunan rancangan kontrak dll.</li>
+							<li><strong>Persiapan, </strong>adalah progress ketika pekerjaan dalam proses seperti penetapan HPS, Penetapan KAK, Pengajuan ke LPSE, penyusunan rancangan kontrak dll.</li>
 							<li><strong>Pemilihan Penyedia, </strong>adalah progress ketika pekerjaan dalam proses pengumuman tender/ seleksi (tayang di LPSE untuk tender dan seleksi) untuk melihat pekerjaan yang sudah diumumkan tender/ seleksi lihat pada web <a href="http://lpse.banjarmasinkota.go.id/eproc4">LPSE Kota Banjarmasin</a>.</li>
-							<li><strong>Hasil Pemilihan, </strong>adalah progress penyedia sudah ditetapkan.</li>
+							<li><strong>Hasil Pemilihan, </strong>adalah progress penyedia sudah ditetapkan (Penetapan Surat Penunjukan Penyedia Barang/Jasa).</li>
 							<li><strong>Kontrak, </strong>adalah progress ketika sudah dilakukan penandatanganan kontrak dengan penyedia.</li>
 							<li><strong>Serah Terima (PHO), </strong>adalah progress ketika fisik pekerjaan sudah diselesaikan 100 % oleh penyedia dan sudah dilakukan penyerahan hasil pekerjaan kepada PPK.</li>
-							<li><strong>Serah Terima Akhir (FHO), </strong>adalah progress ketika masa pemeliharaan pekerjaan sudah berakhir.</li>
+							<li><strong>Serah Terima Akhir (FHO), </strong>adalah progress ketika masa pemeliharaan pekerjaan (masa garansi untuk pengadaan barang) sudah berakhir.</li>
 							<li><strong>Selesai, </strong>adalah progress ketika pekerjaan sudah selesai (hanya diisikan di rencana berikutnya dengan tanggal next progress sama dengan tanggal progress FHO).</li>
 							<li><strong>Dibatalkan, </strong>adalah progress ketika pekerjaan tidak jadi dilaksanakan (mohon tambahkan alasan pembatalan di kolom keterangan).</li>
 						</ol>
@@ -143,6 +143,7 @@ $(document).ready(function () {
 		format:'yyyy-mm-dd',
 		todayHighlight:true,
 		todayBtn:'linked',
+		endDate: 'today,'
 	})
 	.on('changeDate',function(selected){
 		var mindate = new Date(selected.date.valueOf());

@@ -5,6 +5,7 @@
 <div class="row" style="margin-bottom: 10px">
 	<div <?php echo $hidden_attr ?> class="col-md-4 text-left">
 		<?php echo anchor(site_url('pengadaan/pekerjaan/create'), 'Tambah Data', 'class="btn btn-primary"'); ?>
+		<?php echo anchor(site_url('pengadaan/pekerjaan/cetak'), 'Export Excel', 'class="btn btn-warning"'); ?>
 	</div>
 </div>
 <!-- isi halaman -->

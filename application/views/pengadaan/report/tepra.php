@@ -14,6 +14,7 @@
         <option value="all" <?php echo  set_select('pagu', 'all', TRUE); ?> >Semua</option>
       </select>
       <input type="submit" name="submit" value="Tampilkan" class="btn btn-primary">
+      <a href="<?php echo site_url('pengadaan/report/cetak/'.$filter_tanggal.'/'.$filter_pagu) ?>" class="btn btn-warning">Cetak</a>
       <input type="text" class="btn btn-info pull-right" value="<?php echo date("d-m-Y H:i:s").' Wita' ?>">
       <!-- CSRF TOKEN -->
       <?php
@@ -84,6 +85,9 @@
               <th>Tanggal</th>
               <th>Detail</th>
               <th>Pagu</th>
+              <th>Nilai Kontrak</th>
+              <th>Realisasi <br>Keuangan</th>
+              <th>Realisasi <br>Fisik</th>
               <th>Aksi</th>
             </tr>
           </thead>
@@ -99,8 +103,11 @@
                 <td><?php echo $pekerjaan->nama_skpd ?></td>
                 <td><?php echo $pekerjaan->nama ?></td>
                 <td><?php echo $pekerjaan->tgl_progress ?></td>
-                <td><?php echo $pekerjaan->ket ?></td>
+                <td><?php echo $pekerjaan->ket_progress ?></td>
                 <td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->pagu,2,',','.'); ?></td>
+                <td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->nilai,2,',','.'); ?></td>
+                <td class="text-right" nowrap><?php echo "Rp " . number_format($pekerjaan->real_keu,2,',','.'); ?></td>
+                <td class="text-center" nowrap><?php echo $pekerjaan->real_fisik ?> %</td>
                 <td style="text-align:center" width="120px">
                  <?php
                    echo anchor(site_url('pengadaan/pekerjaan/read/'.$pekerjaan->id_p),'<i class="fa fa-eye"></i>', 'title="Lihat" class="btn btn-info btn-sm"');
@@ -145,7 +152,7 @@ $(document).ready(function () {
 			api.column(groupColumn, {page:'current'} ).data().each( function ( group, i ) {
 				if ( last !== group ) {
 					$(rows).eq( i ).before(
-						'<tr class="group"><td colspan="7"><strong> '+group+' </strong></td></tr>'
+						'<tr class="group"><td colspan="11"><strong> '+group+' </strong></td></tr>'
 					);
 
 					last = group;

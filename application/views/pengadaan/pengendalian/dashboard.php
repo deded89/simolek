@@ -73,6 +73,74 @@
       <!-- Add the bg color to the header using any of the bg-* classes -->
       <div class="widget-user-header bg-aqua">
         <div class="widget-user-image">
+          <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
+        </div>
+        <!-- /.widget-user-image -->
+        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
+        <h3 class="widget-user-username"><strong> >200 JT s.d 2,5 M</strong> </h5>
+      </div>
+      <div class="box-footer no-padding">
+        <ul class="nav nav-stacked">
+          <?php foreach ($tahapan_200 as $tahapan){  ?>
+            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/2500000000/200000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
+          <?php } ?>
+          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/2500000000/200000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c200 ?></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="box box-widget widget-user-2">
+      <!-- Add the bg color to the header using any of the bg-* classes -->
+      <div class="widget-user-header bg-aqua">
+        <div class="widget-user-image">
+          <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
+        </div>
+        <!-- /.widget-user-image -->
+        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
+        <h3 class="widget-user-username"><strong> > 2,5 M s.d 50 M</strong> </h5>
+      </div>
+      <div class="box-footer no-padding">
+        <ul class="nav nav-stacked">
+          <?php foreach ($tahapan_25 as $tahapan){  ?>
+            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/50000000000/2500000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
+          <?php } ?>
+          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/50000000000/2500000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c25 ?></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-4">
+    <div class="box box-widget widget-user-2">
+      <!-- Add the bg color to the header using any of the bg-* classes -->
+      <div class="widget-user-header bg-yellow">
+        <div class="widget-user-image">
+          <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
+        </div>
+        <!-- /.widget-user-image -->
+        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
+        <h3 class="widget-user-username"><strong> > 50 M</strong> </h5>
+      </div>
+      <div class="box-footer no-padding">
+        <ul class="nav nav-stacked">
+          <?php foreach ($tahapan_50 as $tahapan){  ?>
+            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/1000000000000/50000000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
+          <?php } ?>
+          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/1000000000000/50000000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c50 ?></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ROW KEDUA -->
+<div  <?php echo $pengelola_only ?> class="row">
+  <div class="col-md-4">
+    <div class="box box-widget widget-user-2">
+      <!-- Add the bg color to the header using any of the bg-* classes -->
+      <div class="widget-user-header bg-aqua">
+        <div class="widget-user-image">
           <img class="img-circle" src="<?php echo base_url(); ?>assets/images/opt-icon.png" alt="User Avatar">
         </div>
         <!-- /.widget-user-image -->
@@ -129,74 +197,6 @@
           <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/50000000000/2500000000/'.$id_skpd) ?>"> > 2,5M s.d 50M <span class="pull-right badge bg-gray"><?php echo $c25 ?></span></a></li>
           <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/1000000000000/50000000000/'.$id_skpd) ?>"> > 50M <span class="pull-right badge bg-gray"><?php echo $c50 ?></span></a></li>
           <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_skpd/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $ck200+$c200+$c25+$c50 ?></span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- ROW KEDUA -->
-<div class="row">
-  <div class="col-md-4">
-    <div class="box box-widget widget-user-2">
-      <!-- Add the bg color to the header using any of the bg-* classes -->
-      <div class="widget-user-header bg-aqua">
-        <div class="widget-user-image">
-          <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
-        </div>
-        <!-- /.widget-user-image -->
-        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
-        <h3 class="widget-user-username"><strong> >200 JT s.d 2,5 M</strong> </h5>
-      </div>
-      <div class="box-footer no-padding">
-        <ul class="nav nav-stacked">
-          <?php foreach ($tahapan_200 as $tahapan){  ?>
-            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/2500000000/200000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
-          <?php } ?>
-          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/2500000000/200000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c200 ?></span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-4">
-    <div class="box box-widget widget-user-2">
-      <!-- Add the bg color to the header using any of the bg-* classes -->
-      <div class="widget-user-header bg-aqua">
-        <div class="widget-user-image">
-          <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
-        </div>
-        <!-- /.widget-user-image -->
-        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
-        <h3 class="widget-user-username"><strong> > 2,5 M s.d 50 M</strong> </h5>
-      </div>
-      <div class="box-footer no-padding">
-        <ul class="nav nav-stacked">
-          <?php foreach ($tahapan_25 as $tahapan){  ?>
-            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/5000000000/2500000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
-          <?php } ?>
-          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/50000000000/2500000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c25 ?></span></a></li>
-        </ul>
-      </div>
-    </div>
-  </div>
-  <div class="col-md-4">
-    <div class="box box-widget widget-user-2">
-      <!-- Add the bg color to the header using any of the bg-* classes -->
-      <div class="widget-user-header bg-yellow">
-        <div class="widget-user-image">
-          <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
-        </div>
-        <!-- /.widget-user-image -->
-        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
-        <h3 class="widget-user-username"><strong> > 50 M</strong> </h5>
-      </div>
-      <div class="box-footer no-padding">
-        <ul class="nav nav-stacked">
-          <?php foreach ($tahapan_50 as $tahapan){  ?>
-            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/1000000000000/50000000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
-          <?php } ?>
-          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/1000000000000/50000000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c50 ?></span></a></li>
         </ul>
       </div>
     </div>

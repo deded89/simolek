@@ -46,12 +46,47 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
   <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
   <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
+
+<!-- #################################################### -->
+<!-- PRELOADER -->
+  <script src="http://code.jquery.com/jquery-2.2.1.min.js"></script>
+  <style type="text/css">
+  .preloader {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 9999;
+    background-color: #fff;
+  }
+  .preloader .loading {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    font: 14px arial;
+  }
+  </style>
+<script>
+  $(document).ready(function(){
+    $(".preloader").fadeOut();
+  })
+  </script>
+<!-- ############################################################ -->
 </head>
 <!-- AKHIR HEAD HALAMAN TEMPLATE -->
 
 <!-- BODY HALAMAN TEMPLATE -->
 <body class="hold-transition skin-green sidebar-mini fixed sidebar-collapse">
 <!-- <body class="hold-transition skin-green sidebar-mini fixed"> -->
+<div class="preloader">
+  <div class="loading">
+    <img src="<?php echo base_url() ?>/assets/images/poi.gif" width="80">
+    <p>Harap Tunggu</p>
+  </div>
+</div>
+
 <div class="wrapper">
   <?php $this->load->view('template/header'); ?>
   <?php $this->load->view('template/menu_kiri'); ?>

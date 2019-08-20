@@ -53,4 +53,4 @@ $route['default_controller'] = 'Auth';
 $route['404_override'] = '';
 $route['translate_uri_dashes'] = FALSE;
 
-// $route['pekerjaan'] = 'pengadaan/pekerjaan';
+// $route['pekerjaan/detail_pekerjaan'] = 'pengadaan/pekerjaan/read/24';

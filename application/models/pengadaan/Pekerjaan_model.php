@@ -178,6 +178,61 @@ class Pekerjaan_model extends CI_Model
       $this->db->order_by('p.pagu', 'desc');
       return $this->db->get()->result();
     }
+
+    //PROYEKSI PEKERJAAN BERDASARKAN MASA KONTRAK
+    function get_proyeksi($id_p){
+      $db2 = $this->db2;
+      $db2->select('p.*,k.*');
+      $db2->from('kontrak k');
+      $db2->join('pekerjaan p', 'k.pekerjaan = p.id','left');
+      $db2->where('p.id = '.$id_p.' and p.jenis = 2 ');
+      $db2->or_where('p.id = '.$id_p.' and p.jenis = 3 ');
+      $db2->order_by('k.tanggal','desc');
+      $q_data = $db2->get()->row();
+
+      if($q_data){
+        $date1=date_create("$q_data->awal");
+        $date2=date_create("$q_data->akhir");
+        $masa_kontrak=date_diff($date1,$date2);
+
+        //HITUNG ANTARA AWAL KONTRAK DAN HARI INI
+        $date1=date_create("$q_data->awal");
+        $date2=date_create(date('Y-m-d'));
+        $hari_terlaksana=date_diff($date1,$date2);
+
+        $persen_perday = 100 / ($masa_kontrak->format('%a')+1);
+        $proyeksi_today = $persen_perday * ($hari_terlaksana->format('%a')+1);
+        return array(
+          'proyeksi_today' => $proyeksi_today,
+          'hari_terlaksana' => $hari_terlaksana->format('%a')+1,
+        );
+      }
+    }
+
+    function cetak(){
+      $db2 = $this->db2;
+      $db2->select('id, kontak, pekerjaan, MAX(tmt) as tmt');
+      $db2->from('pic');
+      $db2->where('status','pptk');
+      $db2->group_by('pekerjaan');
+      $subquery = $db2->get_compiled_select();
+
+      $db2->select('a.*');
+      $db2->from('pic a');
+      $db2->join('('.$subquery.') b','a.id = b.id AND a.pekerjaan = b.pekerjaan AND a.tmt = b.tmt');
+      $subquery2 = $db2->get_compiled_select();
+
+      $db2->select('p.*,p.nama as nama_pekerjaan, pr.nama as progress, s.*, j.nama as jenis, m.nama as metode, pic.*, pic.nama as nama_pic');
+      $db2->from('pekerjaan p');
+      $db2->join('progress pr','pr.id=p.progress_now','left');
+      $db2->join('('.$subquery2.') pic','pic.pekerjaan=p.id','left');
+      $db2->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd', 'left');
+      $db2->join('epiz_21636198_pengendalian.jenis j', 'p.jenis=j.id', 'left');
+      $db2->join('epiz_21636198_pengendalian.metode m', 'p.metode=m.id', 'left');
+      $db2->order_by('p.skpd');
+      $db2->order_by('p.pagu');
+      return $db2->get()->result();
+    }
 }
 
 /* End of file Pekerjaan_model.php */

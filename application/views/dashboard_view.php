@@ -8,6 +8,14 @@
 					<div class="col-xs-6"><?php echo cmb_list_laporan() ?></div>
 					<div class="col-xs-4"><button type="submit" class="btn btn-primary">Lihat Status</button></div>
 				</div>
+				<!-- CSRF TOKEN -->
+				<?php
+					$csrf = array(
+						'name' => $this->security->get_csrf_token_name(),
+						'hash' => $this->security->get_csrf_hash()
+					);
+				?>
+				<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
 			</form>
 		</div>
 	</div>

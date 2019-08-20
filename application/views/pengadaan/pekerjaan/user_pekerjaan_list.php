@@ -6,6 +6,14 @@
           <?php $id = $id_p; ?>
           <p><?php echo cmb_dinamiss2('pekerjaan','epiz_21636198_pengendalian.pekerjaan','nama','id',$id) ?></p>
           <p><?php echo cmb_dinamiss2('users','users','username','id',false) ?></p>
+          <!-- CSRF TOKEN -->
+          <?php
+            $csrf = array(
+              'name' => $this->security->get_csrf_token_name(),
+              'hash' => $this->security->get_csrf_hash()
+            );
+          ?>
+          <input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
           <button class="btn btn-primary" type="submit" name="button">Set User</button>
         </form>
       </div>
@@ -27,6 +35,7 @@
               <th>SKPD</th>
               <th>Pagu</th>
               <th>User Pengelola</th>
+              <th>Nama PPTK</th>
               <th width="50px">Aksi</th>
             </tr>
           </thead>
@@ -41,6 +50,7 @@
               <td><?php echo $user_pekerjaan->nama_skpd ?></td>
               <td style="white-space:nowrap;"><?php echo "Rp " . number_format($user_pekerjaan->pagu,2,',','.'); ?></td>
               <td><?php echo $user_pekerjaan->username ?></td>
+              <td><?php echo $user_pekerjaan->nama_pptk ?></td>
               <td>
                 <a href="<?php echo site_url('pengadaan/user_pekerjaan/list_user_pekerjaan/'.$user_pekerjaan->id_p) ?>" class="btn btn-sm btn-warning" title="Set User"><i class="fa fa-gears"></i></a>
                 <a href="<?php echo site_url('pengadaan/user_pekerjaan/unset_user/'.$user_pekerjaan->id_p) ?>" class="btn btn-sm btn-danger" title="Unset User"><i class="fa fa-trash"></i></a>

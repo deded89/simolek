@@ -29,7 +29,7 @@
 							<?php echo form_error('deskripsi_gambar') ?>
 						</div>
 					</div>
-					<input class="btn btn-primary" type="submit" name="btn" value="Simpan" />
+					<input class="btn btn-primary" type="submit" id="submit" name="btn" value="Simpan" />
           <a href="<?php echo site_url('pengadaan/pekerjaan/read/'.$id_p) ?>" class="btn btn-danger">Cancel</a>
 
           <input type="hidden" name="id_p" value="<?php echo $id_p ?>">
@@ -42,6 +42,9 @@
 					?>
 					<input type="hidden" name="<?=$csrf['name'];?>" value="<?=$csrf['hash'];?>" />
   		</form>
+			<div id="loading" class="overlay" style="display: none;">
+        <i class="fa fa-refresh fa-spin"></i>
+      </div>
 		</div>
 	</div>
 </div>
@@ -51,5 +54,8 @@
 <script type="text/javascript">
 	$(document).ready(function () {
 		$("#nama").focus();
+		$("#submit").click(function(){
+			$("#loading").show();
+		});
 	});
 </script>

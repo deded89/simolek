@@ -284,6 +284,11 @@ class Progress_pekerjaan extends CI_Controller
       $this->session->set_flashdata('error', 'Mohon lengkapi Data Pejabat Pembuat Komitmen (PPK) Pekerjaan terlebih dahulu melalui tombol Add PIC');
       redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
     }
+    $pakpa_data = $this->Pic_model->get_pakpa($id_p);
+    if (!$pakpa_data){
+      $this->session->set_flashdata('error', 'Mohon lengkapi Data PA/KPA Pekerjaan terlebih dahulu melalui tombol Add PIC');
+      redirect(site_url('pengadaan/pekerjaan/read/'.$id_p));
+    }
     $lokasi_pekerjaan = $this->Lokasi_model->get_by_id_p($id_p);
     if (!$lokasi_pekerjaan){
       $this->session->set_flashdata('error', 'Mohon lengkapi Lokasi Pekerjaan terlebih dahulu');
@@ -335,7 +340,7 @@ class Progress_pekerjaan extends CI_Controller
   public function cek_kelengkapan_progress($id_p, $progress_input){
     $this->load->model('pengadaan/Progress_model');
     $p = $progress_input;
-    if ($p > 1 and $p < 5){
+    if ($p > 1 and $p < 6){
       for ($i = 1; $i < $p; $i++) {
         $progress_data = $this->Progress_model->get_by_id($i);
         $exist = $this->Progress_pekerjaan_model->get_by_progress($id_p,$i);

@@ -1,4 +1,30 @@
 <?php
+function enkripsi($id){
+  $ci = get_instance();
+  $ci->encryption->initialize(
+    array(
+            'cipher' => 'aes-256',
+            'mode' => 'ctr',
+            'key' => $ci->config->config['encryption_key'],
+    )
+  );
+  $e_id = $ci->encryption->encrypt($id);
+  return $e_id;
+}
+
+function dekripsi($id){
+  $ci = get_instance();
+  $ci->encryption->initialize(
+    array(
+      'cipher' => 'aes-256',
+      'mode' => 'ctr',
+      'key' => $ci->config->config['encryption_key'],
+    )
+  );
+  $e_id = $ci->encryption->decrypt($id);
+  return $e_id;
+}
+
 function cmb_dinamis($name,$table,$field,$pk,$selected){
     $ci = get_instance();
     $cmb = "<select name='$name' class='form-control'>";
