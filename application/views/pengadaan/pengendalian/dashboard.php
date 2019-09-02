@@ -68,7 +68,29 @@
 </div>
 
 <div class="row">
-  <div class="col-md-4">
+  <div class="col-md-3">
+    <div class="box box-widget widget-user-2">
+      <!-- Add the bg color to the header using any of the bg-* classes -->
+      <div class="widget-user-header bg-green">
+        <div class="widget-user-image">
+          <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
+        </div>
+        <!-- /.widget-user-image -->
+        <h5 class="widget-user-desc">Rekap Tahapan Pelaksanaan Semua Pekerjaan <br> Pagu Bernilai </h3>
+        <h3 class="widget-user-username"><strong> >200 JT </strong> </h5>
+      </div>
+      <div class="box-footer no-padding">
+        <ul class="nav nav-stacked">
+          <?php foreach ($tahapan_all as $tahapan){  ?>
+            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/2500000000/200000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
+          <?php } ?>
+          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/2500000000/200000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c_all ?></span></a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-3">
     <div class="box box-widget widget-user-2">
       <!-- Add the bg color to the header using any of the bg-* classes -->
       <div class="widget-user-header bg-aqua">
@@ -76,7 +98,7 @@
           <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
         </div>
         <!-- /.widget-user-image -->
-        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
+        <h5 class="widget-user-desc">Tahapan Pelaksanaan Pekerjaan Pagu Bernilai</h3>
         <h3 class="widget-user-username"><strong> >200 JT s.d 2,5 M</strong> </h5>
       </div>
       <div class="box-footer no-padding">
@@ -90,7 +112,7 @@
     </div>
   </div>
 
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="box box-widget widget-user-2">
       <!-- Add the bg color to the header using any of the bg-* classes -->
       <div class="widget-user-header bg-aqua">
@@ -98,7 +120,7 @@
           <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
         </div>
         <!-- /.widget-user-image -->
-        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
+        <h5 class="widget-user-desc">Tahapan Pelaksanaan Pekerjaan Pagu Bernilai</h3>
         <h3 class="widget-user-username"><strong> > 2,5 M s.d 50 M</strong> </h5>
       </div>
       <div class="box-footer no-padding">
@@ -111,7 +133,7 @@
       </div>
     </div>
   </div>
-  <div class="col-md-4">
+  <div class="col-md-3">
     <div class="box box-widget widget-user-2">
       <!-- Add the bg color to the header using any of the bg-* classes -->
       <div class="widget-user-header bg-yellow">
@@ -119,8 +141,8 @@
           <img class="img-circle" src="<?php echo base_url(); ?>assets/images/work-icon.png" alt="User Avatar">
         </div>
         <!-- /.widget-user-image -->
-        <h5 class="widget-user-desc">Kondisi Pekerjaan Pagu Bernilai</h3>
-        <h3 class="widget-user-username"><strong> > 50 M</strong> </h5>
+        <h5 class="widget-user-desc">Tahapan Pelaksanaan Pekerjaan Pagu Bernilai</h3>
+        <h3 class="widget-user-username"><strong> &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp &nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp > 50 M </strong> </h5>
       </div>
       <div class="box-footer no-padding">
         <ul class="nav nav-stacked">

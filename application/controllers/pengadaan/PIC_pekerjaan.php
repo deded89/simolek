@@ -30,13 +30,35 @@ class PIC_pekerjaan extends CI_Controller
       if ($this->ion_auth->in_group('guest')) {
          return show_error('Guest Forbid to Access This Page.');
       }
-
-      $data = array(
-        'pekerjaan_data' => $pekerjaan,
-        'controller' => 'Pekerjaan',
-        'uri1' => 'Tambah Penanggung Jawab',
-        'main_view' => 'pengadaan/pic_pekerjaan/add_pptk_form',
-      );
+        $data = array(
+          'pekerjaan_data' => $pekerjaan,
+          'controller' => 'Pekerjaan',
+          'uri1' => 'Tambah Penanggung Jawab',
+          'main_view' => 'pengadaan/pic_pekerjaan/add_pptk_form',
+        );
+        $data_pegawai = $this->session->userdata('data_pegawai');
+        $nip_dicari = $this->session->userdata('nip_dicari');
+        if ($data_pegawai){
+          $data['nip'] = set_value('nip',$data_pegawai->nip);
+          $data['nama'] = set_value('nama',$data_pegawai->nama);
+          $data['kontak'] = set_value('kontak',$data_pegawai->kontak);
+          $data['field_cari'] = 'disabled';
+          $data['field_pic'] ='';
+          $this->session->unset_userdata('data_pegawai');
+        } elseif ($nip_dicari){
+          $data['nip'] = set_value('nip',$nip_dicari);
+          $data['nama'] = set_value('nama');
+          $data['kontak'] = set_value('kontak');
+          $data['field_cari'] = 'disabled';
+          $data['field_pic'] ='';
+          $this->session->unset_userdata('nip_dicari');
+        } else {
+          $data['nip'] = set_value('nip');
+          $data['nama'] = set_value('nama');
+          $data['kontak'] = set_value('kontak');
+          $data['field_cari'] = '';
+          $data['field_pic'] ='disabled';
+        }
       $this->load->view('template_view', $data);
     }
   }
@@ -45,6 +67,7 @@ class PIC_pekerjaan extends CI_Controller
     $this->_rules();
 
     if ($this->form_validation->run() == FALSE) {
+      $this->session->set_userdata('nip_dicari',$this->input->post('id_p',TRUE));
       $this->add_pic($this->input->post('id_p',TRUE));
     } else {
       $data = array(
@@ -87,14 +110,43 @@ class PIC_pekerjaan extends CI_Controller
 
   public function _rules()
   {
-    $this->form_validation->set_rules('nip', 'Nip', 'trim|required');
+    $this->form_validation->set_rules('nip', 'Nip', 'trim|required|callback_cek_duplikat');
     $this->form_validation->set_rules('nama', 'Nama', 'trim|required');
-    $this->form_validation->set_rules('status', 'Status', 'trim|required');
+    $this->form_validation->set_rules('status', 'Status', 'trim|required|callback_cek_duplikat');
     $this->form_validation->set_rules('tmt', 'TMT', 'trim|required');
     $this->form_validation->set_rules('kontak', 'Kontak', 'trim|required');
 
     $this->form_validation->set_rules('id_p', 'Pekerjaan', 'trim');
     $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+  }
+
+  public function cek_duplikat(){
+    $data = array (
+      'nip'    => $this->input->post('nip',TRUE),
+      'status'  => $this->input->post('status',TRUE),
+      'id_p'  => $this->input->post('id_p',TRUE),
+    );
+    $num = $this->Pic_model->cek_duplikat_pegawai($data);
+    if ($num > 0){
+      $this->form_validation->set_message('cek_duplikat', 'Pegawai dengan nip dan status ini sudah ada, silakan hapus terlebih dahulu jika ada perbaikan');
+      return false;
+    }else{
+      return true;
+    }
+  }
+
+  public function cari_pegawai($id_p){
+    $nip = $this->input->post('cari_nip',TRUE);
+    $result = $this->Pic_model->cek_pegawai($nip);
+    if ($result){
+      $this->session->set_userdata('data_pegawai',$result);
+      redirect(site_url('pengadaan/PIC_pekerjaan/add_pic/'.$id_p));
+    }else{
+      $this->session->set_userdata('nip_dicari',$nip);
+      $this->session->set_flashdata('error','Pegawai dengan NIP '.$nip.' tidak ada di database, silakan tambahkan data di kolom yang disediakan');
+      redirect(site_url('pengadaan/PIC_pekerjaan/add_pic/'.$id_p));
+    }
+
   }
 
 }

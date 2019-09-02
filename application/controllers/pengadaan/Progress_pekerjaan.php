@@ -85,14 +85,18 @@ class Progress_pekerjaan extends CI_Controller
 
           'id_prog' => set_value('id_prog'),
           'id_p' => set_value('id_p',$id_p),
-          'progress' => set_value('progress',$row->progress),
-          'tgl_progress' => set_value('tgl_progress',$row->tgl_progress),
-          'next_progress' => set_value('next_progress',$row->next_progress),
-          'tgl_n_progress' => set_value('tgl_n_progress',$row->tgl_n_progress),
-          'ket' => set_value('ket',$row->ket),
+          'progress' => set_value('progress',$row->progress+1),
+          'tgl_progress' => set_value('tgl_progress',$row->tgl_n_progress),
+          'tgl_n_progress' => set_value('tgl_n_progress'),
+          'ket' => set_value('ket'),
           'real_keu' => set_value('real_keu',$row->real_keu),
           'real_fisik' => set_value('real_fisik',$row->real_fisik),
         );
+        if ($row->progress+1 < 6) {
+          $data['next_progress'] = set_value('next_progress',$row->next_progress+1);
+        } else {
+          $data['next_progress'] = set_value('next_progress',$row->progress+1);
+        }
       } else {
         $data = array(
           'button' => 'Simpan',
@@ -353,15 +357,30 @@ class Progress_pekerjaan extends CI_Controller
   }
 
   public function _rules(){
-    $this->form_validation->set_rules('pekerjaan', 'pekerjaan', 'trim|required');
-    $this->form_validation->set_rules('progress', 'progress', 'trim|required');
-    $this->form_validation->set_rules('tgl_progress', 'tgl progress', 'trim|required');
-    $this->form_validation->set_rules('next_progress', 'next progress', 'trim|required');
-    $this->form_validation->set_rules('tgl_n_progress', 'tgl n progress', 'trim|required');
-    $this->form_validation->set_rules('ket', 'ket', 'trim|required');
+    $this->form_validation->set_rules('pekerjaan', 'Pekerjaan', 'trim|required');
+    $this->form_validation->set_rules('progress', 'Progress saat ini', 'trim|required|callback_cek_duplikat');
+    $this->form_validation->set_rules('tgl_progress', 'Tanggal Progress', 'trim|required|callback_cek_duplikat');
+    $this->form_validation->set_rules('next_progress', 'Next Progress', 'trim|required');
+    $this->form_validation->set_rules('tgl_n_progress', 'Tanggal Next Progress', 'trim|required');
+    $this->form_validation->set_rules('ket', 'Detail', 'trim|required');
 
     $this->form_validation->set_rules('id', 'id', 'trim');
     $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+  }
+
+  public function cek_duplikat(){
+    $data = array (
+      'progress'        => $this->input->post('progress',TRUE),
+      'tgl_progress'    => $this->input->post('tgl_progress',TRUE),
+      'id_p'    => $this->input->post('id_p',TRUE),
+    );
+    $num = $this->Progress_pekerjaan_model->cek_duplikat_progress($data);
+    if ($num > 0){
+      $this->form_validation->set_message('cek_duplikat', 'Progress dengan tahapan dan tanggal ini sudah ada, silakan hapus terlebih dahulu jika ada perbaikan');
+      return false;
+    }else{
+      return true;
+    }
   }
 
 }

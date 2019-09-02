@@ -169,7 +169,7 @@ if (!defined('BASEPATH'))
         $this->_rules();
 
         if ($this->form_validation->run() == FALSE) {
-          $this->update($this->input->post('id_k', TRUE));
+          $this->update($this->input->post('id_k', TRUE),$this->input->post('id_p', TRUE));
         } else {
           $data = array(
             'nomor' => $this->input->post('nomor',TRUE),
@@ -241,8 +241,8 @@ if (!defined('BASEPATH'))
 
       public function _rules()
       {
-        $this->form_validation->set_rules('nomor', 'nomor', 'trim|required');
-        $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+        $this->form_validation->set_rules('nomor', 'nomor', 'trim|required|callback_check_nomor_kontrak');
+        $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required|callback_check_nomor_kontrak');
         $this->form_validation->set_rules('penyedia', 'penyedia', 'trim|required');
         $this->form_validation->set_rules('nilai', 'nilai', 'trim|required');
         $this->form_validation->set_rules('lama', 'lama', 'trim|required');
@@ -251,7 +251,22 @@ if (!defined('BASEPATH'))
         $this->form_validation->set_rules('ket', 'ket', 'trim|required');
 
         $this->form_validation->set_rules('id', 'id', 'trim');
-        $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+        $this->form_validation->set_error_delimiters('<span class="label label-danger">', '</span>');
+      }
+
+      public function check_nomor_kontrak(){
+        $data = array (
+          'nomor'    => $this->input->post('nomor',TRUE),
+          'tanggal'  => $this->input->post('tanggal',TRUE),
+          'id_p'  => $this->input->post('id_p',TRUE)
+        );
+        $num = $this->Kontrak_model->cek_duplikat_kontrak($data);
+        if ($num > 0){
+          $this->form_validation->set_message('check_nomor_kontrak', 'Kontrak dengan nomor atau tanggal ini sudah ada');
+          return false;
+        }else{
+          return true;
+        }
       }
 
       function pdf()

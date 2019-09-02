@@ -102,6 +102,14 @@ class Kontrak_model extends CI_Model
       }
     }
 
+    function cek_duplikat_kontrak($data){
+      $this->db2->where('nomor',$data['nomor']);
+      $this->db2->or_where('tanggal',$data['tanggal']);
+      $this->db2->where('pekerjaan',$data['id_p']);
+      $num = $this->db2->get('kontrak')->num_rows();
+      return $num;
+    }
+
 }
 
 /* End of file Kontrak_model.php */

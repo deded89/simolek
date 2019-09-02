@@ -32,7 +32,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/dist/css/AdminLTE.min.css">
   <!-- bootstrap datepicker -->
-  <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/datepicker/datepicker3.css">
+  <!-- <link rel="stylesheet" href="<?php //echo base_url();?>assets/plugins/datepicker/datepicker3.css"> -->
+  <!-- bootstrap datepicker -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/css/bootstrap-datepicker.css">
    <!-- Bootstrap time Picker -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/timepicker/bootstrap-timepicker.min.css">
   <!-- my custom css -->
@@ -140,6 +142,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 <script src="<?php echo base_url();?>assets/plugins/select2/select2.full.min.js"></script>
 <!-- bootstrap datepicker -->
 <script src="<?php echo base_url();?>assets/plugins/datepicker/bootstrap-datepicker.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.9.0/js/bootstrap-datepicker.js"></script>
 <!-- bootstrap time picker -->
 <script src="<?php echo base_url();?>assets/plugins/timepicker/bootstrap-timepicker.min.js"></script>
 </div>

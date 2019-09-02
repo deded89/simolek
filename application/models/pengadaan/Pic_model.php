@@ -84,6 +84,20 @@ class Pic_model extends CI_Model
         $this->db2->delete($this->table);
     }
 
+    function cek_duplikat_pegawai($data){
+      $this->db2->where('nip',$data['nip']);
+      $this->db2->where('status',$data['status']);
+      $this->db2->where('pekerjaan',$data['id_p']);
+      $num = $this->db2->get('pic')->num_rows();
+      return $num;
+    }
+
+    function cek_pegawai($nip){
+      $this->db2->where('nip',$nip);
+      return $this->db2->get($this->table)->row();
+    }
+
+
 }
 
 /* End of file Metode_model.php */

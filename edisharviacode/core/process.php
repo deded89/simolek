@@ -49,9 +49,10 @@ if (isset($_POST['generate']))
         include 'core/create_config_pagination.php';
         include 'core/create_controller.php';
         include 'core/create_model.php';
-        $jenis_tabel == 'reguler_table' ? include 'core/create_view_list.php' : include 'core/create_view_list_datatables.php';       
+        $jenis_tabel == 'reguler_table' ? include 'core/create_view_list.php' : include 'core/create_view_list_datatables.php'; 
+		include 'core/create_view_read.php';		
         include 'core/create_view_form.php';
-        include 'core/create_view_read.php';
+        
         
         $export_excel == 1 ? include 'core/create_exportexcel_helper.php' : '';
         $export_word == 1 ? include 'core/create_view_list_doc.php' : '';

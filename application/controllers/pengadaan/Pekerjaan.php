@@ -310,7 +310,7 @@ class Pekerjaan extends CI_Controller
         'fill' => [
           'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
           'startColor' => [
-              'argb' => 'FFA0A0A0',
+              'argb' => 'D7D3D3',
           ],
         ],
       ];
@@ -434,9 +434,8 @@ class Pekerjaan extends CI_Controller
       $sheet->setCellValue('B'. ($dtbl2 + 3) ,'Kontrak');
       $sheet->setCellValue('B'. ($dtbl2 + 4) ,'Serah Terima (PHO)');
       $sheet->setCellValue('B'. ($dtbl2 + 5) ,'Serah Terima Akhir (FHO)');
-      $sheet->setCellValue('B'. ($dtbl2 + 6) ,'Selesai');
-      $sheet->setCellValue('B'. ($dtbl2 + 7) ,'Dibatalkan');
-      $sheet->setCellValue('B'. ($dtbl2 + 8) ,'Belum Ada Progress');
+      $sheet->setCellValue('B'. ($dtbl2 + 6) ,'Dibatalkan');
+      $sheet->setCellValue('B'. ($dtbl2 + 7) ,'Belum Ada Progress');
 
       $sheet->setCellValue('C'. ($dtbl2 + 0) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Persiapan\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
       $sheet->setCellValue("C". ($dtbl2 + 1) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Pemilihan Penyedia\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
@@ -444,9 +443,8 @@ class Pekerjaan extends CI_Controller
       $sheet->setCellValue("C". ($dtbl2 + 3) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Kontrak\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
       $sheet->setCellValue("C". ($dtbl2 + 4) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Serah Terima (PHO)\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
       $sheet->setCellValue("C". ($dtbl2 + 5) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Serah Terima Akhir (FHO)\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
-      $sheet->setCellValue("C". ($dtbl2 + 6) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Selesai\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
-      $sheet->setCellValue("C". ($dtbl2 + 7) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Dibatalkan\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
-      $sheet->setCellValue("C". ($dtbl2 + 8) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Belum Ada Progress\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
+      $sheet->setCellValue("C". ($dtbl2 + 6) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Dibatalkan\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
+      $sheet->setCellValue("C". ($dtbl2 + 7) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Belum Ada Progress\",H".$i_awal.":H".$i_akhir.",\">200000000\",H".$i_awal.":H".$i_akhir.",\"<=2500000000\")");
 
       $sheet->setCellValue("D". ($dtbl2 + 0) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Persiapan\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
       $sheet->setCellValue("D". ($dtbl2 + 1) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Pemilihan Penyedia\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
@@ -454,9 +452,8 @@ class Pekerjaan extends CI_Controller
       $sheet->setCellValue("D". ($dtbl2 + 3) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Kontrak\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
       $sheet->setCellValue("D". ($dtbl2 + 4) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Serah Terima (PHO)\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
       $sheet->setCellValue("D". ($dtbl2 + 5) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Serah Terima Akhir (FHO)\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
-      $sheet->setCellValue("D". ($dtbl2 + 6) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Selesai\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
-      $sheet->setCellValue("D". ($dtbl2 + 7) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Dibatalkan\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
-      $sheet->setCellValue("D". ($dtbl2 + 8) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Belum Ada Progress\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
+      $sheet->setCellValue("D". ($dtbl2 + 6) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Dibatalkan\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
+      $sheet->setCellValue("D". ($dtbl2 + 7) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Belum Ada Progress\",H".$i_awal.":H".$i_akhir.",\">2500000000\",H".$i_awal.":H".$i_akhir.",\"<=50000000000\")");
 
       $sheet->setCellValue("E". ($dtbl2 + 0) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Persiapan\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
       $sheet->setCellValue("E". ($dtbl2 + 1) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Pemilihan Penyedia\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
@@ -464,9 +461,8 @@ class Pekerjaan extends CI_Controller
       $sheet->setCellValue("E". ($dtbl2 + 3) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Kontrak\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
       $sheet->setCellValue("E". ($dtbl2 + 4) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Serah Terima (PHO)\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
       $sheet->setCellValue("E". ($dtbl2 + 5) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Serah Terima Akhir (FHO)\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
-      $sheet->setCellValue("E". ($dtbl2 + 6) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Selesai\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
-      $sheet->setCellValue("E". ($dtbl2 + 7) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Dibatalkan\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
-      $sheet->setCellValue("E". ($dtbl2 + 8) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Belum Ada Progress\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
+      $sheet->setCellValue("E". ($dtbl2 + 6) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Dibatalkan\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
+      $sheet->setCellValue("E". ($dtbl2 + 7) ,"=COUNTIFS(G".$i_awal.":G".$i_akhir.",\"Belum Ada Progress\",H".$i_awal.":H".$i_akhir.",\">50000000000\")");
 
       //create comment
       $sheet->getComment('C'.$htbl2)->setAuthor('Dedy Setiawan');
@@ -477,9 +473,9 @@ class Pekerjaan extends CI_Controller
 
 
       //BORDERING TABLE 2 DATA
-      $sheet->getStyle('B'.($dtbl2 + 0).':E'.($dtbl2 + 8))->applyFromArray($style_table_data);
+      $sheet->getStyle('B'.($dtbl2 + 0).':E'.($dtbl2 + 7))->applyFromArray($style_table_data);
       //STYLING TABEL 2 DATA
-      $sheet->getStyle('C'.($dtbl2 + 0).':E'.($dtbl2 + 8))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+      $sheet->getStyle('C'.($dtbl2 + 0).':E'.($dtbl2 + 7))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
       //SETTING HEADER TABEL 2
       $sheet->setCellValue('B'.$htbl2,'Progress');
@@ -502,26 +498,353 @@ class Pekerjaan extends CI_Controller
       $writer->save('php://output');
     }
 
-    // public function cetak_detail(){
-    //   $pekerjaan_data = $this->Pekerjaan_model->cetak();
-    //   $spreadsheet = new Spreadsheet();
-    //   $sheet = $spreadsheet->getActiveSheet();
-    //
-    //   //WRITING DATA
-    //
-    //
-    //
-    //   //STYLING
-    //
-    //
-    //   $filename = 'Laporan Detail Pekerjaan '.date('Y-m-d H:m:i');
-    //   header('Content-Type: application/vnd.ms-excel');
-    //   header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');
-    //   header('Cache-Control: max-age=0');
-    //
-    //   $writer = new Xlsx($spreadsheet);
-    //   $writer->save('php://output');
-    // }
+    public function cetak_detail($id_p){
+      // CEK AKSES
+      $row = $this->Pekerjaan_model->get_by_id($id_p);
+      if (!$row){
+        $this->session->set_flashdata('error', 'Akses Dilarang (error 403 Prohibited)');
+        redirect(site_url('pengadaan/pekerjaan'));
+      }
+
+      $spreadsheet = new Spreadsheet();
+      $sheet = $spreadsheet->getActiveSheet();
+
+      // GET DATA
+      $pekerjaan_data = $this->Pekerjaan_model->get_by_id($id_p);
+      $nilai_kontrak = $this->Kontrak_model->get_last_kontrak($id_p);
+      $now_real_keu = $this->Progress_pekerjaan_model->get_max_real_keu($id_p)->real_keu;
+      $now_real_fisik = $this->Progress_pekerjaan_model->get_max_real_fisik($id_p)->real_fisik;
+      $persen_real_keu = $this->Progress_pekerjaan_model->get_persen_real_keu($id_p);
+      $pp_data = $this->Progress_pekerjaan_model->get_by_id_p($id_p);
+      $kontrak_data = $this->Kontrak_model->get_by_id_p($id_p);
+      $st_data = $this->Serah_terima_model->get_by_id_p($id_p);
+      $pic_data = $this->Pic_model->get_by_id_p($id_p);
+
+      // GENERAL STYLING
+
+      //Column Width
+      $sheet->getColumnDimension('A')->setAutoSize(false);
+      $sheet->getColumnDimension('A')->setWidth(2);
+      $sheet->getColumnDimension('B')->setAutoSize(false);
+      $sheet->getColumnDimension('B')->setWidth(30);
+      $sheet->getColumnDimension('C')->setAutoSize(false);
+      $sheet->getColumnDimension('C')->setWidth(24);
+      $sheet->getColumnDimension('D')->setAutoSize(false);
+      $sheet->getColumnDimension('D')->setWidth(12);
+      $sheet->getColumnDimension('E')->setAutoSize(false);
+      $sheet->getColumnDimension('E')->setWidth(24);
+      $sheet->getColumnDimension('F')->setAutoSize(false);
+      $sheet->getColumnDimension('F')->setWidth(24);
+      $sheet->getColumnDimension('G')->setAutoSize(false);
+      $sheet->getColumnDimension('G')->setWidth(22);
+      $sheet->getColumnDimension('H')->setAutoSize(false);
+      $sheet->getColumnDimension('H')->setWidth(2);
+
+      // ARRAY STYLING
+      //### BOLD CELL
+      $bold_cell = [
+        'font' => [
+          'bold' => true,
+        ],
+        'alignment' => [
+          'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+        ],
+      ];
+
+      //### BOLD GRAY FILL CELL
+      $bold_gray_cell = [
+        'font' => [
+          'bold' => true,
+          ],
+          'fill' => [
+          'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+          'startColor' => [
+          'argb' => 'D7D3D3',
+          ],
+          ],
+          ];
+
+          //### STYLe FOR Data
+          $data_pekerjaan = [
+          'alignment' => [
+          'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER,
+          ],
+          ];
+
+          //###Outline borders
+          $outliner = [
+          'borders' => [
+          'outline' => [
+          'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+          ],
+          ],
+          ];
+
+          $style_table_header = [
+            'font' => [
+                'bold' => true,
+            ],
+            'alignment' => [
+                'horizontal' => \PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER,
+            ],
+            'borders' => [
+              'allBorders' => [
+                  'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+              ],
+            ],
+            'fill' => [
+              'fillType' => \PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID,
+              'startColor' => [
+                  'argb' => 'D7D3D3',
+              ],
+            ],
+          ];
+
+          // STYLING TABLE DATA
+          $style_table_data = [
+            'borders' => [
+              'outline' => [
+                  'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+              ],
+              'vertical' => [
+                  'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_THIN,
+              ],
+              'horizontal' => [
+                  'borderStyle' => \PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED,
+              ],
+            ],
+            'alignment' => [
+              'vertical' => \PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_TOP,
+              'wrapText' => true,
+            ],
+
+          ];
+
+      //###PAGE 1----------------------------------------------------------------------------------------
+
+        //WRITING DATA
+      $sr = 2;
+      $sheet->setCellValue('B'.$sr   ,'DETAIL DATA PEKERJAAN');
+      $sheet->setCellValue('B'.($sr+2) ,'Nama Pekerjaan');
+      $sheet->setCellValue('B'.($sr+4) ,'Nama Kegiatan');
+      $sheet->setCellValue('B'.($sr+6) ,'Deskripsi Singkat');
+      $sheet->setCellValue('B'.($sr+8) ,'SKPD Pelaksana');
+      $sheet->setCellValue('B'.($sr+10),'Jenis Pengadaan');
+      $sheet->setCellValue('B'.($sr+12),'Pagu Pekerjaan');
+      $sheet->setCellValue('B'.($sr+14),'ID SiRUP');
+      $sheet->setCellValue('B'.($sr+16),'Realisasi Keuangan (Kumulatif)');
+      $sheet->setCellValue('B'.($sr+18),'Persentase Realisasi');
+      $sheet->setCellValue('B'.($sr+20),'Realisasi Keuangan');
+
+      $sheet->setCellValue('C'.($sr+2) , $pekerjaan_data->nama);
+      $sheet->setCellValue('C'.($sr+4) , $pekerjaan_data->kegiatan);
+      $deskripsi = trim(preg_replace('/\n/', "\n", $pekerjaan_data->deskripsi));
+      $sheet->setCellValue('C'.($sr+6) , $deskripsi);
+      $sheet->setCellValue('C'.($sr+8) , $pekerjaan_data->nama_skpd);
+      $sheet->setCellValue('C'.($sr+10), $pekerjaan_data->jenis);
+      $sheet->setCellValue('C'.($sr+12), $pekerjaan_data->pagu);
+      $sheet->setCellValue('C'.($sr+14), $pekerjaan_data->id_rup);
+      $sheet->setCellValue('C'.($sr+16), $now_real_keu);
+      $persen_real_keu = number_format($persen_real_keu,2);
+      $sheet->setCellValue('C'.($sr+20), $persen_real_keu.' %');
+
+      $sheet->setCellValue('E'.($sr+10),'Metode Pemilihan');
+      $sheet->setCellValue('E'.($sr+12),'Total Kontrak');
+      $sheet->setCellValue('E'.($sr+14),'ID LPSE');
+      $sheet->setCellValue('E'.($sr+16),'Progress Saat Ini');
+      $sheet->setCellValue('E'.($sr+20),'Realisasi Fisik');
+
+      $sheet->setCellValue('F'.($sr+10), $pekerjaan_data->metode);
+      $sheet->setCellValue('F'.($sr+12), $nilai_kontrak);
+      $sheet->setCellValue('F'.($sr+14), $pekerjaan_data->id_lpse);
+      $sheet->setCellValue('F'.($sr+16), $pekerjaan_data->pr_now);
+      $sheet->setCellValue('F'.($sr+20), $now_real_fisik.' %');
+
+      // sTYLING
+
+      //styling report title
+      $sheet->getStyle('B'.$sr)->applyFromArray($bold_gray_cell);
+      $sheet->getStyle('B'.$sr)->getFont()->setSize(14);
+      $sheet->mergeCells('B'.$sr.':G'.$sr);
+      $sheet->getStyle('B'.$sr)->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+
+      //styling bold cell only
+      $sheet->getStyle('B'.($sr+2).':B'.($sr+20))->applyFromArray($bold_cell);
+      $sheet->getStyle('E'.($sr+10).':E'.($sr+20))->applyFromArray($bold_cell);
+
+      //styling sub title
+      $sheet->getStyle('B'.($sr+18))->applyFromArray($bold_gray_cell);
+      $sheet->getStyle('B'.($sr+29))->applyFromArray($bold_gray_cell);
+
+      //styling persen real keu fis
+      $sheet->getStyle('C'.($sr+20))->applyFromArray($bold_gray_cell);
+      $sheet->getStyle('F'.($sr+20))->applyFromArray($bold_gray_cell);
+      $sheet->getStyle('B'.($sr+20).':F'.($sr+20))->getFont()->setSize(16);
+      $sheet->getStyle('C'.($sr+20))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+      $sheet->getStyle('C'.($sr+20))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+      $sheet->getStyle('F'.($sr+20))->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
+      $sheet->getStyle('F'.($sr+20))->getAlignment()->setVertical(\PhpOffice\PhpSpreadsheet\Style\Alignment::VERTICAL_CENTER);
+
+      //styling data
+      $sheet->mergeCells('C'.($sr+2).':G'.($sr+2));
+      $sheet->mergeCells('C'.($sr+4).':G'.($sr+4));
+      $sheet->mergeCells('C'.($sr+6).':G'.($sr+6));
+      $sheet->getStyle('C'.($sr+6))->getAlignment()->setWrapText(true);
+      $sheet->getStyle('C'.($sr+12))->getNumberFormat()->setFormatCode('_-[$Rp-421]* #,##0.00_ ;_-[$Rp-421]* -#,##0.00 ;_-[$Rp-421]* "-"??_ ;_-@_ ');
+      $sheet->getStyle('C'.($sr+16))->getNumberFormat()->setFormatCode('_-[$Rp-421]* #,##0.00_ ;_-[$Rp-421]* -#,##0.00 ;_-[$Rp-421]* "-"??_ ;_-@_ ');
+      $sheet->getStyle('F'.($sr+12))->getNumberFormat()->setFormatCode('_-[$Rp-421]* #,##0.00_ ;_-[$Rp-421]* -#,##0.00 ;_-[$Rp-421]* "-"??_ ;_-@_ ');
+      $sheet->getStyle('C'.($sr+2).':C'.($sr+16))->applyFromArray($data_pekerjaan);
+      $sheet->getStyle('F'.($sr+10).':F'.($sr+16))->applyFromArray($data_pekerjaan);
+
+      //Row height
+      $sheet->getRowDimension($sr-1)->setRowHeight(9);
+      $sheet->getRowDimension($sr+3)->setRowHeight(9);
+      $sheet->getRowDimension($sr+5)->setRowHeight(9);
+      $sheet->getRowDimension($sr+7)->setRowHeight(9);
+      $sheet->getRowDimension($sr+9)->setRowHeight(9);
+      $sheet->getRowDimension($sr+11)->setRowHeight(9);
+      $sheet->getRowDimension($sr+13)->setRowHeight(9);
+      $sheet->getRowDimension($sr+15)->setRowHeight(9);
+
+      $sheet->getRowDimension($sr+2)->setRowHeight(30);
+      $sheet->getRowDimension($sr+4)->setRowHeight(30);
+      $sheet->getRowDimension($sr+6)->setRowHeight(105);
+      $sheet->getRowDimension($sr+8)->setRowHeight(30);
+      $sheet->getRowDimension($sr+20)->setRowHeight(45);
+
+      //###PAGE 2----------------------------------------------------------------------------------------
+      $sheet->setCellValue('B'.($sr+29),'History Progress');
+
+      // looping histroy progress
+      $sr_p2 = $sr+31;
+      foreach($pp_data as $pp) {
+        $richText = new \PhpOffice\PhpSpreadsheet\RichText\RichText();
+        $tgl_progress = $richText->createTextRun($pp->tgl_progress);
+        $tgl_progress->getFont()->setBold(true);
+        $tgl_progress->getFont()->setItalic(true);
+        $richText->createText(', '.$pp->ket.' pada tahapan '.$pp->nama.", \nrencana pada ".$pp->tgl_n_progress.' akan masuk pada tahapan '.$pp->next_progress."\nRealisasi Keuangan : Rp ".number_format($pp->real_keu,2,',','.').'  |  Realisasi Fisik : '.$pp->real_fisik.' %');
+        $sheet->setCellValue('B'.$sr_p2, $richText);
+
+        // styling
+        $sheet->mergeCells('B'.$sr_p2.':G'.$sr_p2);
+        $sheet->getStyle('B'.$sr_p2)->getAlignment()->setWrapText(true);
+        $sheet->getRowDimension($sr_p2)->setRowHeight(47);
+        $sheet->getRowDimension($sr_p2-1)->setRowHeight(3);
+        $sheet->getStyle('B'.$sr_p2)->getBorders()->getTop()->setBorderStyle(\PhpOffice\PhpSpreadsheet\Style\Border::BORDER_DOTTED);
+
+        $sr_p2 = $sr_p2+2;
+      }
+        $sheet->setBreak('A'.($sr_p2), \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
+
+
+      //###PAGE 3----------------------------------------------------------------------------------------
+      $sr_p3 = $sr_p2+2;
+
+      //Data Kontrak
+      $sheet->setCellValue('B'.($sr_p3),'Data Kontrak');
+
+      $sheet->setCellValue('B'.($sr_p3+2),'No Kontrak');
+      $sheet->setCellValue('C'.($sr_p3+2),'Nama Penyedia');
+      $sheet->setCellValue('D'.($sr_p3+2),'Tanggal');
+      $sheet->setCellValue('E'.($sr_p3+2),'Masa Pelaksanaan');
+      $sheet->setCellValue('F'.($sr_p3+2),'Nilai');
+      $sheet->setCellValue('G'.($sr_p3+2),'Keterangan');
+
+      $k = 1;
+      foreach ($kontrak_data as $kontrak) {
+        $sheet->setCellValue('B'.($sr_p3+2+$k),$kontrak->nomor);
+        $sheet->setCellValue('C'.($sr_p3+2+$k),$kontrak->penyedia);
+        $sheet->setCellValue('D'.($sr_p3+2+$k),$kontrak->tanggal);
+        $sheet->setCellValue('E'.($sr_p3+2+$k),$kontrak->awal.' s.d '.$kontrak->akhir."\n(".$kontrak->lama.')');
+        $sheet->setCellValue('F'.($sr_p3+2+$k),$kontrak->nilai);
+        $sheet->setCellValue('G'.($sr_p3+2+$k),$kontrak->ket);
+
+        $k++;
+      }
+
+      //Data Serah Terima
+      $sr_st = $sr_p3+$k+4;
+
+      $sheet->setCellValue('B'.($sr_st),'Data Serah Terima');
+
+      $sheet->setCellValue('B'.($sr_st+2), 'No BAST');
+      $sheet->setCellValue('C'.($sr_st+2), 'Nama Penyedia');
+      $sheet->setCellValue('D'.($sr_st+2), 'Tanggal');
+
+      $st = 1;
+      foreach ($st_data as $st_d) {
+        $sheet->setCellValue('B'.($sr_st+2+$st),$st_d->nomor);
+        $sheet->setCellValue('C'.($sr_st+2+$st),$st_d->penyedia);
+        $sheet->setCellValue('D'.($sr_st+2+$st),$st_d->tanggal);
+
+        $st++;
+      }
+
+      // Data PIC
+      $sr_pic = $sr_st+4+$st;
+
+      $sheet->setCellValue('B'.($sr_pic),'Data Penanggung Jawab');
+
+      $sheet->setCellValue('B'.($sr_pic+2),'Nama');
+      $sheet->setCellValue('C'.($sr_pic+2),'NIP');
+      $sheet->setCellValue('D'.($sr_pic+2),'Status');
+      $sheet->setCellValue('E'.($sr_pic+2),'Kontak');
+      $sheet->setCellValue('F'.($sr_pic+2),'TMT');
+
+      $pic = 1;
+      foreach ($pic_data as $pic_d) {
+        $sheet->setCellValue('B'.($sr_pic+2+$pic),$pic_d->nama);
+        $sheet->setCellValue('C'.($sr_pic+2+$pic)," ".$pic_d->nip);
+        $sheet->setCellValue('D'.($sr_pic+2+$pic),strtoupper($pic_d->status));
+        $sheet->setCellValue('E'.($sr_pic+2+$pic),$pic_d->kontak);
+        $sheet->setCellValue('F'.($sr_pic+2+$pic),$pic_d->tmt);
+
+        $pic++;
+      }
+
+      //styling page 3
+        //subtitle
+        $sheet->getStyle('B'.($sr_p3))->applyFromArray($bold_gray_cell);
+        $sheet->getStyle('B'.($sr_st))->applyFromArray($bold_gray_cell);
+        $sheet->getStyle('B'.($sr_pic))->applyFromArray($bold_gray_cell);
+        //tabel header
+        $sheet->getStyle('B'.($sr_p3+2).':G'.($sr_p3+2))->applyFromArray($style_table_header);
+        $sheet->getStyle('B'.($sr_st+2).':D'.($sr_st+2))->applyFromArray($style_table_header);
+        $sheet->getStyle('B'.($sr_pic+2).':F'.($sr_pic+2))->applyFromArray($style_table_header);
+        //styling table data
+        $sheet->getStyle('B'.($sr_p3+3).':G'.($sr_p3+2+$k))->applyFromArray($style_table_data);
+        $sheet->getStyle('B'.($sr_st+3).':D'.($sr_st+2+$st))->applyFromArray($style_table_data);
+        $sheet->getStyle('B'.($sr_pic+3).':F'.($sr_pic+2+$pic))->applyFromArray($style_table_data);
+        //numbering
+        $sheet->getStyle('F'.($sr_p3+3).':F'.($sr_p3+2+$k))->getNumberFormat()->setFormatCode('_-[$Rp-421]* #,##0.00_ ;_-[$Rp-421]* -#,##0.00 ;_-[$Rp-421]* "-"??_ ;_-@_ ');
+        //row height
+        $sheet->getRowDimension($sr_p3+2+$k)->setRowHeight(5);
+        $sheet->getRowDimension($sr_st+2+$st)->setRowHeight(5);
+        $sheet->getRowDimension($sr_pic+2+$pic)->setRowHeight(5);
+
+
+      //SETTING PRINTER
+      $sheet->getStyle('A'.($sr-1).':H'.($sr+27))->applyFromArray($outliner);
+      $sheet->getStyle('A'.($sr+28).':H'.($sr_p3-2))->applyFromArray($outliner);
+      $sheet->getStyle('A'.($sr_p3-1).':H'.($sr_pic+2+$pic+2))->applyFromArray($outliner);
+      $sheet->setBreak('A29', \PhpOffice\PhpSpreadsheet\Worksheet\Worksheet::BREAK_ROW);
+      $sheet->getPageSetup()->setOrientation(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::ORIENTATION_LANDSCAPE);
+      $sheet->getPageSetup()->setPaperSize(\PhpOffice\PhpSpreadsheet\Worksheet\PageSetup::PAPERSIZE_A4);
+
+      $sheet->getPageMargins()->setTop(0.39);
+      $sheet->getPageMargins()->setRight(0.27);
+      $sheet->getPageMargins()->setLeft(0.39);
+      $sheet->getPageMargins()->setBottom(0.39);
+
+      //OUTPUTING FILE
+      $filename = 'Laporan Detail Pekerjaan '.date('Y-m-d H:m:i');
+      header('Content-Type: application/vnd.ms-excel');
+      header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');
+      header('Cache-Control: max-age=0');
+
+      $writer = new Xlsx($spreadsheet);
+      $writer->save('php://output');
+    }
 }
 
 /* End of file Pekerjaan.php */

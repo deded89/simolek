@@ -143,7 +143,7 @@ class Report extends CI_Controller{
       $sheet->setCellValue('D'.$i, $pekerjaan->nama_skpd);
       $sheet->setCellValue('E'.$i, $pekerjaan->nama);
       $sheet->setCellValue('F'.$i, $pekerjaan->tgl_progress);
-      $sheet->setCellValue('G'.$i, $pekerjaan->ket);
+      $sheet->setCellValue('G'.$i, $pekerjaan->ket_progress);
       $sheet->setCellValue('H'.$i, $pekerjaan->pagu);
       $sheet->setCellValue('I'.$i, $pekerjaan->real_keu);
       $sheet->setCellValue('J'.$i, $pekerjaan->real_fisik);
@@ -223,7 +223,7 @@ class Report extends CI_Controller{
     $sheet->setCellValue('C'. ($dtbl2 + 2) ,'=COUNTIF(E'.$i_awal.':E'.$i_akhir.',"Hasil Pemilihan")');
     $sheet->setCellValue('C'. ($dtbl2 + 3) ,'=COUNTIF(E'.$i_awal.':E'.$i_akhir.',"Kontrak")');
     $sheet->setCellValue('C'. ($dtbl2 + 4) ,'=COUNTIF(E'.$i_awal.':E'.$i_akhir.',"Serah Terima (PHO)")');
-    $sheet->setCellValue('C'. ($dtbl2 + 5) ,'=COUNTIF(E'.$i_awal.':E'.$i_akhir.',"Serah Terima (FHO)")');
+    $sheet->setCellValue('C'. ($dtbl2 + 5) ,'=COUNTIF(E'.$i_awal.':E'.$i_akhir.',"Serah Terima Akhir (FHO)")');
     $sheet->setCellValue('C'. ($dtbl2 + 6) ,'=COUNTIF(E'.$i_awal.':E'.$i_akhir.',"Dibatalkan")');
 
     //BORDERING TABLE DATA

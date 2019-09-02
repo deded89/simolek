@@ -18,9 +18,9 @@ class Laporan_model extends CI_Model
 	function get_all()
     {
 		//JIKA USER ADALAH ADMIN
-        if ($this->ion_auth->in_group('admin')) {			
+        if ($this->ion_auth->in_group('admin')) {
 			$this->db->select('l.id_lap, l.nama_lap, l.batas_waktu, l.status, l.id_skpd, l.id_jab, t.status as mystatus, s.nama_skpd, p.id_status, p.ket');
-			$this->db->from('laporan l');					
+			$this->db->from('laporan l');
 			$this->db->join('skpd s', 's.id_skpd=l.id_skpd', 'left');
 			$this->db->join('pelaporan p', 'p.id_lap=l.id_lap', 'left');
 			$this->db->join('status t', 'p.id_status=t.id_status', 'left');
@@ -30,8 +30,8 @@ class Laporan_model extends CI_Model
 		//JIKA USER BUKAN ADMIN
 		{
 			$this->db->select('l.id_lap, l.nama_lap, l.batas_waktu, l.status, l.id_skpd, l.id_jab, t.status as mystatus, s.nama_skpd, p.id_status, p.ket');
-			$this->db->from('laporan l');		
-			$this->db->where('p.id_skpd',$this->session->userdata('id_skpd')); 
+			$this->db->from('laporan l');
+			$this->db->where('p.id_skpd',$this->session->userdata('id_skpd'));
 			$this->db->join('skpd s', 's.id_skpd=l.id_skpd', 'left');
 			$this->db->join('pelaporan p', 'p.id_lap=l.id_lap', 'left');
 			$this->db->join('status t', 'p.id_status=t.id_status', 'left');
@@ -39,28 +39,28 @@ class Laporan_model extends CI_Model
 			return $this->db->get()->result();
 		}
     }
-	
+
     // get all under me
     function get_all_under_me()
     {
         if (!$this->ion_auth->in_group('admin')) {
 			$this->db->select('*');
-			$this->db->from('laporan l');		
-			$this->db->where('l.id_skpd',$this->session->userdata('id_skpd')); 
-			$this->db->join('skpd s', 's.id_skpd=l.id_skpd', 'left');		
+			$this->db->from('laporan l');
+			$this->db->where('l.id_skpd',$this->session->userdata('id_skpd'));
+			$this->db->join('skpd s', 's.id_skpd=l.id_skpd', 'left');
 			$this->db->order_by('l.id_lap', 'desc');
 			return $this->db->get()->result();
 
 		} else
 		{
 			$this->db->select('*');
-			$this->db->from('laporan l');		
-			$this->db->join('skpd s', 's.id_skpd=l.id_skpd', 'left');		
+			$this->db->from('laporan l');
+			$this->db->join('skpd s', 's.id_skpd=l.id_skpd', 'left');
 			$this->db->order_by('l.id_lap', 'desc');
 			return $this->db->get()->result();
 		}
     }
-	
+
 	function get_nama_laporan($id)
 	{
 		$this->db->select('*');
@@ -80,7 +80,7 @@ class Laporan_model extends CI_Model
 			return $this->db->get()->row();
 		}else
 		//JIKA USER ADALAH PENGELOLA
-		if ($this->ion_auth->in_group('pengelola')) {			
+		if ($this->ion_auth->in_group('pengelola')) {
 			$this->db->select('*');
 			$this->db->from('laporan');
 			$this->db->where($this->id, $id);
@@ -94,9 +94,9 @@ class Laporan_model extends CI_Model
 			$this->db->where('id_skpd', $this->session->userdata('id_skpd'));
 			$this->db->where('id_jab', $this->session->userdata('id_jab'));
 			return $this->db->get()->row();
-		}        
+		}
     }
-    
+
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id_lap', $q);
@@ -137,7 +137,7 @@ class Laporan_model extends CI_Model
         $this->db->where($this->id, $id);
         $this->db->delete($this->table);
     }
-	
+
 	/* function update_akses($id,$status)
 	{
 		if ($status == 'open'){
@@ -148,52 +148,53 @@ class Laporan_model extends CI_Model
 		}}
 		$this->db->set('status', $ubah_ke);
 		$this->db->where('id_lap', $id);
-		$this->db->update($this->table); 
+		$this->db->update($this->table);
 
 	} */
-	
+
 	function update_status_otomatis()
-	{		
+	{
 		//TUTUP LAPORAN YANG HABIS WAKTU
 		$this->db->set('status','closed');
 		$this->db->where('status','open');
 		//$this->db->where('datediff(batas_waktu, current_date()) <',0);
-		$this->db->where('TIMESTAMPDIFF(second,batas_waktu,now()) >',-1);
-		$this->db->update('laporan');		
-		
+    $now = date('Y-m-d H:i:s');
+		$this->db->where('TIMESTAMPDIFF(second,batas_waktu,"'.$now.'") >',-1);
+		$this->db->update('laporan');
+
 		//BUKA LAPORAN YANG WAKTUNYA DIPERPANJANG
 		$this->db->set('status','open');
 		$this->db->where('status','closed');
 		//$this->db->where('datediff(batas_waktu, current_date()) >',1);
-		$this->db->where('TIMESTAMPDIFF(second,batas_waktu,now()) <',0);
+		$this->db->where('TIMESTAMPDIFF(second,batas_waktu,"'.$now.'") <',0);
 		$this->db->update('laporan');
 	}
-	
+
 	function cek_pelapor_sama($id_skpd,$id_lap)
 	{
 		$this->db->where('id_skpd',$id_skpd);
 		$this->db->where('id_lap',$id_lap);
 		return $this->db->count_all_results('pelaporan');
 	}
-	
+
 	function get_akses_upload($id_lap)
 	{
 		$this->db->select('*');
 		$this->db->from('pelaporan p');
 		$this->db->where('p.id_skpd',$this->session->userdata('id_skpd'));
 		$this->db->where('p.id_lap',$id_lap);
-		$this->db->join('laporan l', 'l.id_lap=p.id_lap', 'left');		
-		
+		$this->db->join('laporan l', 'l.id_lap=p.id_lap', 'left');
+
 		$query = $this->db->get();
 		$num_rows = $query->num_rows();
 		$data = $query->row();
-		
+
 		return array(
 			'num_rows' => $num_rows,
 			'data'	   => $data,
 		);
 	}
-	
+
 	function get_skpd_by_klasifikasi($id_klasifikasi)
 	{
 		$this->db->select('*');
@@ -202,18 +203,18 @@ class Laporan_model extends CI_Model
 		$query = $this->db->get();
 		$num_rows = $query->num_rows();
 		$data = $query->result();
-		
+
 		return array(
 			'num_rows' => $num_rows,
 			'data'	   => $data,
 		);
 	}
-	
+
 	function delete_data_file($id)
 	{
 		$this->db->where('id_pelaporan', $id);
         $this->db->delete('file_upload');
-	} 
+	}
 }
 
 

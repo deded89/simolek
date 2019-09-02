@@ -5,15 +5,15 @@
 				<table class='table table-bordered'>
 					<input type="hidden" name="pekerjaan" value="1">
 					<tr>
-						<td><label for="tinyint">Progress saat ini <?php echo form_error('progress') ?></label></td>
+						<td><label for="tinyint">Progress saat ini </label></td>
 						<!-- combo dinamis -->
 						<?php $id = $progress; ?>
-						<td><?php echo cmb_db2('progress','progress','nama','id',$id) ?></td>
+						<td><?php echo cmb_db2('progress','progress','nama','id',$id) ?><?php echo form_error('progress') ?></td>
 						<!-- akhir combo dinamis -->
 					</tr>
 
 					<tr>
-						<td><label for="date">Tanggal Progress <?php echo form_error('tgl_progress') ?></label></td>
+						<td><label for="date">Tanggal Progress </label></td>
 						<td>
 							<div class="input-group date">
 								<div class="input-group-addon">
@@ -21,24 +21,25 @@
 								</div>
 								<input type="text" class="form-control pull-right" name="tgl_progress" id="tgl_progress" placeholder="Tanggal Progress" value="<?php echo $tgl_progress; ?>" autocomplete="off" >
 							</div>
+							<?php echo form_error('tgl_progress') ?>
 						</td>
 					</tr>
 
 					<tr>
-						<td><label for="varchar">Keterangan <?php echo form_error('ket') ?></label></td>
-						<td><input type="text" class="form-control" name="ket" id="ket" placeholder="Detail Progress Saat ini" value="<?php echo $ket; ?>" /></td>
+						<td><label for="varchar">Keterangan </label></td>
+						<td><input type="text" class="form-control" name="ket" id="ket" placeholder="Detail Progress Saat ini" value="<?php echo $ket; ?>" /><?php echo form_error('ket') ?></td>
 					</tr>
 
 					<tr>
-						<td><label for="tinyint">Rencana Berikutnya <?php echo form_error('next_progress') ?></label></td>
+						<td><label for="tinyint">Rencana Berikutnya</label></td>
 						<!-- combo dinamis -->
 						<?php $id = $next_progress; ?>
-						<td><?php echo cmb_db2('next_progress','progress','nama','id',$id) ?></td>
+						<td><?php echo cmb_db2('next_progress','progress','nama','id',$id) ?> <?php echo form_error('next_progress') ?></td>
 						<!-- akhir combo dinamis -->
 					</tr>
 
 					<tr>
-						<td><label for="date">Tangal Next Progress <?php echo form_error('tgl_n_progress') ?></label></td>
+						<td><label for="date">Tangal Next Progress </label></td>
 						<td>
 							<div class="input-group date">
 								<div class="input-group-addon">
@@ -46,17 +47,18 @@
 								</div>
 								<input type="text" class="form-control pull-right" name="tgl_n_progress" id="tgl_n_progress" placeholder="Tanggal Next Progress" value="<?php echo $tgl_n_progress; ?>" autocomplete="off" >
 							</div>
+							<?php echo form_error('tgl_n_progress') ?>
 						</td>
 					</tr>
 
 					<tr>
-						<td><label for="decimal">Real Keuangan (Rp. kumulatif) <?php echo form_error('real_keu') ?></label></td>
-						<td><input type="number" class="form-control" name="real_keu" id="real_keu" placeholder="xxx,xx" value="<?php echo $real_keu; ?>" step='any' min=0/></td>
+						<td><label for="decimal">Real Keuangan (Rp. kumulatif) </label></td>
+						<td><input type="number" class="form-control" name="real_keu" id="real_keu" placeholder="xxx,xx" value="<?php echo $real_keu; ?>" step='any' min=0/><?php echo form_error('real_keu') ?></td>
 					</tr>
 
 					<tr>
-						<td><label for="decimal">Real Fisik (% kumulatif) <?php echo form_error('real_fisik') ?></label></td>
-						<td><input type="number" class="form-control" name="real_fisik" id="real_fisik" placeholder="xxx,xx" value="<?php echo $real_fisik; ?>" step='any' min=0/></td>
+						<td><label for="decimal">Real Fisik (% kumulatif)</label></td>
+						<td><input type="number" class="form-control" name="real_fisik" id="real_fisik" placeholder="xxx,xx" value="<?php echo $real_fisik; ?>" step='any' min=0/> <?php echo form_error('real_fisik') ?></td>
 					</tr>
 
 					<tr>
@@ -106,7 +108,6 @@
 							<li><strong>Kontrak, </strong>adalah progress ketika sudah dilakukan penandatanganan kontrak dengan penyedia.</li>
 							<li><strong>Serah Terima (PHO), </strong>adalah progress ketika fisik pekerjaan sudah diselesaikan 100 % oleh penyedia dan sudah dilakukan penyerahan hasil pekerjaan kepada PPK.</li>
 							<li><strong>Serah Terima Akhir (FHO), </strong>adalah progress ketika masa pemeliharaan pekerjaan (masa garansi untuk pengadaan barang) sudah berakhir.</li>
-							<li><strong>Selesai, </strong>adalah progress ketika pekerjaan sudah selesai (hanya diisikan di rencana berikutnya dengan tanggal next progress sama dengan tanggal progress FHO).</li>
 							<li><strong>Dibatalkan, </strong>adalah progress ketika pekerjaan tidak jadi dilaksanakan (mohon tambahkan alasan pembatalan di kolom keterangan).</li>
 						</ol>
 						<br>
@@ -143,7 +144,8 @@ $(document).ready(function () {
 		format:'yyyy-mm-dd',
 		todayHighlight:true,
 		todayBtn:'linked',
-		endDate: 'today,'
+		endDate: 'today',
+		orientation: "bottom",
 	})
 	.on('changeDate',function(selected){
 		var mindate = new Date(selected.date.valueOf());

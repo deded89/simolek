@@ -165,6 +165,41 @@ class Pengendalian_model extends CI_Model{
     }
     return $db2->count_all_results();
   }
+  // DAPATKAN DATA PEKERJAAN DENGAN PAGU > 200jt sd ~
+  public function count_all($skpd=null){
+    $db2 = $this->db2;
+
+    $db2->where('pagu >',200000000);
+    $db2->from('pekerjaan');
+    if ($this->ion_auth->in_group('pimskpd')){
+      $db2->where('skpd',$this->session->userdata('id_skpd'));
+    }
+    if ($skpd <> null){
+      if (!$this->ion_auth->in_group('pimskpd')){
+        $db2->where('skpd',$skpd);
+      }
+    }
+    return $db2->count_all_results();
+  }
+
+  // DAPATKAN DATA PEKERJAAN SEMUA PAGU PER TAHAPAN
+  public function count_all_tahapan($skpd=null){
+    $db2 = $this->db2;
+    $db2->select('p.id, p.pagu, p.skpd, p.progress_now, count(p.progress_now) as c_progress, pr.id, pr.nama');
+    $db2->from('pekerjaan p');
+    $db2->join('progress pr', 'pr.id=p.progress_now','left');
+    $db2->where('p.pagu >',200000000);
+    if ($this->ion_auth->in_group('pimskpd')){
+      $db2->where('p.skpd',$this->session->userdata('id_skpd'));
+    }
+    if ($skpd <> null){
+      if (!$this->ion_auth->in_group('pimskpd')){
+        $db2->where('skpd',$skpd);
+      }
+    }
+    $db2->group_by('p.progress_now');
+    return $db2->get()->result();
+  }
 
   // DAPATKAN DATA PEKERJAAN DENGAN PAGU >200 JT <= 2.5 m PER TAHAPAN
   public function count_200_tahapan($skpd=null){
@@ -240,6 +275,7 @@ class Pengendalian_model extends CI_Model{
     $db2->join('('.$subquery.') pr', 'pr.pekerjaan=p.id','left');
     $db2->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd','left');
     $db2->where('p.progress_now = pr.progress');
+    $db2->where('p.progress_now <> 8');
     $db2->where('year(pr.tgl_n_progress) <= year(current_date - interval 1 month)');
     $db2->where('month(pr.tgl_n_progress) <= month(current_date - interval 1 month)');
     return $db2->get()->result();

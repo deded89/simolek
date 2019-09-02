@@ -35,6 +35,8 @@ class Pengendalian extends CI_Controller{
       'c200' => $this->Pengendalian_model->count_200($skpd),
       'c25' => $this->Pengendalian_model->count_25($skpd),
       'c50' => $this->Pengendalian_model->count_50($skpd),
+      'c_all' => $this->Pengendalian_model->count_all($skpd),
+      'tahapan_all' => $this->Pengendalian_model->count_all_tahapan($skpd),
       'tahapan_200' => $this->Pengendalian_model->count_200_tahapan($skpd),
       'tahapan_25' => $this->Pengendalian_model->count_25_tahapan($skpd),
       'tahapan_50' => $this->Pengendalian_model->count_50_tahapan($skpd),

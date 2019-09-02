@@ -4,7 +4,11 @@
 		<p>Untuk tampilan yang nyaman putar HP anda menjadi landscape.</p>
 	</div>
 </div>
-
+<div <?php echo $hidden_attr ?> class="row" style="margin-bottom: 10px">
+	<div class="col-xs-12">
+		<a href="<?php echo site_url('pengadaan/pekerjaan/cetak_detail/'.$id_p) ?>" class="btn btn-warning pull-right">Export to Excel</a>
+	</div>
+</div>
 <div class='row'>
 	<div class='col-xs-12'>
 		<div class='box box-primary box-solid'>
@@ -164,7 +168,7 @@
 				<div <?php echo $hidden_attr ?> class="row bottom-row-margin">
 					<div class="col-xs-12 no-left-right-padding">
 						<div class="col-xs-2">
-							<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>"><button type="button" class="btn btn-warning btn-xs" name="add_st">Add Progress</button> </a>
+							<a href="<?php echo site_url('pengadaan/progress_pekerjaan/create/'.$id_p) ?>" target="_blank"><button type="button" class="btn btn-warning btn-xs" name="add_st">Add Progress</button> </a>
 						</div>
 						<div class="col-xs-9">
 							<a href="<?php echo site_url('pengadaan/pekerjaan/update_id_pengadaan/'.$id_p) ?>"><button type="button" class="btn btn-info btn-xs" name="add_id_rup_lpse">Add Deskripsi & ID Pengadaan</button> </a>

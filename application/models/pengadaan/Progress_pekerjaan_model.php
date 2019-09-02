@@ -125,6 +125,14 @@ class Progress_pekerjaan_model extends CI_Model
     $this->db2->update('pekerjaan');
   }
 
+  function cek_duplikat_progress($data){
+    $this->db2->where('progress',$data['progress']);
+    $this->db2->where('tgl_progress',$data['tgl_progress']);
+    $this->db2->where('pekerjaan',$data['id_p']);
+    $num = $this->db2->get($this->table)->num_rows();
+    return $num;
+  }
+
 }
 
 /* End of file Progress_pekerjaan_model.php */
