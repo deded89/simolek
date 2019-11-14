@@ -27,6 +27,9 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.15/css/dataTables.bootstrap.min.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.1.1/css/responsive.bootstrap.min.css">
+  <!-- <link rel="stylesheet" href="https://cdn.datatables.net/1.10.20/css/jquery.dataTables.min.css"> -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.6.0/css/buttons.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/fixedcolumns/3.3.0/css/fixedColumns.dataTables.min.css">
    <!-- Select2 -->
   <link rel="stylesheet" href="<?php echo base_url();?>assets/plugins/select2/select2.min.css">
   <!-- Theme style -->
@@ -136,8 +139,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');?>
 <!-- DataTables -->
 <script src="https://cdn.datatables.net/1.10.15/js/jquery.dataTables.min.js"></script>
 <script src="https://cdn.datatables.net/1.10.15/js/dataTables.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/fixedcolumns/3.2.1/js/dataTables.fixedColumns.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/dataTables.responsive.min.js"></script>
 <script src="https://cdn.datatables.net/responsive/2.1.1/js/responsive.bootstrap.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/dataTables.buttons.min.js"></script>
+<script src="https://cdn.datatables.net/buttons/1.6.0/js/buttons.colVis.min.js"></script>
+<!-- chartjs -->
+<script src="<?php echo base_url();?>assets/dist/js/Chart.min.js"></script>
+<script src="<?php echo base_url();?>assets/dist/js/utils.js"></script>
+<script src="<?php echo base_url();?>assets/dist/js/chartjs-plugin-datalabels.min.js"></script>
 <!-- Select2 -->
 <script src="<?php echo base_url();?>assets/plugins/select2/select2.full.min.js"></script>
 <!-- bootstrap datepicker -->

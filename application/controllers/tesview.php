@@ -1,4 +1,4 @@
-<?php 
+<?php
 
 
 if (!defined('BASEPATH'))
@@ -6,13 +6,17 @@ if (!defined('BASEPATH'))
 class Tesview extends CI_Controller
 {
     public function index()
-    {		
-       
-			
-			
-		
-         
-        $this->load->view('testview');
+    {
+
+
+			$data = array(
+        'controller' => 'view',
+        'uri1' => 'tes',
+        'main_view' => 'testview'
+      );
+
+
+        $this->load->view('testview',$data);
     }
 }
 

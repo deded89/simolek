@@ -1122,6 +1122,13 @@ class CI_Form_validation {
 			? ($this->CI->db->limit(1)->get_where($table, array($field => $str))->num_rows() === 0)
 			: FALSE;
 	}
+	public function is_unique_db3($str, $field)
+	{
+		sscanf($field, '%[^.].%[^.]', $table, $field);
+		return isset($this->CI->db3)
+			? ($this->CI->db3->limit(1)->get_where($table, array($field => $str))->num_rows() === 0)
+			: FALSE;
+	}
 
 	// --------------------------------------------------------------------
 

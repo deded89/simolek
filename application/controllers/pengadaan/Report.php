@@ -125,11 +125,16 @@ class Report extends CI_Controller{
 
     $sheet->getColumnDimension('H')->setAutoSize(true);
 
-    $sheet->getColumnDimension('I')->setAutoSize(false);
-    $sheet->getColumnDimension('I')->setWidth(15);
+    $sheet->getColumnDimension('I')->setAutoSize(true);
+    $sheet->getStyle('I')->getAlignment()->setHorizontal(\PhpOffice\PhpSpreadsheet\Style\Alignment::HORIZONTAL_CENTER);
 
-    $sheet->getColumnDimension('J')->setAutoSize(false);
-    $sheet->getColumnDimension('J')->setWidth(10);
+    $sheet->getColumnDimension('J')->setAutoSize(true);
+
+    $sheet->getColumnDimension('K')->setAutoSize(false);
+    $sheet->getColumnDimension('K')->setWidth(15);
+
+    $sheet->getColumnDimension('L')->setAutoSize(false);
+    $sheet->getColumnDimension('L')->setWidth(10);
 
     // TABLE DATA
     $i=6;
@@ -141,16 +146,22 @@ class Report extends CI_Controller{
       $sheet->setCellValue('B'.$i, $pekerjaan->nama_pekerjaan);
       $sheet->setCellValue('C'.$i, $pekerjaan->kegiatan);
       $sheet->setCellValue('D'.$i, $pekerjaan->nama_skpd);
-      $sheet->setCellValue('E'.$i, $pekerjaan->nama);
+      $sheet->setCellValue('E'.$i, $pekerjaan->progress_sekarang);
       $sheet->setCellValue('F'.$i, $pekerjaan->tgl_progress);
       $sheet->setCellValue('G'.$i, $pekerjaan->ket_progress);
-      $sheet->setCellValue('H'.$i, $pekerjaan->pagu);
-      $sheet->setCellValue('I'.$i, $pekerjaan->real_keu);
-      $sheet->setCellValue('J'.$i, $pekerjaan->real_fisik);
+      $sheet->setCellValue('H'.$i, $pekerjaan->progress_next);
+      $sheet->setCellValue('I'.$i, $pekerjaan->tgl_n_progress);
+      $sheet->setCellValue('J'.$i, $pekerjaan->pagu);
+      $sheet->setCellValue('K'.$i, $pekerjaan->real_keu);
+      $sheet->setCellValue('L'.$i, $pekerjaan->real_fisik);
+      $date1=date_create($tanggal);
+      $date2=date_create($pekerjaan->tgl_n_progress);
+      $diff=date_diff($date1,$date2);
+      $sheet->setCellValue('M'.$i, $diff->format("%R%a"));
 
       //NUMBERING FORMAT
-      $sheet->getStyle('H'.$i)->getNumberFormat()->setFormatCode(('#,##0'));
-      $sheet->getStyle('I'.$i)->getNumberFormat()->setFormatCode(('#,##0'));
+      $sheet->getStyle('J'.$i)->getNumberFormat()->setFormatCode(('#,##0'));
+      $sheet->getStyle('K'.$i)->getNumberFormat()->setFormatCode(('#,##0'));
 
       //WRAPPING TEXT
       $sheet->getStyle('B'.$i)->getAlignment()->setWrapText(true);
@@ -163,8 +174,23 @@ class Report extends CI_Controller{
     }
 
     $i_akhir = $i-1;
+
+    //conditional formatting untuk STATUS
+    $conditional1 = new \PhpOffice\PhpSpreadsheet\Style\Conditional();
+    $conditional1->setConditionType(\PhpOffice\PhpSpreadsheet\Style\Conditional::CONDITION_CELLIS);
+    $conditional1->setOperatorType(\PhpOffice\PhpSpreadsheet\Style\Conditional::OPERATOR_LESSTHAN);
+    $conditional1->addCondition('0');
+    $conditional1->getStyle()->getFont()->getColor()->setARGB(\PhpOffice\PhpSpreadsheet\Style\Color::COLOR_RED);
+    $conditional1->getStyle()->getFont()->setBold(true);
+
+    $conditionalStyles = $spreadsheet->getActiveSheet()->getStyle('M'.$i_awal)->getConditionalStyles();
+    $conditionalStyles[] = $conditional1;
+
+    $sheet->getStyle('M'.$i_awal.':M'.$i_akhir)->setConditionalStyles($conditionalStyles);
+    // $sheet->duplicateStyle($sheet->getStyle('M'.$i_awal),'M'.$i_awal.':M'.$i_akhir);
+
     //BORDERING TABLE DATA
-    $sheet->getStyle('A'.$i_awal.':J'.$i_akhir)->applyFromArray($style_table_data);
+    $sheet->getStyle('A'.$i_awal.':M'.$i_akhir)->applyFromArray($style_table_data);
 
     // SETTING HEADER TABLE VALUE
     $hr = 5;
@@ -175,22 +201,25 @@ class Report extends CI_Controller{
 		$sheet->setCellValue('E'.$hr, 'PROGRESS');
 		$sheet->setCellValue('F'.$hr, 'TANGGAL');
 		$sheet->setCellValue('G'.$hr, 'KETERANGAN');
-		$sheet->setCellValue('H'.$hr, 'PAGU');
-		$sheet->setCellValue('I'.$hr, 'REALISASI KEUANGAN');
-		$sheet->setCellValue('J'.$hr, 'REALISASI FISIK');
+    $sheet->setCellValue('H'.$hr, 'NEXT PROGRESS');
+    $sheet->setCellValue('I'.$hr, 'TANGGAL');
+		$sheet->setCellValue('J'.$hr, 'PAGU');
+		$sheet->setCellValue('K'.$hr, 'REALISASI KEUANGAN');
+		$sheet->setCellValue('L'.$hr, 'REALISASI FISIK');
+		$sheet->setCellValue('M'.$hr, 'STATUS');
     //memborder table header
-    $sheet->getStyle('A'.$hr.':J'.$hr)->applyFromArray($style_table_header);
+    $sheet->getStyle('A'.$hr.':M'.$hr)->applyFromArray($style_table_header);
 
     //JUDUL LAPORAN
     $sheet->setCellValue('A1','LAPORAN KONDISI TERAKHIR PEKERJAAN');
     $sheet->getStyle('A1')->getFont()->setSize(16);
     $sheet->getStyle('A1')->getFont()->setBold(true);
-    $sheet->mergeCells('A1:J1');
+    $sheet->mergeCells('A1:M1');
 
     $tanggal = date_create($tanggal)->format('d M Y');
     $sheet->setCellValue('A2','Kondisi s.d Tanggal '.$tanggal);
     $sheet->getStyle('A2')->getFont()->setSize(12);
-    $sheet->mergeCells('A2:J2');
+    $sheet->mergeCells('A2:L2');
 
     if ($pagu == 'l200'){$pagu = 'Pagu bernilai > 200 Juta s.d 2,5 Milyar';}
     if ($pagu == 'l25'){$pagu = 'Pagu bernilai > 2,5 Milyar s.d 50 Milyar';}
@@ -199,11 +228,11 @@ class Report extends CI_Controller{
     if ($pagu <> 'all'){
       $sheet->setCellValue('A3',$pagu);
       $sheet->getStyle('A3')->getFont()->setSize(12);
-      $sheet->mergeCells('A3:H3');
+      $sheet->mergeCells('A3:M3');
     }
 
     //SETTING AUTO FILTER
-    $sheet->setAutoFilter('A'.$hr.':J'.$i_akhir);
+    $sheet->setAutoFilter('A'.$hr.':M'.$i_akhir);
 
     //MEMBUAT COUNT PER PROGRESS ///////////////////////////////////////###############################################
     $htbl2 = $i + 2;
@@ -241,7 +270,7 @@ class Report extends CI_Controller{
 
 		$writer = new Xlsx($spreadsheet);
 
-		$filename = 'Laporan Kondisi Progress Pekerjaan Update '.date('Y-m-d H:m:i');
+		$filename = 'Kondisi Pekerjaan '.$pagu.' Update '.date('Y-m-d H:m:i');
 
 		header('Content-Type: application/vnd.ms-excel');
 		header('Content-Disposition: attachment;filename="'. $filename .'.xlsx"');

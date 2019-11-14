@@ -19,29 +19,30 @@ class Skpd_model extends CI_Model
     function get_all()
     {
         $this->db->select('*');
-		$this->db->from('skpd s'); 		
-		$this->db->join('klasifikasi k', 'k.id_klasifikasi=s.id_klasifikasi', 'left');		
-		$this->db->order_by('s.id_skpd','desc');         
-		return $this->db->get()->result(); 		
+		$this->db->from('skpd s');
+		$this->db->join('klasifikasi k', 'k.id_klasifikasi=s.id_klasifikasi', 'left');
+    $this->db->where('nama_skpd <>','KDH WKDH')	;
+		$this->db->order_by('s.id_skpd','asc');
+		return $this->db->get()->result();
     }
 
     // get data by id
     function get_by_id($id)
     {
         $this->db->select('*');
-		$this->db->from('skpd s'); 		
+		$this->db->from('skpd s');
 		$this->db->where('s.id_skpd', $id);
-		$this->db->join('klasifikasi k', 'k.id_klasifikasi=s.id_klasifikasi', 'left');		
-		$this->db->order_by('s.id_skpd','desc'); 		
+		$this->db->join('klasifikasi k', 'k.id_klasifikasi=s.id_klasifikasi', 'left');
+		$this->db->order_by('s.id_skpd','desc');
         return $this->db->get()->row();
     }
-    
+
 	// get data fk by id
     function get_fk_by_id($id)
     {
-        return $this->db->where('id_skpd', $id)->from('jabatan')->count_all_results();        
+        return $this->db->where('id_skpd', $id)->from('jabatan')->count_all_results();
     }
-	
+
     // get total rows
     function total_rows($q = NULL) {
         $this->db->like('id_skpd', $q);

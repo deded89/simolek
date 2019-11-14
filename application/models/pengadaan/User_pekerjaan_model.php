@@ -17,6 +17,7 @@ class User_pekerjaan_model extends CI_Model{
     $db2->select('pekerjaan, MAX(tmt) as tmt');
     $db2->from('pic');
     $db2->group_by('pekerjaan');
+    $db2->where('status','pptk');
     $subquery = $db2->get_compiled_select();
 
     $db2->select('a.*');

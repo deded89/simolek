@@ -1,29 +1,4 @@
 <?php
-function enkripsi($id){
-  $ci = get_instance();
-  $ci->encryption->initialize(
-    array(
-            'cipher' => 'aes-256',
-            'mode' => 'ctr',
-            'key' => $ci->config->config['encryption_key'],
-    )
-  );
-  $e_id = $ci->encryption->encrypt($id);
-  return $e_id;
-}
-
-function dekripsi($id){
-  $ci = get_instance();
-  $ci->encryption->initialize(
-    array(
-      'cipher' => 'aes-256',
-      'mode' => 'ctr',
-      'key' => $ci->config->config['encryption_key'],
-    )
-  );
-  $e_id = $ci->encryption->decrypt($id);
-  return $e_id;
-}
 
 function cmb_dinamis($name,$table,$field,$pk,$selected){
     $ci = get_instance();
@@ -68,6 +43,21 @@ function cmb_db2($name,$table,$field,$pk,$selected){
     return $cmb;
 }
 
+function cmb_db3($name,$table,$field,$pk,$selected){
+    $ci = get_instance();
+    $ci->db3 = $ci->load->database('db3',TRUE);
+    $cmb = "<select name='$name' id='$name' class='form-control select2' style='width: 100%'>";
+    $data = $ci->db3->get($table)->result();
+	$cmb .= "<option></option>";
+    foreach ($data as $d){
+        $cmb .="<option value='".$d->$pk."'";
+        $cmb .= $selected==$d->$pk?" selected='selected'":'';
+        $cmb .=">".  ($d->$field)."</option>";
+    }
+    $cmb .="</select>";
+    $ci->db3->close();
+    return $cmb;
+}
 
 function cmb_dinamiss3($name,$table,$field,$pk,$selected,$w1,$w2,$sort){
     $ci = get_instance();
@@ -121,4 +111,63 @@ function cmb_list_laporan(){
     }
     $cmb .="</select>";
     return $cmb;
+}
+
+function ren_perbulan($keg,$pp,$table,$bulan){
+  $ci = get_instance();
+  $ci->db3 = $ci->load->database('db3',TRUE);
+  $ci->db3->where('kegiatan',$keg);
+  $ci->db3->where('periode_pagu',$pp);
+  $result = $ci->db3->get($table)->row();
+
+  $ci->db3->close();
+  if ($result){
+    return $result->$bulan;
+  }else{
+    return 0;
+  }
+}
+
+function real_perbulan($keg,$table,$bulan){
+  $ci = get_instance();
+  $ci->db3 = $ci->load->database('db3',TRUE);
+  $ci->db3->where('kegiatan',$keg);
+  $result = $ci->db3->get($table)->row();
+
+  $ci->db3->close();
+  if ($result){
+    return $result->$bulan;
+  }else{
+    return 0;
+  }
+}
+
+function persenkeu_perbulan($keg,$pp,$nilai){
+  $ci = get_instance();
+  $ci->db3 = $ci->load->database('db3',TRUE);
+  $ci->db3->where('kegiatan',$keg);
+  $ci->db3->where('periode_pagu',$pp);
+  $nilai_pagu = $ci->db3->get('nilai_pagu')->row()->nilai;
+
+  $result = $nilai / $nilai_pagu * 100;
+
+  $ci->db3->close();
+  if ($result){
+    return $result;
+  }else{
+    return 0;
+  }
+}
+
+//get by skpd dan tahun anggaran
+function get_periode_setting($skpd,$ta,$bulan)
+{
+  $ci = get_instance();
+  $ci->db3 = $ci->load->database('db3',TRUE);
+  $ci->db3->where('skpd', $skpd);
+  $ci->db3->where('tahun', $ta);
+  $result = $ci->db3->get('periode_setting')->row()->$bulan;
+
+  $ci->db3->close();
+  return $result;
 }

@@ -22,7 +22,8 @@ class Pengendalian extends CI_Controller{
     $data_metode = $this->Pengendalian_model->count_pekerjaan_metode($skpd);
     $data_pekerjaan_skpd =  $this->Pengendalian_model->count_pekerjaan_skpd($skpd);
     $data_pekerjaan_next_last_month =  $this->Pengendalian_model->get_next_last_month($skpd);
-    $pagu_bl = 1094077580263;
+    // $pagu_bl = 1094077580263;
+    $pagu_bl = 1162376399250;
     $pagu_pekerjaan = $this->Pengendalian_model->total_pagu_pekerjaan($skpd);
     $persen_pagu_pekerjaan = $pagu_pekerjaan / $pagu_bl *100;
     $data = array(

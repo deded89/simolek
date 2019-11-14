@@ -1,166 +1,154 @@
 <?php
 
 if (!defined('BASEPATH'))
-    exit('No direct script access allowed');
+exit('No direct script access allowed');
 
 class Periode_pagu extends CI_Controller
 {
-    function __construct()
-    {
-        parent::__construct();
-        $this->load->model('Periode_pagu_model');
-        $this->load->library('form_validation');
+  function __construct()
+  {
+    parent::__construct();
+    $this->load->model('lkpk/Periode_pagu_model');
+    $this->load->library('form_validation');
+  }
+
+  public function index()
+  {
+    $periode_pagu = $this->Periode_pagu_model->get_all();
+
+    $data = array(
+      'periode_pagu_data' => $periode_pagu,
+      'controller' => 'Periode_pagu',
+      'uri1' => 'List Periode_pagu',
+      'main_view' => 'lkpk/periode_pagu/periode_pagu_list'
+    );
+
+    $this->load->view('template_view', $data);
+  }
+
+  public function read($id)
+  {
+    $row = $this->Periode_pagu_model->get_by_id($id);
+    if ($row) {
+      $data = array(
+        'controller' => 'Periode_pagu',
+        'uri1' => 'Data Periode_pagu',
+        'main_view' => 'lkpk/periode_pagu/periode_pagu_read',
+
+        'id_per_pagu' => $row->id_per_pagu,
+        'tanggal' => $row->tanggal,
+        'keterangan' => $row->keterangan,
+      );
+      $this->load->view('template_view', $data);
+    } else {
+      $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+      redirect(site_url('lkpk/periode_pagu'));
     }
+  }
 
-    public function index()
-    {
-        $periode_pagu = $this->Periode_pagu_model->get_all();
+  public function create()
+  {
+    $data = array(
+      'button' => 'Simpan',
+      'action' => site_url('lkpk/periode_pagu/create_action'),
+      'controller' => 'Periode_pagu',
+      'uri1' => 'Tambah Periode_pagu',
+      'main_view' => 'lkpk/periode_pagu/periode_pagu_form',
 
-        $data = array(
-            'periode_pagu_data' => $periode_pagu,
-			'controller' => 'Periode_pagu',
-			'uri1' => 'List Periode_pagu',
-			'main_view' => 'periode_pagu/periode_pagu_list'
-        );
+      'id_per_pagu' => set_value('id_per_pagu'),
+      'tanggal' => set_value('tanggal'),
+      'keterangan' => set_value('keterangan'),
+    );
+    $this->load->view('template_view', $data);
+  }
 
-        $this->load->view('template_view', $data);
+  public function create_action()
+  {
+    $this->_rules();
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->create();
+    } else {
+      $data = array(
+        'tanggal' => $this->input->post('tanggal',TRUE),
+        'keterangan' => $this->input->post('keterangan',TRUE),
+      );
+
+      $this->Periode_pagu_model->insert($data);
+      $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
+      redirect(site_url('lkpk/periode_pagu'));
     }
+  }
 
-    public function read($id) 
-    {
-        $row = $this->Periode_pagu_model->get_by_id($id);
-        if ($row) {
-            $data = array(
-			'controller' => 'Periode_pagu',
-			'uri1' => 'Data Periode_pagu',
-			'main_view' => 'periode_pagu/periode_pagu_read',
-			
-			'id_per_pagu' => $row->id_per_pagu,
-			'tanggal' => $row->tanggal,
-			'keterangan' => $row->keterangan,
-			'nilai' => $row->nilai,
-			'kegiatan' => $row->kegiatan,
-	    );
-            $this->load->view('template_view', $data);
-        } else {
-            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-            redirect(site_url('periode_pagu'));
-        }
+  public function update($id)
+  {
+    $row = $this->Periode_pagu_model->get_by_id($id);
+
+    if ($row) {
+      $data = array(
+        'button' => 'Update',
+        'action' => site_url('lkpk/periode_pagu/update_action'),
+        'controller' => 'Periode_pagu',
+        'uri1' => 'Update Periode_pagu',
+        'main_view' => 'lkpk/periode_pagu/periode_pagu_form',
+
+        'id_per_pagu' => set_value('id_per_pagu', $row->id_per_pagu),
+        'tanggal' => set_value('tanggal', $row->tanggal),
+        'keterangan' => set_value('keterangan', $row->keterangan),
+      );
+      $this->load->view('template_view', $data);
+    } else {
+      $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+      redirect(site_url('lkpk/periode_pagu'));
     }
+  }
 
-    public function create() 
-    {
-        $data = array(
-            'button' => 'Simpan',
-            'action' => site_url('periode_pagu/create_action'),
-			'controller' => 'Periode_pagu',
-			'uri1' => 'Tambah Periode_pagu',
-			'main_view' => 'periode_pagu/periode_pagu_form',
-			
-			'id_per_pagu' => set_value('id_per_pagu'),
-			'tanggal' => set_value('tanggal'),
-			'keterangan' => set_value('keterangan'),
-			'nilai' => set_value('nilai'),
-			'kegiatan' => set_value('kegiatan'),
-	);
-        $this->load->view('template_view', $data);
+  public function update_action()
+  {
+    $this->_rules();
+
+    if ($this->form_validation->run() == FALSE) {
+      $this->update($this->input->post('id_per_pagu', TRUE));
+    } else {
+      $data = array(
+        'tanggal' => $this->input->post('tanggal',TRUE),
+        'keterangan' => $this->input->post('keterangan',TRUE),
+      );
+
+      $this->Periode_pagu_model->update($this->input->post('id_per_pagu', TRUE), $data);
+      $this->session->set_flashdata('message', 'Update Data Berhasil');
+      redirect(site_url('lkpk/periode_pagu'));
     }
-    
-    public function create_action() 
-    {
-        $this->_rules();
+  }
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->create();
-        } else {
-            $data = array(
-		'tanggal' => $this->input->post('tanggal',TRUE),
-		'keterangan' => $this->input->post('keterangan',TRUE),
-		'nilai' => $this->input->post('nilai',TRUE),
-		'kegiatan' => $this->input->post('kegiatan',TRUE),
-	    );
+  public function delete($id)
+  {
+    $row = $this->Periode_pagu_model->get_by_id($id);
 
-            $this->Periode_pagu_model->insert($data);
-            $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
-            redirect(site_url('periode_pagu'));
-        }
+    if ($row) {
+      $this->Periode_pagu_model->delete($id);
+      $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
+      redirect(site_url('lkpk/periode_pagu'));
+    } else {
+      $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+      redirect(site_url('lkpk/periode_pagu'));
     }
-    
-    public function update($id) 
-    {
-        $row = $this->Periode_pagu_model->get_by_id($id);
+  }
 
-        if ($row) {
-            $data = array(
-                'button' => 'Update',
-                'action' => site_url('periode_pagu/update_action'),
-				'controller' => 'Periode_pagu',
-				'uri1' => 'Update Periode_pagu',
-				'main_view' => 'periode_pagu/periode_pagu_form',
-			
-			'id_per_pagu' => set_value('id_per_pagu', $row->id_per_pagu),
-			'tanggal' => set_value('tanggal', $row->tanggal),
-			'keterangan' => set_value('keterangan', $row->keterangan),
-			'nilai' => set_value('nilai', $row->nilai),
-			'kegiatan' => set_value('kegiatan', $row->kegiatan),
-	    );
-            $this->load->view('template_view', $data);
-        } else {
-            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-            redirect(site_url('periode_pagu'));
-        }
-    }
-    
-    public function update_action() 
-    {
-        $this->_rules();
+  public function _rules()
+  {
+    $this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
+    $this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
 
-        if ($this->form_validation->run() == FALSE) {
-            $this->update($this->input->post('id_per_pagu', TRUE));
-        } else {
-            $data = array(
-		'tanggal' => $this->input->post('tanggal',TRUE),
-		'keterangan' => $this->input->post('keterangan',TRUE),
-		'nilai' => $this->input->post('nilai',TRUE),
-		'kegiatan' => $this->input->post('kegiatan',TRUE),
-	    );
-
-            $this->Periode_pagu_model->update($this->input->post('id_per_pagu', TRUE), $data);
-            $this->session->set_flashdata('message', 'Update Data Berhasil');
-            redirect(site_url('periode_pagu'));
-        }
-    }
-    
-    public function delete($id) 
-    {
-        $row = $this->Periode_pagu_model->get_by_id($id);
-
-        if ($row) {
-            $this->Periode_pagu_model->delete($id);
-            $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
-            redirect(site_url('periode_pagu'));
-        } else {
-            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-            redirect(site_url('periode_pagu'));
-        }
-    }
-
-    public function _rules() 
-    {
-	$this->form_validation->set_rules('tanggal', 'tanggal', 'trim|required');
-	$this->form_validation->set_rules('keterangan', 'keterangan', 'trim|required');
-	$this->form_validation->set_rules('nilai', 'nilai', 'trim|required|numeric');
-	$this->form_validation->set_rules('kegiatan', 'kegiatan', 'trim|required');
-
-	$this->form_validation->set_rules('id_per_pagu', 'id_per_pagu', 'trim');
-	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
-    }
+    $this->form_validation->set_rules('id_per_pagu', 'id_per_pagu', 'trim');
+    $this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+  }
 
 }
 
 /* End of file Periode_pagu.php */
 /* Location: ./application/controllers/Periode_pagu.php */
 /* Please DO NOT modify this information : */
-/* Generated by Harviacode Codeigniter CRUD Generator 2019-09-02 09:54:30 */
+/* Generated by Harviacode Codeigniter CRUD Generator 2019-09-11 09:14:14 */
 /* http://harviacode.com */
 ?>

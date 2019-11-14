@@ -2,7 +2,7 @@
   <div class="col-md-6 ">
     <div class="box box-info box-solid">
       <div class="box-header with-border bg-aqua">
-        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Belanja Langsung APBD 2019 Pemkot Banjarmasin</h3>
+        <h3 class="box-title"><i class="icon fa fa-info"></i>&nbsp&nbsp&nbsp Pagu Belanja Langsung APBD-P 2019 Pemkot Banjarmasin</h3>
       </div>
       <div class="box-body">
         <h4>
@@ -82,9 +82,9 @@
       <div class="box-footer no-padding">
         <ul class="nav nav-stacked">
           <?php foreach ($tahapan_all as $tahapan){  ?>
-            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/2500000000/200000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
+            <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu_progress/1000000000000/200000000/'.$tahapan->progress_now.'/'.$id_skpd) ?>"> <?php echo $tahapan->nama ?> <span class="pull-right badge bg-gray"><?php echo $tahapan->c_progress ?></span></a></li>
           <?php } ?>
-          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/2500000000/200000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c_all ?></span></a></li>
+          <li><a href="<?php echo site_url('pengadaan/pengendalian/filter_pagu/1000000000000/200000000/'.$id_skpd) ?>"><strong> Total</strong> <span class="pull-right badge bg-green"><?php echo $c_all ?></span></a></li>
         </ul>
       </div>
     </div>

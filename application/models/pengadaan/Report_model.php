@@ -75,10 +75,11 @@ class Report_model extends CI_Model{
     $db2->join('('.$subquery3.') b','a.pekerjaan = b.pekerjaan AND a.tanggal = b.tanggal');
     $subquery4 = $db2->get_compiled_select();
 
-    $db2->select('p.*, p.id as id_p, p.nama as nama_pekerjaan, pp.ket as ket_progress, pp.*, s.*,pr.*,k.*');
+    $db2->select('p.*, p.id as id_p, p.nama as nama_pekerjaan, pp.ket as ket_progress, pp.*, s.*,pr.nama as progress_sekarang, pr2.nama as progress_next, k.*');
     $db2->from('('.$subquery2.') pp');
     $db2->join('pekerjaan p', 'pp.pekerjaan=p.id','left');
     $db2->join('progress pr', 'pr.id=pp.progress','left');
+    $db2->join('progress pr2', 'pr2.id=pp.next_progress','left');
     $db2->join('epiz_21636198_simolek.skpd s', 's.id_skpd=p.skpd','left');
     $db2->join('('.$subquery4.') k', 'k.pekerjaan=p.id','left');
     if ($pagu == 'l200'){

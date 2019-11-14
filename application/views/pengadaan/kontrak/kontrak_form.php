@@ -4,12 +4,12 @@
 			<form action="<?php echo $action; ?>" method="post">
 				<table class='table table-bordered'>
 
-					<tr>
+					<tr <?php echo $hidden ?> >
 						<td><label for="varchar">Nomor <?php echo form_error('nomor') ?></label></td>
 						<td><input autofocus type="text" class="form-control" name="nomor" id="nomor" placeholder="Nomor" value="<?php echo $nomor; ?>" /></td>
 					</tr>
 
-					<tr>
+					<tr <?php echo $hidden ?> >
 						<td><label for="date">Tanggal <?php echo form_error('tanggal') ?></label></td>
 						<td>
 							<div class="input-group date">

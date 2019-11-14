@@ -1,0 +1,160 @@
+<?php
+
+if (!defined('BASEPATH'))
+    exit('No direct script access allowed');
+
+class Nilai_pagu extends CI_Controller
+{
+    function __construct()
+    {
+        parent::__construct();
+        $this->load->model('lkpk/Nilai_pagu_model');
+        $this->load->library('form_validation');
+    }
+
+    public function index()
+    {
+        $nilai_pagu = $this->Nilai_pagu_model->get_all();
+
+        $data = array(
+            'nilai_pagu_data' => $nilai_pagu,
+			    'controller' => 'Nilai_pagu',
+			    'uri1' => 'List Nilai_pagu',
+			    'main_view' => 'lkpk/nilai_pagu/nilai_pagu_list'
+        );
+
+        $this->load->view('template_view', $data);
+    }
+
+    public function read($id)
+    {
+        $row = $this->Nilai_pagu_model->get_by_id($id);
+        if ($row) {
+            $data = array(
+			'controller' => 'Nilai_pagu',
+			'uri1' => 'Data Nilai_pagu',
+			'main_view' => 'lkpk/nilai_pagu/nilai_pagu_read',
+			
+			'id_nilai_pagu' => $row->id_nilai_pagu,
+			'nilai' => $row->nilai,
+			'kegiatan' => $row->kegiatan,
+			'periode_pagu' => $row->periode_pagu,
+	    );
+            $this->load->view('template_view', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+            redirect(site_url('lkpk/nilai_pagu'));
+        }
+    }
+
+    public function create()
+    {
+        $data = array(
+            'button' => 'Simpan',
+            'action' => site_url('lkpk/nilai_pagu/create_action'),
+			'controller' => 'Nilai_pagu',
+			'uri1' => 'Tambah Nilai_pagu',
+			'main_view' => 'lkpk/nilai_pagu/nilai_pagu_form',
+			
+			'id_nilai_pagu' => set_value('id_nilai_pagu'),
+			'nilai' => set_value('nilai'),
+			'kegiatan' => set_value('kegiatan'),
+			'periode_pagu' => set_value('periode_pagu'),
+	);
+        $this->load->view('template_view', $data);
+    }
+
+    public function create_action()
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->create();
+        } else {
+            $data = array(
+		'nilai' => $this->input->post('nilai',TRUE),
+		'kegiatan' => $this->input->post('kegiatan',TRUE),
+		'periode_pagu' => $this->input->post('periode_pagu',TRUE),
+	    );
+
+            $this->Nilai_pagu_model->insert($data);
+            $this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
+            redirect(site_url('lkpk/nilai_pagu'));
+        }
+    }
+
+    public function update($id)
+    {
+        $row = $this->Nilai_pagu_model->get_by_id($id);
+
+        if ($row) {
+            $data = array(
+                'button' => 'Update',
+                'action' => site_url('lkpk/nilai_pagu/update_action'),
+				'controller' => 'Nilai_pagu',
+				'uri1' => 'Update Nilai_pagu',
+				'main_view' => 'lkpk/nilai_pagu/nilai_pagu_form',
+			
+			'id_nilai_pagu' => set_value('id_nilai_pagu', $row->id_nilai_pagu),
+			'nilai' => set_value('nilai', $row->nilai),
+			'kegiatan' => set_value('kegiatan', $row->kegiatan),
+			'periode_pagu' => set_value('periode_pagu', $row->periode_pagu),
+	    );
+            $this->load->view('template_view', $data);
+        } else {
+            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+            redirect(site_url('lkpk/nilai_pagu'));
+        }
+    }
+
+    public function update_action()
+    {
+        $this->_rules();
+
+        if ($this->form_validation->run() == FALSE) {
+            $this->update($this->input->post('id_nilai_pagu', TRUE));
+        } else {
+            $data = array(
+		'nilai' => $this->input->post('nilai',TRUE),
+		'kegiatan' => $this->input->post('kegiatan',TRUE),
+		'periode_pagu' => $this->input->post('periode_pagu',TRUE),
+	    );
+
+            $this->Nilai_pagu_model->update($this->input->post('id_nilai_pagu', TRUE), $data);
+            $this->session->set_flashdata('message', 'Update Data Berhasil');
+            redirect(site_url('lkpk/nilai_pagu'));
+        }
+    }
+
+    public function delete($id)
+    {
+        $row = $this->Nilai_pagu_model->get_by_id($id);
+
+        if ($row) {
+            $this->Nilai_pagu_model->delete($id);
+            $this->session->set_flashdata('message', 'Data Berhasil Dihapus');
+            redirect(site_url('lkpk/nilai_pagu'));
+        } else {
+            $this->session->set_flashdata('message', 'Data Tidak Ditemukan');
+            redirect(site_url('lkpk/nilai_pagu'));
+        }
+    }
+
+    public function _rules()
+    {
+	$this->form_validation->set_rules('nilai', 'nilai', 'trim|required|numeric');
+	$this->form_validation->set_rules('kegiatan', 'kegiatan', 'trim|required');
+	$this->form_validation->set_rules('periode_pagu', 'periode pagu', 'trim|required');
+
+	$this->form_validation->set_rules('id_nilai_pagu', 'id_nilai_pagu', 'trim');
+	$this->form_validation->set_error_delimiters('<span class="text-danger">', '</span>');
+    }
+
+}
+
+/* End of file Nilai_pagu.php */
+/* Location: ./application/controllers/Nilai_pagu.php */
+/* Please DO NOT modify this information : */
+/* Generated by Harviacode Codeigniter CRUD Generator 2019-09-11 09:15:49 */
+/* http://harviacode.com */
+?>

@@ -10,17 +10,17 @@ class " . $c . " extends CI_Controller
     function __construct()
     {
         parent::__construct();
-        \$this->load->model('$m');
+        \$this->load->model('$sf$m');
         \$this->load->library('form_validation');
     }";
 
 if ($jenis_tabel == 'reguler_table') {
-    
+
 $string .= "\n\n    public function index()
     {
         \$q = urldecode(\$this->input->get('q', TRUE));
         \$start = intval(\$this->input->get('start'));
-        
+
         if (\$q <> '') {
             \$config['base_url'] = base_url() . '$c_url/index.html?q=' . urlencode(\$q);
             \$config['first_url'] = base_url() . '$c_url/index.html?q=' . urlencode(\$q);
@@ -48,31 +48,31 @@ $string .= "\n\n    public function index()
     }";
 
 } else {
- /*  datatables  */   
+ /*  datatables  */
 $string .="\n\n    public function index()
     {
         \$$c_url = \$this->" . $m . "->get_all();
 
         \$data = array(
             '" . $c_url . "_data' => \$$c_url,
-			'controller' => '".$c."',
-			'uri1' => 'List ".$c."',
-			'main_view' => '".$c_url."/".$v_list."'
+			    'controller' => '".$c."',
+			    'uri1' => 'List ".$c."',
+			    'main_view' => '".$sf.$c_url."/".$v_list."'
         );
 
         \$this->load->view('template_view', \$data);
     }";
 
 }
-    
-$string .= "\n\n    public function read(\$id) 
+
+$string .= "\n\n    public function read(\$id)
     {
         \$row = \$this->" . $m . "->get_by_id(\$id);
         if (\$row) {
             \$data = array(
 			'controller' => '".$c."',
 			'uri1' => 'Data ".$c."',
-			'main_view' => '".$c_url."/".$v_read."',
+			'main_view' => '".$sf.$c_url."/".$v_read."',
 			";
 foreach ($all as $row) {
     $string .= "\n\t\t\t'" . $row['column_name'] . "' => \$row->" . $row['column_name'] . ",";
@@ -81,18 +81,18 @@ $string .= "\n\t    );
             \$this->load->view('template_view', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-            redirect(site_url('$c_url'));
+            redirect(site_url('$sf$c_url'));
         }
     }
 
-    public function create() 
+    public function create()
     {
         \$data = array(
             'button' => 'Simpan',
-            'action' => site_url('$c_url/create_action'),
+            'action' => site_url('$sf$c_url/create_action'),
 			'controller' => '".$c."',
 			'uri1' => 'Tambah ".$c."',
-			'main_view' => '".$c_url."/".$v_form."',
+			'main_view' => '".$sf.$c_url."/".$v_form."',
 			";
 foreach ($all as $row) {
     $string .= "\n\t\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "'),";
@@ -100,8 +100,8 @@ foreach ($all as $row) {
 $string .= "\n\t);
         \$this->load->view('template_view', \$data);
     }
-    
-    public function create_action() 
+
+    public function create_action()
     {
         \$this->_rules();
 
@@ -116,21 +116,21 @@ $string .= "\n\t    );
 
             \$this->".$m."->insert(\$data);
             \$this->session->set_flashdata('message', 'Data Berhasil Ditambahkan');
-            redirect(site_url('$c_url'));
+            redirect(site_url('$sf$c_url'));
         }
     }
-    
-    public function update(\$id) 
+
+    public function update(\$id)
     {
         \$row = \$this->".$m."->get_by_id(\$id);
 
         if (\$row) {
             \$data = array(
                 'button' => 'Update',
-                'action' => site_url('$c_url/update_action'),
+                'action' => site_url('$sf$c_url/update_action'),
 				'controller' => '".$c."',
 				'uri1' => 'Update ".$c."',
-				'main_view' => '".$c_url."/".$v_form."',
+				'main_view' => '".$sf.$c_url."/".$v_form."',
 			";
 foreach ($all as $row) {
     $string .= "\n\t\t\t'" . $row['column_name'] . "' => set_value('" . $row['column_name'] . "', \$row->". $row['column_name']."),";
@@ -139,11 +139,11 @@ $string .= "\n\t    );
             \$this->load->view('template_view', \$data);
         } else {
             \$this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-            redirect(site_url('$c_url'));
+            redirect(site_url('$sf$c_url'));
         }
     }
-    
-    public function update_action() 
+
+    public function update_action()
     {
         \$this->_rules();
 
@@ -153,35 +153,35 @@ $string .= "\n\t    );
             \$data = array(";
 foreach ($non_pk as $row) {
     $string .= "\n\t\t'" . $row['column_name'] . "' => \$this->input->post('" . $row['column_name'] . "',TRUE),";
-}    
+}
 $string .= "\n\t    );
 
             \$this->".$m."->update(\$this->input->post('$pk', TRUE), \$data);
             \$this->session->set_flashdata('message', 'Update Data Berhasil');
-            redirect(site_url('$c_url'));
+            redirect(site_url('$sf$c_url'));
         }
     }
-    
-    public function delete(\$id) 
+
+    public function delete(\$id)
     {
         \$row = \$this->".$m."->get_by_id(\$id);
 
         if (\$row) {
             \$this->".$m."->delete(\$id);
             \$this->session->set_flashdata('message', 'Data Berhasil Dihapus');
-            redirect(site_url('$c_url'));
+            redirect(site_url('$sf$c_url'));
         } else {
             \$this->session->set_flashdata('message', 'Data Tidak Ditemukan');
-            redirect(site_url('$c_url'));
+            redirect(site_url('$sf$c_url'));
         }
     }
 
-    public function _rules() 
+    public function _rules()
     {";
 foreach ($non_pk as $row) {
     $int = $row3['data_type'] == 'int' || $row['data_type'] == 'double' || $row['data_type'] == 'decimal' ? '|numeric' : '';
     $string .= "\n\t\$this->form_validation->set_rules('".$row['column_name']."', '".  strtolower(label($row['column_name']))."', 'trim|required$int');";
-}    
+}
 $string .= "\n\n\t\$this->form_validation->set_rules('$pk', '$pk', 'trim');";
 $string .= "\n\t\$this->form_validation->set_error_delimiters('<span class=\"text-danger\">', '</span>');
     }";
@@ -242,7 +242,7 @@ if ($export_word == '1') {
             '" . $table_name . "_data' => \$this->" . $m . "->get_all(),
             'start' => 0
         );
-        
+
         \$this->load->view('" . $v_doc . "',\$data);
     }";
 }
@@ -254,16 +254,16 @@ if ($export_pdf == '1') {
             '" . $table_name . "_data' => \$this->" . $m . "->get_all(),
             'start' => 0
         );
-        
+
         ini_set('memory_limit', '32M');
 		\$this->load->library('pdfgenerator');
 		\$psize = 'folio'; //setting kertas
-		\$orient = 'landscape'; 	//setting orientasi		
- 
+		\$orient = 'landscape'; 	//setting orientasi
+
 	    \$html = \$this->load->view('".$table_name."/".$v_pdf."', \$data, true);
-	    
-	    \$this->pdfgenerator->generate(\$html,'list ".$c."',\$psize,\$orient); 
-		       
+
+	    \$this->pdfgenerator->generate(\$html,'list ".$c."',\$psize,\$orient);
+
     }";
 }
 

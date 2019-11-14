@@ -7,7 +7,7 @@ $string =
 		<div class='box box-info'>
 			<div class='box-header with-border bg-aqua'>
 				<h3 class='box-title'>Form Tambah Data $table_name</h3>
-				<a href='<?php echo site_url('$c') ?>'>
+				<a href='<?php echo site_url('$sf$c') ?>'>
 					<span class='btn btn-danger btn-xs pull-right'><i class='fa fa-arrow-left'></i> Batal</span>
 				</a>
 			</div>
@@ -54,9 +54,7 @@ $string .= "
 <!-- jQuery 2.2.3 -->
 <script src=\"<?php echo base_url();?>assets/plugins/jQuery/jquery-2.2.3.min.js\"></script>
 <script type=\"text/javascript\">
-	$(document).ready(function () {
-		$(\"#".$row["column_name"]."\").focus();
-	});
+
 </script>
 ";
 /*  tampilkan hasil  */

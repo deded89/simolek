@@ -90,6 +90,7 @@ if (!defined('BASEPATH'))
             'akhir' => set_value('akhir'),
             'ket' => set_value('ket'),
             'id_k' => set_value('id_k'),
+            'hidden' => '',
           );
           $this->load->view('template_view', $data);
         }
@@ -155,6 +156,7 @@ if (!defined('BASEPATH'))
               'akhir' => set_value('akhir', $row->akhir),
               'ket' => set_value('ket', $row->ket),
               'id_p' => set_value('id_p', $row->pekerjaan),
+              'hidden' => 'hidden',
             );
             $this->load->view('template_view', $data);
           } else {
